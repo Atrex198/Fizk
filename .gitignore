@@ -1,0 +1,225 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+#Pipfile.lock
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# ZK-FL Project Specific
+# =====================
+
+# Model files and weights
+*.pth
+*.joblib
+*.pkl
+*.pickle
+
+# Data files (sensitive datasets)
+*.csv
+cardio_train.csv
+heart_2020_cleaned.csv
+
+# Generated metrics and results
+metrics/
+module5_optimization_results/
+non_iid_experiments/
+optimization_benchmarks/
+
+# Generated reports and outputs
+*.json
+!requirements.txt
+end_to_end_test_results.json
+final_test_aggregation_*.json
+test_*.json
+module*_summary.json
+non_iid_partition_metadata.json
+
+# Generated visualizations
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+
+# Generated HTML reports
+*.html
+dashboard_report.html
+module*_dashboard_demo.html
+
+# Generated documentation
+*.md
+!README.md
+COMPREHENSIVE_METRICS_SUCCESS.md
+IMPLEMENTATION_CHECKLIST.md
+MODULE_*_COMPLETE.md
+PRODUCTION_*.md
+REAL_DATA_INTEGRATION_SUCCESS.md
+SYSTEM_SUMMARY.md
+*_completion_report.md
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Rust specific (for zkp-fl subdirectory)
+zkp-fl/target/
+zkp-fl/Cargo.lock
+
+# Node.js (if using for frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Shell scripts (may contain sensitive paths)
+*.sh
+!setup_and_run.sh
+
+# ZKP proof files (may be large)
+*proof*.json
+proof_*.json
+
+# Local configuration files
+config.local.*
+.config/

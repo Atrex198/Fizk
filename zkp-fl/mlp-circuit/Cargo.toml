@@ -1,0 +1,21 @@
+[package]
+name = "mlp-circuit"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+zkp-core = { path = "../zkp-core" }
+
+# Core arkworks for R1CS
+ark-ff.workspace = true
+ark-relations.workspace = true
+ark-r1cs-std.workspace = true
+ark-std.workspace = true
+
+# Serialization
+serde.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+
+# Numerical operations
+nalgebra.workspace = true
