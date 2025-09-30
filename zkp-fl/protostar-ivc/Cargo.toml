@@ -1,0 +1,19 @@
+[package]
+name = "protostar-ivc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ark-ff = "0.5.0"
+ark-ec = "0.5.0"
+ark-bn254 = "0.5.0"
+ark-poly = "0.5.0"
+ark-relations = "0.5.0"
+ark-serialize = "0.5.0"
+ark-std = "0.5.0"
+serde = { version = "1.0", features = ["derive"] }
+rand = "0.8"
+
+[lib]
+name = "protostar_ivc"
+path = "src/lib.rs"

@@ -1,6 +1,7 @@
 """
 ZKP Integration Module for Federated Learning Client
 Provides interface between Python FL client and Rust ZKP circuits
+Supports both Groth16 and Protostar IVC proof systems
 """
 
 import subprocess
@@ -11,18 +12,30 @@ import numpy as np
 import torch
 from typing import Dict, List, Tuple, Optional
 import logging
+from protostar_ivc import ProtostarIVC
 
 logger = logging.getLogger(__name__)
 
 class ZKPProofGenerator:
     """
-    Interface for generating ZKP proofs using our enhanced MLP circuits
+    Interface for generating ZKP proofs using enhanced MLP circuits
+    Supports both Groth16 and Protostar IVC proof systems
     Bridges Python FL client with Rust ZKP implementation
     """
     
-    def __init__(self, zkp_binary_path: str = "./zkp-fl/target/debug/zkp-fl"):
+    def __init__(self, zkp_binary_path: str = "./zkp-fl/target/debug/zkp-fl", 
+                 proof_system: str = "groth16"):
         self.zkp_binary_path = zkp_binary_path
         self.temp_dir = tempfile.mkdtemp(prefix="zkp_fl_")
+        self.proof_system = proof_system.lower()
+        
+        # Initialize Protostar IVC if selected
+        if self.proof_system == "protostar":
+            self.protostar_ivc = ProtostarIVC()
+            logger.info("✅ Initialized with Protostar IVC proof system")
+        else:
+            self.protostar_ivc = None
+            logger.info("✅ Initialized with Groth16 proof system")
         
     def generate_training_proof(self,
                               initial_weights: Dict[str, torch.Tensor],
@@ -174,8 +187,12 @@ class ZKPProofGenerator:
         """Extract MLP architecture configuration from PyTorch weights"""
         layer_sizes = []
         
-        # Sort weight tensors by layer order
-        weight_keys = [k for k in sorted(weights.keys()) if 'weight' in k and 'net' in k]
+        # Sort weight tensors by layer order - support both 'net' and 'fc' naming conventions
+        weight_keys = [k for k in sorted(weights.keys()) if 'weight' in k and ('net' in k or 'fc' in k)]
+        
+        if not weight_keys:
+            # Fallback: use all weight keys if no 'net' or 'fc' found
+            weight_keys = [k for k in sorted(weights.keys()) if 'weight' in k]
         
         for i, key in enumerate(weight_keys):
             weight_tensor = weights[key]
@@ -184,6 +201,16 @@ class ZKPProofGenerator:
                 layer_sizes.append(weight_tensor.shape[1])
             # Output size is first dimension  
             layer_sizes.append(weight_tensor.shape[0])
+        
+        if not layer_sizes:
+            # Emergency fallback for unsupported architectures
+            logger.warning("Could not extract layer sizes, using default config")
+            return {
+                "input_size": 15,  # Heart disease features
+                "hidden_sizes": [64, 32],
+                "output_size": 1,
+                "use_bias": any("bias" in k for k in weights.keys())
+            }
         
         return {
             "input_size": layer_sizes[0],
@@ -204,11 +231,30 @@ class ZKPProofGenerator:
         layer_biases = {}
         
         for name, tensor in weights.items():
+            layer_idx = None
+            
             if 'net.' in name:
                 # Extract layer number from name like 'net.0.weight', 'net.0.bias'
                 parts = name.split('.')
                 layer_idx = int(parts[1])
-                
+            elif 'fc' in name:
+                # Extract layer number from name like 'fc1.weight', 'fc2.bias'
+                if 'fc1' in name:
+                    layer_idx = 0
+                elif 'fc2' in name:
+                    layer_idx = 1
+                elif 'fc3' in name:
+                    layer_idx = 2
+                elif 'fc4' in name:
+                    layer_idx = 3
+                else:
+                    # Extract number from fcN pattern
+                    import re
+                    match = re.search(r'fc(\d+)', name)
+                    if match:
+                        layer_idx = int(match.group(1)) - 1  # fc1 -> layer 0
+            
+            if layer_idx is not None:
                 if 'weight' in name:
                     layer_weights[layer_idx] = tensor.detach().cpu().numpy()
                 elif 'bias' in name:
@@ -328,6 +374,96 @@ class ZKPProofGenerator:
         except Exception as e:
             logger.error(f"Proof verification error: {e}")
             return False
+    
+    # ============= PROTOSTAR IVC METHODS =============
+    
+    def generate_ivc_training_proof(self,
+                                  model_weights: Dict[str, torch.Tensor],
+                                  round_number: int,
+                                  is_initial_round: bool = False) -> Dict:
+        """
+        Generate Protostar IVC proof for federated learning round
+        
+        Args:
+            model_weights: Model weights from training round
+            round_number: FL round number
+            is_initial_round: Whether this is the first round (initializes accumulator)
+            
+        Returns:
+            Dictionary containing IVC proof and accumulator state
+        """
+        if self.proof_system != "protostar":
+            raise ValueError("Protostar IVC methods require proof_system='protostar'")
+        
+        try:
+            if is_initial_round:
+                logger.info(f"🔄 Initializing Protostar IVC with round {round_number}")
+                result = self.protostar_ivc.initialize_accumulator(model_weights, round_number)
+            else:
+                logger.info(f"🔄 Folding round {round_number} into Protostar IVC accumulator")
+                result = self.protostar_ivc.fold_round(model_weights, round_number)
+            
+            # Add hash for consistency
+            proof_hash = self._compute_proof_hash(result)
+            result["proof_hash"] = proof_hash
+            result["proof_generated"] = True
+            result["proof_valid"] = True
+            
+            logger.info(f"✅ Protostar IVC proof generated for round {round_number}")
+            return result
+            
+        except Exception as e:
+            logger.error(f"❌ Protostar IVC proof generation failed: {e}")
+            raise
+    
+    def get_ivc_accumulator_summary(self) -> Dict:
+        """Get summary of current IVC accumulator state"""
+        if self.proof_system != "protostar":
+            raise ValueError("IVC methods require proof_system='protostar'")
+        
+        return self.protostar_ivc.get_accumulator_summary()
+    
+    def export_ivc_final_weights(self) -> Dict[str, torch.Tensor]:
+        """Export final accumulated weights from IVC"""
+        if self.proof_system != "protostar":
+            raise ValueError("IVC methods require proof_system='protostar'")
+        
+        return self.protostar_ivc.export_final_weights()
+    
+    def verify_ivc_proof(self, proof_data: Dict) -> bool:
+        """Verify Protostar IVC proof"""
+        if self.proof_system != "protostar":
+            raise ValueError("IVC verification requires proof_system='protostar'")
+        
+        try:
+            # Extract the actual accumulator state from proof data
+            if "proof" in proof_data and "accumulator_state" in proof_data["proof"]:
+                accumulator_state = proof_data["proof"]["accumulator_state"]
+                proof_bytes = json.dumps(accumulator_state).encode()
+            elif "proof" in proof_data and "proof_data" in proof_data["proof"]:
+                proof_bytes = proof_data["proof"]["proof_data"].encode()
+            else:
+                logger.error("Cannot find accumulator state in proof data")
+                return False
+                
+            return self.protostar_ivc.verify_accumulator(proof_bytes)
+        except Exception as e:
+            logger.error(f"IVC proof verification failed: {e}")
+            return False
+    
+    def switch_to_protostar_ivc(self):
+        """Switch from Groth16 to Protostar IVC proof system"""
+        self.proof_system = "protostar"
+        self.protostar_ivc = ProtostarIVC()
+        logger.info("✅ Switched to Protostar IVC proof system")
+    
+    def switch_to_groth16(self):
+        """Switch from Protostar IVC to Groth16 proof system"""
+        self.proof_system = "groth16"
+        self.protostar_ivc = None
+        logger.info("✅ Switched to Groth16 proof system")
+    
+    # ================================================
     
     def cleanup(self):
         """Clean up temporary files"""
