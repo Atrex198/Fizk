@@ -347,10 +347,20 @@ class ZKPProofGenerator:
             logger.error(f"ZKP binary call failed: {e}")
             return {"error": str(e)}
     
-    def _compute_proof_hash(self, proof_output: Dict) -> str:
+    def _compute_proof_hash(self, proof_output) -> str:
         """Compute hash of proof for verification"""
         import hashlib
-        proof_str = json.dumps(proof_output, sort_keys=True)
+        # Handle both dict and JSON string inputs
+        if isinstance(proof_output, str):
+            proof_str = proof_output
+        else:
+            # Convert any non-serializable objects to strings
+            try:
+                proof_str = json.dumps(proof_output, sort_keys=True)
+            except TypeError:
+                # If direct serialization fails, convert to string representation
+                safe_proof = {k: str(v) for k, v in proof_output.items()}
+                proof_str = json.dumps(safe_proof, sort_keys=True)
         return hashlib.sha256(proof_str.encode()).hexdigest()
     
     def verify_proof(self, proof_data: Dict) -> bool:

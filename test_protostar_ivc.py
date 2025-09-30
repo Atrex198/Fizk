@@ -178,7 +178,7 @@ def test_system_switching():
         is_initial_round=True
     )
     
-    assert proof['metadata']['proof_system'] == 'REAL_PROTOSTAR_IVC'
+    assert proof['metadata']['proof_system'] == 'REAL_PROTOSTAR_IVC_CRYPTOGRAPHIC'
     logger.info("✅ Proof system switching works correctly")
     
     # Switch back to Groth16
