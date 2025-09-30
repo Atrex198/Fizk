@@ -1,0 +1,62 @@
+{
+  "config": {
+    "num_clients": 5,
+    "num_rounds": 2,
+    "epochs_per_round": 3,
+    "dataset_name": "cardio",
+    "heterogeneity_level": "medium",
+    "aggregation_method": "fedavg",
+    "enable_zkp_proofs": false,
+    "enable_protogalaxy": true,
+    "test_scalability": true,
+    "save_results": true
+  },
+  "dataset_info": {
+    "name": "cardio",
+    "samples": 70000,
+    "features": 11,
+    "classes": 2,
+    "class_distribution": {
+      "0": 35021,
+      "1": 34979
+    },
+    "feature_names": [
+      "age",
+      "gender",
+      "height",
+      "weight",
+      "ap_hi",
+      "ap_lo",
+      "cholesterol",
+      "gluc",
+      "smoke",
+      "alco",
+      "active"
+    ]
+  },
+  "total_test_time": 20.724042654037476,
+  "success_rate": 0.4,
+  "performance_metrics": {
+    "average_training_time": 1.9161550760269166,
+    "average_proof_generation_time": NaN,
+    "average_total_client_time": 1.9164491176605225,
+    "average_round_time": 9.58296012878418,
+    "zkp_success_rate": NaN,
+    "training_success_rate": 0.4,
+    "final_average_loss": 0.3446287895071605,
+    "final_average_accuracy": 0.8425765801444667
+  },
+  "scalability_analysis": {
+    "clients_per_round": [
+      5,
+      5
+    ],
+    "round_time_scaling": [
+      9.609934568405151,
+      9.555985689163208
+    ],
+    "aggregation_complexity": "O(log N)",
+    "theoretical_max_clients": 1048576
+  },
+  "num_rounds_completed": 2
+}

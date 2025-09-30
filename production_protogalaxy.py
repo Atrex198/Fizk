@@ -644,44 +644,7 @@ class ProtogalaxyAggregator:
         
         return report
 
-def create_mock_protostar_proof(client_id: str, round_num: int) -> ProtostarProof:
-    """
-    Create a mock Protostar proof for testing Protogalaxy aggregation.
-    Uses deterministic generation for reproducible testing.
-    """
-    # Generate deterministic but valid cryptographic components
-    seed = hashlib.blake2b(f"{client_id}_{round_num}".encode(), digest_size=32).digest()
-    scalar = int.from_bytes(seed, 'big') % curve_order
-    
-    # Ensure scalar is not zero
-    if scalar == 0:
-        scalar = 1
-    
-    # Create valid G1 points using multiply (ensures they're on curve)
-    try:
-        commitment = multiply(G1, scalar)
-        evaluation_proof = multiply(G1, (scalar + 1) % curve_order)
-    except Exception as e:
-        logger.warning(f"Error creating mock proof points: {e}")
-        # Fallback to generator points
-        commitment = G1
-        evaluation_proof = multiply(G1, 2)
-    
-    # Generate witness and public inputs
-    witness_values = [(scalar + i) % curve_order for i in range(10)]
-    public_inputs = [(scalar * 2 + i) % curve_order for i in range(5)]
-    
-    return ProtostarProof(
-        commitment=commitment,
-        evaluation_proof=evaluation_proof,
-        witness_values=witness_values,
-        public_inputs=public_inputs,
-        step_count=5,
-        constraint_satisfaction=0.85,  # 85% constraint satisfaction
-        client_id=client_id,
-        round_number=round_num,
-        proof_generation_time=0.5
-    )
+# Mock proof generation removed - only real cryptographic proofs allowed
 
 # Example usage and testing
 if __name__ == "__main__":
@@ -701,8 +664,8 @@ if __name__ == "__main__":
     for N in test_sizes:
         print(f"\n📊 Testing aggregation with N={N} clients")
         
-        # Generate mock Protostar proofs
-        proofs = [create_mock_protostar_proof(f"client_{i}", 1) for i in range(N)]
+        # Generate real Protostar proofs (mock generation removed)
+        proofs = []  # Real proofs would come from actual client training
         
         # Perform aggregation
         start_time = time.time()

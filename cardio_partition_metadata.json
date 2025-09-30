@@ -1,0 +1,117 @@
+{
+  "dataset": "cardio",
+  "num_clients": 10,
+  "total_samples": 70000,
+  "client_info": {
+    "0": {
+      "samples": 7690,
+      "class_distribution": [
+        0.13487641091584512,
+        0.8651235890841549
+      ],
+      "features_shape": [
+        7690,
+        11
+      ]
+    },
+    "1": {
+      "samples": 7690,
+      "class_distribution": [
+        0.5905129304186313,
+        0.40948706958136877
+      ],
+      "features_shape": [
+        7690,
+        11
+      ]
+    },
+    "2": {
+      "samples": 7690,
+      "class_distribution": [
+        0.5000714387769681,
+        0.49992856122303186
+      ],
+      "features_shape": [
+        7690,
+        11
+      ]
+    },
+    "3": {
+      "samples": 7690,
+      "class_distribution": [
+        0.028861265895127875,
+        0.9711387341048722
+      ],
+      "features_shape": [
+        7690,
+        11
+      ]
+    },
+    "4": {
+      "samples": 7690,
+      "class_distribution": [
+        0.42734676382340336,
+        0.5726532361765967
+      ],
+      "features_shape": [
+        7690,
+        11
+      ]
+    },
+    "5": {
+      "samples": 7690,
+      "class_distribution": [
+        0.005857979711387341,
+        0.9941420202886126
+      ],
+      "features_shape": [
+        7690,
+        11
+      ]
+    },
+    "6": {
+      "samples": 7690,
+      "class_distribution": [
+        0.8821260180025718,
+        0.1178739819974282
+      ],
+      "features_shape": [
+        7690,
+        11
+      ]
+    },
+    "7": {
+      "samples": 7690,
+      "class_distribution": [
+        0.4976425203600514,
+        0.5023574796399486
+      ],
+      "features_shape": [
+        7690,
+        11
+      ]
+    },
+    "8": {
+      "samples": 3439,
+      "class_distribution": [
+        0.8344852673699527,
+        0.1655147326300473
+      ],
+      "features_shape": [
+        3439,
+        11
+      ]
+    },
+    "9": {
+      "samples": 5041,
+      "class_distribution": [
+        1.0,
+        0.0
+      ],
+      "features_shape": [
+        5041,
+        11
+      ]
+    }
+  }
+}

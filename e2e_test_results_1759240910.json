@@ -1,0 +1,20 @@
+{
+  "config": {
+    "num_clients": 5,
+    "num_rounds": 2,
+    "epochs_per_round": 3,
+    "dataset_name": "cardio",
+    "heterogeneity_level": "medium",
+    "aggregation_method": "fedavg",
+    "enable_zkp_proofs": false,
+    "enable_protogalaxy": true,
+    "test_scalability": true,
+    "save_results": true
+  },
+  "dataset_info": {
+    "name": "cardio",
+    "samples": 70000,
+    "features": 11,
+    "classes": 2,
+    "class_distribution": {
+      
