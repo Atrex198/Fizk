@@ -1,0 +1,11 @@
+{
+  "scenarios_compared": [
+    "High Heterogeneity",
+    "Medium Heterogeneity",
+    "Low Heterogeneity",
+    "Extreme Imbalance"
+  ],
+  "performance_comparison": {},
+  "heterogeneity_comparison": {},
+  "recommendations": []
+}

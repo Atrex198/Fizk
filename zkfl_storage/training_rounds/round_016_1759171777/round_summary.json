@@ -1,0 +1,29 @@
+{
+  "round_id": "round_016_1759171777",
+  "timestamp": "2025-09-30T00:19:38.792222",
+  "num_participants": 8,
+  "training_files": [
+    "hospital_01_model.pkl",
+    "hospital_02_model.pkl",
+    "hospital_03_model.pkl",
+    "hospital_04_model.pkl",
+    "hospital_05_model.pkl",
+    "hospital_06_model.pkl",
+    "hospital_07_model.pkl",
+    "hospital_08_model.pkl"
+  ],
+  "proof_files": [
+    "hospital_01_proof.json",
+    "hospital_02_proof.json",
+    "hospital_03_proof.json",
+    "hospital_04_proof.json",
+    "hospital_05_proof.json",
+    "hospital_06_proof.json",
+    "hospital_07_proof.json",
+    "hospital_08_proof.json"
+  ],
+  "total_training_time": 9.496846891909193,
+  "total_proof_generation_time": 4.8448278902537245,
+  "average_loss": 0.47913856975251395,
+  "average_accuracy": 0.7333458689148703
+}

@@ -1,0 +1,45 @@
+{
+  "experiment_summary": {
+    "dataset": "heart_2020_cleaned.csv",
+    "hospitals": 5,
+    "rounds": 15,
+    "total_patients": 255835,
+    "final_accuracy": 0.9143982864022264
+  },
+  "ivc_performance": {
+    "avg_verification_time": 0.007510201136271159,
+    "verification_time_std": 0.000908681101422505,
+    "total_rounds_folded": 15,
+    "constant_time_proof": "True"
+  },
+  "comparison_with_groth16": {
+    "ivc_final_time": 0.00647282600402832,
+    "groth16_final_time": 0.75,
+    "speedup_factor": 115.86901911672622,
+    "storage_efficiency": "15x constant vs linear growth"
+  },
+  "medical_insights": {
+    "hospitals_trained": [
+      "Hospital_1",
+      "Hospital_2",
+      "Hospital_3",
+      "Hospital_4",
+      "Hospital_5"
+    ],
+    "patient_distribution": [
+      51167,
+      51167,
+      51167,
+      51167,
+      51167
+    ],
+    "positive_rates": [
+      0.08710692438485743,
+      0.10518498250825728,
+      0.21398557664119452,
+      0.08616881974710262,
+      0.0852893466492075
+    ],
+    "model_convergence": true
+  }
+}

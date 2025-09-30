@@ -9,6 +9,7 @@ from typing import Dict, List, Optional, Tuple, Union
 import logging
 import hashlib
 import json
+import time
 from dataclasses import dataclass
 
 # Real BN128 elliptic curve operations
@@ -91,6 +92,83 @@ class BN128Operations:
     def field_element(value: int):
         """Create field element with proper modular arithmetic"""
         return value % CURVE_ORDER
+
+class FiatShamirTranscript:
+    """
+    Fiat-Shamir transcript for non-interactive proof generation
+    Implements Blake2 hashing as specified in ZK-FL benchmark framework
+    """
+    
+    def __init__(self, protocol_name: str = "PROTOSTAR_IVC"):
+        """Initialize transcript with protocol identifier"""
+        self.transcript_data = []
+        self.protocol_name = protocol_name
+        # Start with protocol name for domain separation
+        self.append_message(b"protocol", protocol_name.encode('utf-8'))
+        logger.debug(f"Initialized Fiat-Shamir transcript for {protocol_name}")
+    
+    def append_message(self, label: bytes, message: bytes):
+        """Append labeled message to transcript"""
+        # Format: length(label) || label || length(message) || message
+        entry = len(label).to_bytes(4, 'big') + label + len(message).to_bytes(4, 'big') + message
+        self.transcript_data.append(entry)
+        logger.debug(f"Appended to transcript: {label.decode('utf-8')} -> {len(message)} bytes")
+    
+    def append_point(self, label: bytes, point: tuple):
+        """Append elliptic curve point to transcript"""
+        if point is None:
+            self.append_message(label, b"infinity")
+        else:
+            # Handle both integer coordinates and FQ field elements
+            if hasattr(point[0], 'n'):  # FQ field element
+                x_bytes = point[0].n.to_bytes(32, 'big')
+                y_bytes = point[1].n.to_bytes(32, 'big')
+            else:  # Regular integer
+                x_bytes = point[0].to_bytes(32, 'big')
+                y_bytes = point[1].to_bytes(32, 'big')
+            self.append_message(label, x_bytes + y_bytes)
+    
+    def append_scalar(self, label: bytes, scalar: int):
+        """Append field element to transcript"""
+        scalar_bytes = (scalar % CURVE_ORDER).to_bytes(32, 'big')
+        self.append_message(label, scalar_bytes)
+    
+    def append_scalars(self, label: bytes, scalars: List[int]):
+        """Append multiple field elements to transcript"""
+        scalars_bytes = b''.join((s % CURVE_ORDER).to_bytes(32, 'big') for s in scalars)
+        self.append_message(label, scalars_bytes)
+    
+    def get_challenge(self, label: bytes) -> int:
+        """
+        Generate cryptographic challenge using Blake2b hash
+        Returns field element suitable for cryptographic operations
+        """
+        # Append challenge request label
+        self.append_message(label, b"challenge_request")
+        
+        # Combine all transcript data
+        full_transcript = b''.join(self.transcript_data)
+        
+        # Use Blake2b for cryptographic hashing (as per benchmark spec)
+        hash_output = hashlib.blake2b(full_transcript, digest_size=32).digest()
+        
+        # Convert to field element
+        challenge = int.from_bytes(hash_output, 'big') % CURVE_ORDER
+        
+        logger.debug(f"Generated Fiat-Shamir challenge for '{label.decode('utf-8')}': {challenge}")
+        
+        # Append challenge to transcript for future use
+        self.append_scalar(b"challenge_" + label, challenge)
+        
+        return challenge
+    
+    def get_challenges(self, label: bytes, count: int) -> List[int]:
+        """Generate multiple independent challenges"""
+        challenges = []
+        for i in range(count):
+            challenge_label = label + f"_{i}".encode('utf-8')
+            challenges.append(self.get_challenge(challenge_label))
+        return challenges
 
 # Initialize BN128 operations
 bn128 = BN128Operations()
@@ -283,7 +361,11 @@ class RealProtostarIVC:
         self.error_vector: List[int] = []
         self.rounds_folded = 0
         
+        # Fiat-Shamir transcript for non-interactive proofs
+        self.global_transcript = FiatShamirTranscript("PROTOSTAR_IVC_GLOBAL")
+        
         logger.info(f"✅ Real Protostar IVC initialized with {trusted_setup_size}-element SRS")
+        logger.info(f"🔐 Fiat-Shamir transcript initialized for non-interactive proofs")
         
     def _generate_trusted_setup(self, size: int) -> Dict[str, List[tuple]]:
         """Generate cryptographic structured reference string (SRS) for KZG commitments"""
@@ -351,10 +433,17 @@ class RealProtostarIVC:
             self.accumulator_witness = witness
             self.rounds_folded = 1
             
+            # Add initial instance to global transcript
+            self.global_transcript.append_scalars(b"initial_public", instance.public_inputs)
+            self.global_transcript.append_scalar(b"initial_round", round_number)
+            
             # Create polynomial commitments
             witness_poly_coeffs = self._witness_to_polynomial(witness.witness_values)
             witness_commitment = KZGCommitment(witness_poly_coeffs, self.srs["tau_powers_g1"])
             self.accumulated_commitments.append(witness_commitment)
+            
+            # Add commitment to transcript
+            self.global_transcript.append_point(b"initial_commitment", witness_commitment.commitment)
             
             # Generate proof
             proof_data = self._generate_accumulator_proof()
@@ -429,10 +518,17 @@ class RealProtostarIVC:
             self.accumulator_witness = folded_witness
             self.rounds_folded += 1
             
+            # Add folded state to global transcript
+            self.global_transcript.append_scalar(b"folded_round", round_number)
+            self.global_transcript.append_scalar(b"folding_challenge", challenge)
+            
             # Update polynomial commitments
             folded_witness_poly = self._witness_to_polynomial(folded_witness.witness_values)
             folded_commitment = KZGCommitment(folded_witness_poly, self.srs["tau_powers_g1"])
             self.accumulated_commitments.append(folded_commitment)
+            
+            # Add new commitment to transcript
+            self.global_transcript.append_point(b"folded_commitment", folded_commitment.commitment)
             
             # Add error term for soundness
             error_term = self._compute_error_term(challenge, new_instance)
@@ -729,21 +825,31 @@ class RealProtostarIVC:
     
     def _generate_folding_challenge(self, acc_instance: R1CSInstance, 
                                   new_instance: R1CSInstance) -> int:
-        """Generate cryptographic challenge for folding using Fiat-Shamir"""
-        # Combine instance data
-        challenge_input = {
-            "acc_public": acc_instance.public_inputs,
-            "new_public": new_instance.public_inputs,
-            "acc_constraints": acc_instance.num_constraints,
-            "new_constraints": new_instance.num_constraints
-        }
+        """
+        Generate cryptographic challenge for folding using Fiat-Shamir transcript
+        Implements Blake2b hashing as specified in ZK-FL benchmarking framework
+        """
+        # Initialize Fiat-Shamir transcript
+        transcript = FiatShamirTranscript("PROTOSTAR_FOLDING")
         
-        # Hash to get challenge
-        challenge_str = json.dumps(challenge_input, sort_keys=True)
-        challenge_hash = hashlib.sha256(challenge_str.encode()).digest()
+        # Append accumulator instance data
+        transcript.append_scalars(b"acc_public", acc_instance.public_inputs)
+        transcript.append_scalar(b"acc_constraints", acc_instance.num_constraints)
+        transcript.append_scalar(b"acc_variables", acc_instance.num_variables)
         
-        # Convert to field element
-        challenge = int.from_bytes(challenge_hash[:31], 'big') % CURVE_ORDER  # Use 31 bytes to stay in field
+        # Append new instance data  
+        transcript.append_scalars(b"new_public", new_instance.public_inputs)
+        transcript.append_scalar(b"new_constraints", new_instance.num_constraints)
+        transcript.append_scalar(b"new_variables", new_instance.num_variables)
+        
+        # Append round information for additional entropy
+        transcript.append_scalar(b"rounds_folded", self.rounds_folded)
+        transcript.append_scalar(b"timestamp", int(time.time() * 1000))  # milliseconds for uniqueness
+        
+        # Generate challenge using Fiat-Shamir
+        challenge = transcript.get_challenge(b"folding_challenge")
+        
+        logger.info(f"🔐 Generated Fiat-Shamir folding challenge: {challenge}")
         return challenge
     
     def _fold_r1cs_instances(self, acc_instance: R1CSInstance, acc_witness: R1CSWitness,
@@ -925,7 +1031,10 @@ class RealProtostarIVC:
     
     
     def _generate_accumulator_proof(self) -> str:
-        """Generate proof data for current accumulator state"""
+        """Generate proof data for current accumulator state with Fiat-Shamir"""
+        # Generate final proof challenge from global transcript
+        final_challenge = self.global_transcript.get_challenge(b"final_proof")
+        
         # Generate cryptographic commitment for accumulator
         if self.accumulator_instance:
             # Use hash of public inputs to create deterministic commitment
@@ -954,7 +1063,13 @@ class RealProtostarIVC:
             ],
             "error_vector": [int(x) for x in self.error_vector],
             "rounds_folded": self.rounds_folded,
-            "cryptographic_proof": True
+            "cryptographic_proof": True,
+            "fiat_shamir_proof": {
+                "final_challenge": final_challenge,
+                "protocol": "PROTOSTAR_IVC_GLOBAL",
+                "non_interactive": True,
+                "challenge_generation": "BLAKE2B"
+            }
         }
         
         return json.dumps(proof_data, sort_keys=True)

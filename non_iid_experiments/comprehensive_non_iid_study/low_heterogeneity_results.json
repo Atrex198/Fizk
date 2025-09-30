@@ -1,0 +1,222 @@
+{
+  "scenario": {
+    "name": "Low Heterogeneity",
+    "description": "Nearly IID scenario for baseline comparison",
+    "config": {
+      "alpha": 10.0,
+      "feature_skew_factor": 0.05,
+      "quantity_imbalance_factor": 1.2
+    }
+  },
+  "heterogeneity_metrics": {
+    "alpha": 10.0,
+    "num_clients": 4,
+    "avg_js_divergence": 0.0013766768629665989,
+    "coefficient_variation_sizes": 0.19262524070953257,
+    "avg_earth_movers_distance": 0.0164224561303854,
+    "client_label_distributions": {
+      "0": {
+        "total_samples": 102960,
+        "positive_ratio": 0.07371795177459717,
+        "negative_ratio": 0.9262820482254028
+      },
+      "1": {
+        "total_samples": 60277,
+        "positive_ratio": 0.11654528230428696,
+        "negative_ratio": 0.883454717695713
+      },
+      "2": {
+        "total_samples": 74633,
+        "positive_ratio": 0.06952688843011856,
+        "negative_ratio": 0.9304731115698814
+      },
+      "3": {
+        "total_samples": 81925,
+        "positive_ratio": 0.09238938242197037,
+        "negative_ratio": 0.9076106175780296
+      }
+    },
+    "sample_size_stats": {
+      "min": 60277,
+      "max": 102960,
+      "mean": 79948.75,
+      "std": 15400.147213176242
+    }
+  },
+  "round_results": [
+    {
+      "avg_loss": 0.6734042763710022,
+      "loss_std": 0.0012177658836393652,
+      "min_loss": 0.6723213195800781,
+      "max_loss": 0.6753518581390381,
+      "avg_accuracy": 0.9126379787921906,
+      "accuracy_std": 0.018667787070622523,
+      "min_accuracy": 0.8835210800170898,
+      "max_accuracy": 0.9299018979072571,
+      "avg_improvement": 0.007014557719230652,
+      "improvement_std": 0.0006298063274036616,
+      "round_duration": 2.701651096343994,
+      "aggregation_success": true,
+      "client_variance_loss": 1.482953747355964e-06,
+      "client_variance_accuracy": 0.0003484862741141015
+    },
+    {
+      "avg_loss": 0.666589692234993,
+      "loss_std": 0.0015269208834337619,
+      "min_loss": 0.6652575731277466,
+      "max_loss": 0.6690178513526917,
+      "avg_accuracy": 0.9126861840486526,
+      "accuracy_std": 0.018729155205279475,
+      "min_accuracy": 0.8834547400474548,
+      "max_accuracy": 0.9299883246421814,
+      "avg_improvement": 0.006829410791397095,
+      "improvement_std": 0.0006199651514905323,
+      "round_duration": 2.5561845302581787,
+      "aggregation_success": true,
+      "client_variance_loss": 2.33148738426614e-06,
+      "client_variance_accuracy": 0.00035078125470344723
+    },
+    {
+      "avg_loss": 0.6599438637495041,
+      "loss_std": 0.00183455269584096,
+      "min_loss": 0.6583595275878906,
+      "max_loss": 0.6628506183624268,
+      "avg_accuracy": 0.9126861840486526,
+      "accuracy_std": 0.018729155205279475,
+      "min_accuracy": 0.8834547400474548,
+      "max_accuracy": 0.9299883246421814,
+      "avg_improvement": 0.006660565733909607,
+      "improvement_std": 0.0006118335890789704,
+      "round_duration": 2.626838445663452,
+      "aggregation_success": true,
+      "client_variance_loss": 3.365583593817334e-06,
+      "client_variance_accuracy": 0.00035078125470344723
+    }
+  ],
+  "total_duration": 9.482053756713867,
+  "server_summary": {
+    "protogalaxy_stats": {
+      "total_rounds": 3,
+      "total_proofs_aggregated": 12,
+      "total_cross_terms_computed": 18,
+      "average_proofs_per_round": 4.0,
+      "latest_round": 2
+    },
+    "metrics_summary": {
+      "experiment_name": "non_iid_server_Low Heterogeneity",
+      "total_duration": 8.027764320373535,
+      "timestamp": "2025-09-29T20:43:45.894105",
+      "proof_generation": {},
+      "aggregation": {
+        "count": 3,
+        "avg_time": 0.0035680929819742837,
+        "total_time": 0.010704278945922852,
+        "total_proofs_aggregated": 12
+      },
+      "ml_performance": {},
+      "system_snapshots_count": 77
+    }
+  },
+  "client_summaries": [
+    {
+      "experiment_name": "non_iid_client_0_Low Heterogeneity",
+      "total_duration": 8.048668384552002,
+      "timestamp": "2025-09-29T20:43:45.916371",
+      "proof_generation": {
+        "count": 3,
+        "avg_time": 0.22455239295959473,
+        "min_time": 0.21337437629699707,
+        "max_time": 0.23870015144348145,
+        "std_time": 0.010550300044908877,
+        "avg_size_bytes": 2.0,
+        "total_time": 0.6736571788787842
+      },
+      "aggregation": {},
+      "ml_performance": {
+        "total_training_rounds": 3,
+        "avg_loss_improvement": 0.00733796755472819,
+        "final_avg_loss": 0.6653128067652384,
+        "convergence_rate": 0.0009116995761450582
+      },
+      "system_snapshots_count": 77
+    },
+    {
+      "experiment_name": "non_iid_client_1_Low Heterogeneity",
+      "total_duration": 8.092421531677246,
+      "timestamp": "2025-09-29T20:43:45.962320",
+      "proof_generation": {
+        "count": 3,
+        "avg_time": 0.22541586558024088,
+        "min_time": 0.21729278564453125,
+        "max_time": 0.23082852363586426,
+        "std_time": 0.005848865463691325,
+        "avg_size_bytes": 2.0,
+        "total_time": 0.6762475967407227
+      },
+      "aggregation": {},
+      "ml_performance": {
+        "total_training_rounds": 3,
+        "avg_loss_improvement": 0.005881647268931071,
+        "final_avg_loss": 0.6690734426180521,
+        "convergence_rate": 0.0007268093049661036
+      },
+      "system_snapshots_count": 78
+    },
+    {
+      "experiment_name": "non_iid_client_2_Low Heterogeneity",
+      "total_duration": 8.1737961769104,
+      "timestamp": "2025-09-29T20:43:46.046040",
+      "proof_generation": {
+        "count": 3,
+        "avg_time": 0.23446361223856607,
+        "min_time": 0.2168140411376953,
+        "max_time": 0.2653625011444092,
+        "std_time": 0.021922538766890747,
+        "avg_size_bytes": 2.0,
+        "total_time": 0.7033908367156982
+      },
+      "aggregation": {},
+      "ml_performance": {
+        "total_training_rounds": 3,
+        "avg_loss_improvement": 0.007432202498118083,
+        "final_avg_loss": 0.6653745174407959,
+        "convergence_rate": 0.0009092718165780553
+      },
+      "system_snapshots_count": 79
+    },
+    {
+      "experiment_name": "non_iid_client_3_Low Heterogeneity",
+      "total_duration": 8.275071382522583,
+      "timestamp": "2025-09-29T20:43:46.149538",
+      "proof_generation": {
+        "count": 3,
+        "avg_time": 0.21797076861063638,
+        "min_time": 0.20858478546142578,
+        "max_time": 0.22432589530944824,
+        "std_time": 0.006774225807134484,
+        "avg_size_bytes": 2.0,
+        "total_time": 0.6539123058319092
+      },
+      "aggregation": {},
+      "ml_performance": {
+        "total_training_rounds": 3,
+        "avg_loss_improvement": 0.006687561670939128,
+        "final_avg_loss": 0.6668230096499125,
+        "convergence_rate": 0.0008081575809803448
+      },
+      "system_snapshots_count": 79
+    }
+  ],
+  "convergence_analysis": {
+    "total_loss_reduction": 0.013460412621498108,
+    "convergence_rate": 0.004486804207166036,
+    "avg_client_heterogeneity": 0.0015264131543046957,
+    "heterogeneity_trend": 0.00030839340610079753,
+    "final_loss_std": 0.00183455269584096,
+    "convergence_stability": "Unstable"
+  },
+  "heterogeneity_impact": {
+    "performance_disparity": 0.00183455269584096,
+    "heterogeneity_severity": "Low",
+    "impact_assessment": {
+      "convergence_affected": 

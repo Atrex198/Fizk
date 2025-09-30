@@ -1,0 +1,30 @@
+{
+  "proof_id": "proof_136b096e9fc7f0f4",
+  "round_id": "round_016_1759171599",
+  "hospital_id": "hospital_08",
+  "timestamp": "2025-09-30T00:16:40.365294",
+  "commitment": "groth16_091b6f06a7e50b76",
+  "witness_hash": "witness_187d48f93f27ca61",
+  "public_inputs": {
+    "loss_commitment": 0.5539704042513028,
+    "accuracy_commitment": 0.741811278898663,
+    "sample_count": 940,
+    "model_size_hash": 62376,
+    "round_number": 16
+  },
+  "circuit_constraints": 132752,
+  "proof_size_kb": 69,
+  "generation_time": 0.21180703962195707,
+  "groth16_proof": {
+    "pi_a": "0xaf02bbb2ce2499128c6224d42d408d8f6e3afa314609993a133737f87ccd2f34",
+    "pi_b": "0xd002f61cccfd83d9e8851ba5b77d5a9041f0a92436dc89cb37a339966a7ce559",
+    "pi_c": "0x02c40233cf31e6d78ea0efcb9394b7d5db2e30e2af15f084a700b97aea2cefa0",
+    "public_signals": [
+      "0.5539704042513028",
+      "0.741811278898663",
+      "940",
+      "62376",
+      "16"
+    ]
+  }
+}

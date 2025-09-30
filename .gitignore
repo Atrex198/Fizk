@@ -130,55 +130,7 @@ dmypy.json
 
 # ZK-FL Project Specific
 # =====================
-
-# Model files and weights
-*.pth
-*.joblib
-*.pkl
-*.pickle
-
-# Data files (sensitive datasets)
-*.csv
-cardio_train.csv
-heart_2020_cleaned.csv
-
-# Generated metrics and results
-metrics/
-module5_optimization_results/
-non_iid_experiments/
-optimization_benchmarks/
-
-# Generated reports and outputs
-*.json
-!requirements.txt
-end_to_end_test_results.json
-final_test_aggregation_*.json
-test_*.json
-module*_summary.json
-non_iid_partition_metadata.json
-
-# Generated visualizations
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.svg
-
-# Generated HTML reports
-*.html
-dashboard_report.html
-module*_dashboard_demo.html
-
-# Generated documentation
-*.md
-!README.md
-COMPREHENSIVE_METRICS_SUCCESS.md
-IMPLEMENTATION_CHECKLIST.md
-MODULE_*_COMPLETE.md
-PRODUCTION_*.md
-REAL_DATA_INTEGRATION_SUCCESS.md
-SYSTEM_SUMMARY.md
-*_completion_report.md
+# Everything else will be shared with colleagues for full collaboration
 
 # Temporary files
 *.tmp
@@ -213,12 +165,12 @@ yarn-debug.log*
 yarn-error.log*
 
 # Shell scripts (may contain sensitive paths)
-*.sh
-!setup_and_run.sh
+# *.sh (commented out - colleagues need these)
+# !setup_and_run.sh (commented out - colleagues need these)
 
 # ZKP proof files (may be large)
-*proof*.json
-proof_*.json
+# *proof*.json (commented out - colleagues need these)
+# proof_*.json (commented out - colleagues need these)
 
 # Local configuration files
 config.local.*

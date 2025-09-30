@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Debug Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .debug-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #333;
+            font-size: 18px;
+        }
+        
+        .error {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid red;
+            color: red;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .success {
+            background: rgba(0, 255, 0, 0.2);
+            border: 1px solid green;
+            color: green;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .info {
+            background: rgba(0, 100, 255, 0.2);
+            border: 1px solid #0066ff;
+            color: #0066ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Chart Debug Test</h1>
+    
+    <div class="debug-section">
+        <h2>Step 1: Browser Check</h2>
+        <div id="browserInfo" class="info">Loading browser info...</div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Step 2: Plotly.js Load Test</h2>
+        <div id="plotlyStatus" class="info">Loading Plotly.js...</div>
+        <div id="plotlyVersion" class="info">Checking version...</div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Step 3: Simple Chart Test</h2>
+        <div class="chart-container" id="simpleChart">
+            <div class="loading">📊 Loading simple chart...</div>
+        </div>
+        <div id="simpleChartStatus" class="info">Preparing chart...</div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Step 4: Complex Chart Test</h2>
+        <div class="chart-container" id="complexChart">
+            <div class="loading">📊 Loading complex chart...</div>
+        </div>
+        <div id="complexChartStatus" class="info">Preparing chart...</div>
+    </div>
+    
+    <div class="debug-section">
+        <h2>Step 5: Console Log Check</h2>
+        <div class="info">
+            Check your browser console (F12) for any error messages.
+            <br>Look for red error messages or yellow warnings.
+        </div>
+    </div>
+
+    <!-- Load Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    
+    <script>
+        // Step 1: Browser Info
+        document.getElementById('browserInfo').innerHTML = `
+            <strong>Browser:</strong> ${navigator.userAgent}<br>
+            <strong>Screen:</strong> ${window.screen.width}x${window.screen.height}<br>
+            <strong>Viewport:</strong> ${window.innerWidth}x${window.innerHeight}
+        `;
+        
+        // Step 2: Check if Plotly loaded
+        setTimeout(() => {
+            const plotlyStatus = document.getElementById('plotlyStatus');
+            const plotlyVersion = document.getElementById('plotlyVersion');
+            
+            if (typeof Plotly !== 'undefined') {
+                plotlyStatus.className = 'success';
+                plotlyStatus.innerHTML = '✅ Plotly.js loaded successfully!';
+                
+                if (Plotly.version) {
+                    plotlyVersion.className = 'success';
+                    plotlyVersion.innerHTML = `✅ Plotly version: ${Plotly.version}`;
+                } else {
+                    plotlyVersion.className = 'error';
+                    plotlyVersion.innerHTML = '❌ Plotly version not available';
+                }
+                
+                // Step 3: Simple Chart
+                createSimpleChart();
+                
+                // Step 4: Complex Chart
+                setTimeout(createComplexChart, 2000);
+                
+            } else {
+                plotlyStatus.className = 'error';
+                plotlyStatus.innerHTML = '❌ Plotly.js failed to load!';
+                plotlyVersion.className = 'error';
+                plotlyVersion.innerHTML = '❌ Cannot check version - Plotly not loaded';
+            }
+        }, 1000);
+        
+        function createSimpleChart() {
+            const simpleChartStatus = document.getElementById('simpleChartStatus');
+            
+            try {
+                const data = [{
+                    x: ['Training', 'Validation', 'Testing'],
+                    y: [85, 92, 88],
+                    type: 'bar',
+                    marker: {
+                        color: ['#FF6B6B', '#4ECDC4', '#45B7D1']
+                    }
+                }];
+                
+                const layout = {
+                    title: '📊 Simple Test Chart',
+                    xaxis: { title: 'Phase' },
+                    yaxis: { title: 'Accuracy (%)' },
+                    margin: { t: 50, r: 30, b: 50, l: 50 }
+                };
+                
+                Plotly.newPlot('simpleChart', data, layout, {responsive: true}).then(() => {
+                    simpleChartStatus.className = 'success';
+                    simpleChartStatus.innerHTML = '✅ Simple chart created successfully!';
+                }).catch((error) => {
+                    simpleChartStatus.className = 'error';
+                    simpleChartStatus.innerHTML = `❌ Simple chart failed: ${error.message}`;
+                });
+                
+            } catch (error) {
+                simpleChartStatus.className = 'error';
+                simpleChartStatus.innerHTML = `❌ Simple chart error: ${error.message}`;
+            }
+        }
+        
+        function createComplexChart() {
+            const complexChartStatus = document.getElementById('complexChartStatus');
+            
+            try {
+                const trace1 = {
+                    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    y: [2, 6, 3, 8, 4, 9, 5, 8, 6, 7],
+                    mode: 'lines+markers',
+                    name: 'Training Accuracy',
+                    line: { color: '#FF6B6B', width: 3 }
+                };
+                
+                const trace2 = {
+                    x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+                    y: [1, 4, 2, 6, 3, 7, 4, 6, 5, 6],
+                    mode: 'lines+markers',
+                    name: 'Validation Accuracy',
+                    line: { color: '#4ECDC4', width: 3 }
+                };
+                
+                const data = [trace1, trace2];
+                
+                const layout = {
+                    title: '📈 Complex Test Chart',
+                    xaxis: { title: 'Training Round' },
+                    yaxis: { title: 'Accuracy Score' },
+                    legend: { x: 0, y: 1 },
+                    margin: { t: 50, r: 30, b: 50, l: 50 }
+                };
+                
+                Plotly.newPlot('complexChart', data, layout, {responsive: true}).then(() => {
+                    complexChartStatus.className = 'success';
+                    complexChartStatus.innerHTML = '✅ Complex chart created successfully!';
+                }).catch((error) => {
+                    complexChartStatus.className = 'error';
+                    complexChartStatus.innerHTML = `❌ Complex chart failed: ${error.message}`;
+                });
+                
+            } catch (error) {
+                complexChartStatus.className = 'error';
+                complexChartStatus.innerHTML = `❌ Complex chart error: ${error.message}`;
+            }
+        }
+        
+        // Log everything to console for debugging
+        console.log('🔍 Chart Debug Test Started');
+        console.log('Browser:', navigator.userAgent);
+        console.log('Plotly available:', typeof Plotly !== 'undefined');
+        
+        // Listen for any errors
+        window.addEventListener('error', (event) => {
+            console.error('JavaScript Error:', event.error);
+        });
+        
+        // Check after page loads
+        window.addEventListener('load', () => {
+            console.log('Page fully loaded');
+            console.log('Plotly status:', typeof Plotly !== 'undefined' ? 'Loaded' : 'Not loaded');
+        });
+    </script>
+</body>
+</html>

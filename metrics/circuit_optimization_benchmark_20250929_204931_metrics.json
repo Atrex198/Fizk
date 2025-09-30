@@ -1,0 +1,96 @@
+{
+  "summary": {
+    "experiment_name": "circuit_optimization_benchmark",
+    "total_duration": 3.109229326248169,
+    "timestamp": "2025-09-29T20:49:31.488690",
+    "proof_generation": {},
+    "aggregation": {},
+    "ml_performance": {},
+    "system_snapshots_count": 3
+  },
+  "proof_metrics": [],
+  "aggregation_metrics": [],
+  "ml_metrics": [],
+  "communication_metrics": [],
+  "system_metrics": [],
+  "system_snapshots": [
+    {
+      "timestamp": 1759159168.37994,
+      "cpu_percent": 0.0,
+      "memory_mb": 6201.3671875,
+      "disk_io": {
+        "read_count": 8267732,
+        "write_count": 5262336,
+        "read_bytes": 398041876992,
+        "write_bytes": 412172459008,
+        "read_time": 1655063,
+        "write_time": 136184093,
+        "read_merged_count": 447556,
+        "write_merged_count": 5861674,
+        "busy_time": 1752744
+      },
+      "network_io": {
+        "bytes_sent": 162087971,
+        "bytes_recv": 765818407,
+        "packets_sent": 393138,
+        "packets_recv": 986326,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 39
+      }
+    },
+    {
+      "timestamp": 1759159169.4042046,
+      "cpu_percent": 42.4,
+      "memory_mb": 6312.6875,
+      "disk_io": {
+        "read_count": 8268046,
+        "write_count": 5262357,
+        "read_bytes": 398045391360,
+        "write_bytes": 412172557312,
+        "read_time": 1655108,
+        "write_time": 136184229,
+        "read_merged_count": 447665,
+        "write_merged_count": 5861677,
+        "busy_time": 1752777
+      },
+      "network_io": {
+        "bytes_sent": 162093220,
+        "bytes_recv": 765875420,
+        "packets_sent": 393188,
+        "packets_recv": 986447,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 39
+      }
+    },
+    {
+      "timestamp": 1759159170.4734986,
+      "cpu_percent": 19.4,
+      "memory_mb": 6388.44921875,
+      "disk_io": {
+        "read_count": 8268051,
+        "write_count": 5262379,
+        "read_bytes": 398045411840,
+        "write_bytes": 412174019584,
+        "read_time": 1655113,
+        "write_time": 136184235,
+        "read_merged_count": 447665,
+        "write_merged_count": 5862010,
+        "busy_time": 1752785
+      },
+      "network_io": {
+        "bytes_sent": 162102689,
+        "bytes_recv": 765924367,
+        "packets_sent": 393247,
+        "packets_recv": 986582,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 39
+      }
+    }
+  ]
+}

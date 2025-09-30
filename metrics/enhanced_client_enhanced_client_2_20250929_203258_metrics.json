@@ -1,0 +1,6072 @@
+{
+  "summary": {
+    "experiment_name": "enhanced_client_enhanced_client_2",
+    "total_duration": 23.71730065345764,
+    "timestamp": "2025-09-29T20:32:58.704220",
+    "proof_generation": {
+      "count": 4,
+      "avg_time": 0.2413240671157837,
+      "min_time": 0.23194456100463867,
+      "max_time": 0.2594492435455322,
+      "std_time": 0.01083332908110534,
+      "avg_size_bytes": 2.0,
+      "total_time": 0.9652962684631348
+    },
+    "aggregation": {},
+    "ml_performance": {
+      "total_training_rounds": 4,
+      "avg_loss_improvement": 0.007226526737213135,
+      "final_avg_loss": 0.6553473919630051,
+      "convergence_rate": 0.0003046943175702253
+    },
+    "system_snapshots_count": 227
+  },
+  "proof_metrics": [
+    {
+      "client_id": "enhanced_client_2",
+      "proof_generation_time": 0.2594492435455322,
+      "proof_size_bytes": 2,
+      "constraint_count": 0,
+      "variable_count": 0,
+      "verification_time": 0.025944924354553225,
+      "memory_usage_mb": 373.98046875,
+      "cpu_usage_percent": 44.4,
+      "timestamp": 1759158159.320817
+    },
+    {
+      "client_id": "enhanced_client_2",
+      "proof_generation_time": 0.23194456100463867,
+      "proof_size_bytes": 2,
+      "constraint_count": 0,
+      "variable_count": 0,
+      "verification_time": 0.02319445610046387,
+      "memory_usage_mb": 122.4765625,
+      "cpu_usage_percent": 34.6,
+      "timestamp": 1759158164.7736495
+    },
+    {
+      "client_id": "enhanced_client_2",
+      "proof_generation_time": 0.23423981666564941,
+      "proof_size_bytes": 2,
+      "constraint_count": 0,
+      "variable_count": 0,
+      "verification_time": 0.023423981666564942,
+      "memory_usage_mb": 181.46875,
+      "cpu_usage_percent": 36.4,
+      "timestamp": 1759158170.3945441
+    },
+    {
+      "client_id": "enhanced_client_2",
+      "proof_generation_time": 0.23966264724731445,
+      "proof_size_bytes": 2,
+      "constraint_count": 0,
+      "variable_count": 0,
+      "verification_time": 0.023966264724731446,
+      "memory_usage_mb": 349.5078125,
+      "cpu_usage_percent": 40.1,
+      "timestamp": 1759158175.6652427
+    }
+  ],
+  "aggregation_metrics": [],
+  "ml_metrics": [
+    {
+      "client_id": "enhanced_client_2",
+      "round_number": 0,
+      "initial_loss": 0.6736471652984619,
+      "final_loss": 0.6661548614501953,
+      "loss_improvement": 0.0074923038482666016,
+      "accuracy": 0.9130684733390808,
+      "training_time": 1.1715476512908936,
+      "data_samples": 79948,
+      "epochs": 3,
+      "learning_rate": 0.01,
+      "timestamp": 1759158159.0610507
+    },
+    {
+      "client_id": "enhanced_client_2",
+      "round_number": 1,
+      "initial_loss": 0.6661468148231506,
+      "final_loss": 0.6588407754898071,
+      "loss_improvement": 0.007306039333343506,
+      "accuracy": 0.9130684733390808,
+      "training_time": 1.109161615371704,
+      "data_samples": 79948,
+      "epochs": 3,
+      "learning_rate": 0.01,
+      "timestamp": 1759158164.5414042
+    },
+    {
+      "client_id": "enhanced_client_2",
+      "round_number": 2,
+      "initial_loss": 0.6588264107704163,
+      "final_loss": 0.6516886353492737,
+      "loss_improvement": 0.007137775421142578,
+      "accuracy": 0.9130684733390808,
+      "training_time": 1.0517222881317139,
+      "data_samples": 79948,
+      "epochs": 3,
+      "learning_rate": 0.01,
+      "timestamp": 1759158170.1600618
+    },
+    {
+      "client_id": "enhanced_client_2",
+      "round_number": 3,
+      "initial_loss": 0.651675283908844,
+      "final_loss": 0.6447052955627441,
+      "loss_improvement": 0.0069699883460998535,
+      "accuracy": 0.9130684733390808,
+      "training_time": 1.033515453338623,
+      "data_samples": 79948,
+      "epochs": 3,
+      "learning_rate": 0.01,
+      "timestamp": 1759158175.4252992
+    }
+  ],
+  "communication_metrics": [
+    {
+      "round_number": 0,
+      "client_id": "enhanced_client_2",
+      "weights_size_bytes": 50692,
+      "proof_size_bytes": 194,
+      "upload_time": 0.025944924354553225,
+      "download_time": 0.05,
+      "total_bandwidth_bytes": 50886,
+      "timestamp": 1759158159.321137
+    },
+    {
+      "round_number": 1,
+      "client_id": "enhanced_client_2",
+      "weights_size_bytes": 50692,
+      "proof_size_bytes": 194,
+      "upload_time": 0.02319445610046387,
+      "download_time": 0.05,
+      "total_bandwidth_bytes": 50886,
+      "timestamp": 1759158164.7740276
+    },
+    {
+      "round_number": 2,
+      "client_id": "enhanced_client_2",
+      "weights_size_bytes": 50692,
+      "proof_size_bytes": 194,
+      "upload_time": 0.023423981666564942,
+      "download_time": 0.05,
+      "total_bandwidth_bytes": 50886,
+      "timestamp": 1759158170.394943
+    },
+    {
+      "round_number": 3,
+      "client_id": "enhanced_client_2",
+      "weights_size_bytes": 50692,
+      "proof_size_bytes": 194,
+      "upload_time": 0.023966264724731446,
+      "download_time": 0.05,
+      "total_bandwidth_bytes": 50886,
+      "timestamp": 1759158175.6659098
+    }
+  ],
+  "system_metrics": [],
+  "system_snapshots": [
+    {
+      "timestamp": 1759158154.9871876,
+      "cpu_percent": 0.0,
+      "memory_mb": 5126.95703125,
+      "disk_io": {
+        "read_count": 8227612,
+        "write_count": 5234497,
+        "read_bytes": 397287524864,
+        "write_bytes": 410626354176,
+        "read_time": 1648000,
+        "write_time": 136105229,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 1746827
+      },
+      "network_io": {
+        "bytes_sent": 132607488,
+        "bytes_recv": 602644563,
+        "packets_sent": 290667,
+        "packets_recv": 748803,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158155.0926821,
+      "cpu_percent": 48.8,
+      "memory_mb": 5131.484375,
+      "disk_io": {
+        "read_count": 8227744,
+        "write_count": 5234497,
+        "read_bytes": 397292313088,
+        "write_bytes": 410626354176,
+        "read_time": 1648014,
+        "write_time": 136105229,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 1746849
+      },
+      "network_io": {
+        "bytes_sent": 132608096,
+        "bytes_recv": 602648568,
+        "packets_sent": 290672,
+        "packets_recv": 748810,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158155.201903,
+      "cpu_percent": 10.9,
+      "memory_mb": 5134.0078125,
+      "disk_io": {
+        "read_count": 16433862,
+        "write_count": 5234497,
+        "read_bytes": 793879131648,
+        "write_bytes": 410626354176,
+        "read_time": 1648031,
+        "write_time": 136105229,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 1746862
+      },
+      "network_io": {
+        "bytes_sent": 132608841,
+        "bytes_recv": 602651206,
+        "packets_sent": 290676,
+        "packets_recv": 748816,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158155.3872952,
+      "cpu_percent": 11.9,
+      "memory_mb": 5137.8515625,
+      "disk_io": {
+        "read_count": 24640281,
+        "write_count": 5234500,
+        "read_bytes": 1190473859584,
+        "write_bytes": 410626366464,
+        "read_time": 1648046,
+        "write_time": 136105230,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 1746875
+      },
+      "network_io": {
+        "bytes_sent": 132619477,
+        "bytes_recv": 602666460,
+        "packets_sent": 290688,
+        "packets_recv": 748841,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158155.50035,
+      "cpu_percent": 12.4,
+      "memory_mb": 5145.90234375,
+      "disk_io": {
+        "read_count": 32846731,
+        "write_count": 5234500,
+        "read_bytes": 1587069173248,
+        "write_bytes": 410626366464,
+        "read_time": 1648062,
+        "write_time": 136105230,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 1746892
+      },
+      "network_io": {
+        "bytes_sent": 132620387,
+        "bytes_recv": 602669762,
+        "packets_sent": 290696,
+        "packets_recv": 748848,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158155.6132264,
+      "cpu_percent": 13.0,
+      "memory_mb": 5148.0625,
+      "disk_io": {
+        "read_count": 49259851,
+        "write_count": 5234500,
+        "read_bytes": 2380265199104,
+        "write_bytes": 410626366464,
+        "read_time": 3291829,
+        "write_time": 136105230,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 1746900
+      },
+      "network_io": {
+        "bytes_sent": 132620571,
+        "bytes_recv": 602673865,
+        "packets_sent": 290698,
+        "packets_recv": 748860,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158155.7222505,
+      "cpu_percent": 14.6,
+      "memory_mb": 5151.97265625,
+      "disk_io": {
+        "read_count": 65672977,
+        "write_count": 5234500,
+        "read_bytes": 3173460590080,
+        "write_bytes": 410626366464,
+        "read_time": 3291835,
+        "write_time": 136105230,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 2834210
+      },
+      "network_io": {
+        "bytes_sent": 132621067,
+        "bytes_recv": 602677654,
+        "packets_sent": 290704,
+        "packets_recv": 748876,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158155.8346074,
+      "cpu_percent": 13.4,
+      "memory_mb": 5153.78125,
+      "disk_io": {
+        "read_count": 82086242,
+        "write_count": 5234500,
+        "read_bytes": 3966658561536,
+        "write_bytes": 410626366464,
+        "read_time": 4935608,
+        "write_time": 136105230,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 2834212
+      },
+      "network_io": {
+        "bytes_sent": 132621279,
+        "bytes_recv": 602682095,
+        "packets_sent": 290706,
+        "packets_recv": 748891,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158155.9541428,
+      "cpu_percent": 15.3,
+      "memory_mb": 5139.5859375,
+      "disk_io": {
+        "read_count": 98499732,
+        "write_count": 5234500,
+        "read_bytes": 4759863774720,
+        "write_bytes": 410626366464,
+        "read_time": 8223173,
+        "write_time": 136105230,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 2834221
+      },
+      "network_io": {
+        "bytes_sent": 132622025,
+        "bytes_recv": 602688842,
+        "packets_sent": 290713,
+        "packets_recv": 748913,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158156.069424,
+      "cpu_percent": 32.8,
+      "memory_mb": 5269.32421875,
+      "disk_io": {
+        "read_count": 98499805,
+        "write_count": 5234500,
+        "read_bytes": 4759865122304,
+        "write_bytes": 410626366464,
+        "read_time": 8223180,
+        "write_time": 136105230,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 2834227
+      },
+      "network_io": {
+        "bytes_sent": 132623670,
+        "bytes_recv": 602693108,
+        "packets_sent": 290723,
+        "packets_recv": 748927,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158156.1794395,
+      "cpu_percent": 42.0,
+      "memory_mb": 5315.77734375,
+      "disk_io": {
+        "read_count": 98499810,
+        "write_count": 5234500,
+        "read_bytes": 4759865142784,
+        "write_bytes": 410626366464,
+        "read_time": 8223180,
+        "write_time": 136105230,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 2834228
+      },
+      "network_io": {
+        "bytes_sent": 132625044,
+        "bytes_recv": 602697486,
+        "packets_sent": 290732,
+        "packets_recv": 748938,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158156.2876608,
+      "cpu_percent": 25.1,
+      "memory_mb": 5371.6328125,
+      "disk_io": {
+        "read_count": 98499810,
+        "write_count": 5234500,
+        "read_bytes": 4759865142784,
+        "write_bytes": 410626366464,
+        "read_time": 8223180,
+        "write_time": 136105230,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845936,
+        "busy_time": 2834228
+      },
+      "network_io": {
+        "bytes_sent": 132626502,
+        "bytes_recv": 602703556,
+        "packets_sent": 290741,
+        "packets_recv": 748957,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158156.3973844,
+      "cpu_percent": 22.4,
+      "memory_mb": 5426.01953125,
+      "disk_io": {
+        "read_count": 98499810,
+        "write_count": 5234501,
+        "read_bytes": 4759865142784,
+        "write_bytes": 410626386944,
+        "read_time": 8223180,
+        "write_time": 136105231,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845937,
+        "busy_time": 2834229
+      },
+      "network_io": {
+        "bytes_sent": 132627715,
+        "bytes_recv": 602709759,
+        "packets_sent": 290747,
+        "packets_recv": 748974,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158156.4992666,
+      "cpu_percent": 8.6,
+      "memory_mb": 5424.75390625,
+      "disk_io": {
+        "read_count": 98499810,
+        "write_count": 5234501,
+        "read_bytes": 4759865142784,
+        "write_bytes": 410626386944,
+        "read_time": 8223180,
+        "write_time": 136105231,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845937,
+        "busy_time": 2834229
+      },
+      "network_io": {
+        "bytes_sent": 132629182,
+        "bytes_recv": 602713449,
+        "packets_sent": 290756,
+        "packets_recv": 748987,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158156.6035953,
+      "cpu_percent": 7.9,
+      "memory_mb": 5413.5,
+      "disk_io": {
+        "read_count": 98499810,
+        "write_count": 5234501,
+        "read_bytes": 4759865142784,
+        "write_bytes": 410626386944,
+        "read_time": 8223180,
+        "write_time": 136105231,
+        "read_merged_count": 440458,
+        "write_merged_count": 5845937,
+        "busy_time": 2834229
+      },
+      "network_io": {
+        "bytes_sent": 132630534,
+        "bytes_recv": 602718336,
+        "packets_sent": 290764,
+        "packets_recv": 749003,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158156.7093725,
+      "cpu_percent": 10.8,
+      "memory_mb": 5424.62890625,
+      "disk_io": {
+        "read_count": 98499835,
+        "write_count": 5234501,
+        "read_bytes": 4759866042880,
+        "write_bytes": 410626386944,
+        "read_time": 8223184,
+        "write_time": 136105231,
+        "read_merged_count": 440459,
+        "write_merged_count": 5845937,
+        "busy_time": 2834232
+      },
+      "network_io": {
+        "bytes_sent": 132632136,
+        "bytes_recv": 602723894,
+        "packets_sent": 290772,
+        "packets_recv": 749020,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158156.8153718,
+      "cpu_percent": 68.3,
+      "memory_mb": 5314.234375,
+      "disk_io": {
+        "read_count": 98499840,
+        "write_count": 5234501,
+        "read_bytes": 4759866161664,
+        "write_bytes": 410626386944,
+        "read_time": 8223186,
+        "write_time": 136105231,
+        "read_merged_count": 440459,
+        "write_merged_count": 5845937,
+        "busy_time": 2834233
+      },
+      "network_io": {
+        "bytes_sent": 132633659,
+        "bytes_recv": 602728538,
+        "packets_sent": 290780,
+        "packets_recv": 749036,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158156.9190261,
+      "cpu_percent": 29.7,
+      "memory_mb": 5297.19921875,
+      "disk_io": {
+        "read_count": 98499846,
+        "write_count": 5234501,
+        "read_bytes": 4759866198528,
+        "write_bytes": 410626386944,
+        "read_time": 8223188,
+        "write_time": 136105231,
+        "read_merged_count": 440462,
+        "write_merged_count": 5845937,
+        "busy_time": 2834234
+      },
+      "network_io": {
+        "bytes_sent": 132635742,
+        "bytes_recv": 602732187,
+        "packets_sent": 290795,
+        "packets_recv": 749051,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158157.0212739,
+      "cpu_percent": 20.5,
+      "memory_mb": 5355.796875,
+      "disk_io": {
+        "read_count": 98499861,
+        "write_count": 5234501,
+        "read_bytes": 4759866411520,
+        "write_bytes": 410626386944,
+        "read_time": 8223191,
+        "write_time": 136105231,
+        "read_merged_count": 440499,
+        "write_merged_count": 5845937,
+        "busy_time": 2834235
+      },
+      "network_io": {
+        "bytes_sent": 132636768,
+        "bytes_recv": 602740176,
+        "packets_sent": 290802,
+        "packets_recv": 749069,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158157.1229978,
+      "cpu_percent": 27.2,
+      "memory_mb": 5406.10546875,
+      "disk_io": {
+        "read_count": 98499880,
+        "write_count": 5234501,
+        "read_bytes": 4759866879488,
+        "write_bytes": 410626386944,
+        "read_time": 8223195,
+        "write_time": 136105231,
+        "read_merged_count": 440502,
+        "write_merged_count": 5845937,
+        "busy_time": 2834239
+      },
+      "network_io": {
+        "bytes_sent": 132636956,
+        "bytes_recv": 602744899,
+        "packets_sent": 290804,
+        "packets_recv": 749079,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158157.2247434,
+      "cpu_percent": 50.3,
+      "memory_mb": 5473.6328125,
+      "disk_io": {
+        "read_count": 98499886,
+        "write_count": 5234501,
+        "read_bytes": 4759866904064,
+        "write_bytes": 410626386944,
+        "read_time": 8223196,
+        "write_time": 136105231,
+        "read_merged_count": 440502,
+        "write_merged_count": 5845937,
+        "busy_time": 2834240
+      },
+      "network_io": {
+        "bytes_sent": 132638334,
+        "bytes_recv": 602750700,
+        "packets_sent": 290811,
+        "packets_recv": 749094,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158157.3278148,
+      "cpu_percent": 25.0,
+      "memory_mb": 5456.203125,
+      "disk_io": {
+        "read_count": 98499886,
+        "write_count": 5234501,
+        "read_bytes": 4759866904064,
+        "write_bytes": 410626386944,
+        "read_time": 8223196,
+        "write_time": 136105231,
+        "read_merged_count": 440502,
+        "write_merged_count": 5845937,
+        "busy_time": 2834240
+      },
+      "network_io": {
+        "bytes_sent": 132639673,
+        "bytes_recv": 602753552,
+        "packets_sent": 290818,
+        "packets_recv": 749103,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158157.4317985,
+      "cpu_percent": 49.1,
+      "memory_mb": 5485.83984375,
+      "disk_io": {
+        "read_count": 98499886,
+        "write_count": 5234501,
+        "read_bytes": 4759866904064,
+        "write_bytes": 410626386944,
+        "read_time": 8223196,
+        "write_time": 136105231,
+        "read_merged_count": 440502,
+        "write_merged_count": 5845937,
+        "busy_time": 2834240
+      },
+      "network_io": {
+        "bytes_sent": 132641058,
+        "bytes_recv": 602758352,
+        "packets_sent": 290828,
+        "packets_recv": 749121,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158157.537845,
+      "cpu_percent": 35.5,
+      "memory_mb": 5521.4375,
+      "disk_io": {
+        "read_count": 98499886,
+        "write_count": 5234501,
+        "read_bytes": 4759866904064,
+        "write_bytes": 410626386944,
+        "read_time": 8223196,
+        "write_time": 136105231,
+        "read_merged_count": 440502,
+        "write_merged_count": 5845937,
+        "busy_time": 2834240
+      },
+      "network_io": {
+        "bytes_sent": 132641815,
+        "bytes_recv": 602767144,
+        "packets_sent": 290832,
+        "packets_recv": 749139,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158157.6436443,
+      "cpu_percent": 42.2,
+      "memory_mb": 5488.83984375,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234501,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410626386944,
+        "read_time": 8223200,
+        "write_time": 136105231,
+        "read_merged_count": 440506,
+        "write_merged_count": 5845937,
+        "busy_time": 2834243
+      },
+      "network_io": {
+        "bytes_sent": 132642023,
+        "bytes_recv": 602771810,
+        "packets_sent": 290834,
+        "packets_recv": 749149,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158157.7489893,
+      "cpu_percent": 61.4,
+      "memory_mb": 5493.203125,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234501,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410626386944,
+        "read_time": 8223200,
+        "write_time": 136105231,
+        "read_merged_count": 440506,
+        "write_merged_count": 5845937,
+        "busy_time": 2834243
+      },
+      "network_io": {
+        "bytes_sent": 132645278,
+        "bytes_recv": 602779720,
+        "packets_sent": 290841,
+        "packets_recv": 749161,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158157.8529081,
+      "cpu_percent": 18.8,
+      "memory_mb": 5487.74609375,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234501,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410626386944,
+        "read_time": 8223200,
+        "write_time": 136105231,
+        "read_merged_count": 440506,
+        "write_merged_count": 5845937,
+        "busy_time": 2834243
+      },
+      "network_io": {
+        "bytes_sent": 132645812,
+        "bytes_recv": 602784783,
+        "packets_sent": 290846,
+        "packets_recv": 749178,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158157.9601078,
+      "cpu_percent": 64.5,
+      "memory_mb": 5493.8671875,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234501,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410626386944,
+        "read_time": 8223200,
+        "write_time": 136105231,
+        "read_merged_count": 440506,
+        "write_merged_count": 5845937,
+        "busy_time": 2834243
+      },
+      "network_io": {
+        "bytes_sent": 132646272,
+        "bytes_recv": 602788665,
+        "packets_sent": 290850,
+        "packets_recv": 749190,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158158.063396,
+      "cpu_percent": 25.8,
+      "memory_mb": 5550.0625,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234501,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410626386944,
+        "read_time": 8223200,
+        "write_time": 136105231,
+        "read_merged_count": 440506,
+        "write_merged_count": 5845937,
+        "busy_time": 2834243
+      },
+      "network_io": {
+        "bytes_sent": 132646522,
+        "bytes_recv": 602796854,
+        "packets_sent": 290853,
+        "packets_recv": 749206,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158158.1672764,
+      "cpu_percent": 37.0,
+      "memory_mb": 5364.7109375,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234501,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410626386944,
+        "read_time": 8223200,
+        "write_time": 136105231,
+        "read_merged_count": 440506,
+        "write_merged_count": 5845937,
+        "busy_time": 2834243
+      },
+      "network_io": {
+        "bytes_sent": 132646862,
+        "bytes_recv": 602801106,
+        "packets_sent": 290857,
+        "packets_recv": 749217,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158158.2727263,
+      "cpu_percent": 58.1,
+      "memory_mb": 5447.80859375,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234501,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410626386944,
+        "read_time": 8223200,
+        "write_time": 136105231,
+        "read_merged_count": 440506,
+        "write_merged_count": 5845937,
+        "busy_time": 2834243
+      },
+      "network_io": {
+        "bytes_sent": 132647350,
+        "bytes_recv": 602806717,
+        "packets_sent": 290861,
+        "packets_recv": 749236,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158158.376032,
+      "cpu_percent": 40.5,
+      "memory_mb": 5494.5859375,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234501,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410626386944,
+        "read_time": 8223200,
+        "write_time": 136105231,
+        "read_merged_count": 440506,
+        "write_merged_count": 5845937,
+        "busy_time": 2834243
+      },
+      "network_io": {
+        "bytes_sent": 132647652,
+        "bytes_recv": 602809213,
+        "packets_sent": 290864,
+        "packets_recv": 749247,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158158.4790618,
+      "cpu_percent": 38.7,
+      "memory_mb": 5566.14453125,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234501,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410626386944,
+        "read_time": 8223200,
+        "write_time": 136105231,
+        "read_merged_count": 440506,
+        "write_merged_count": 5845937,
+        "busy_time": 2834243
+      },
+      "network_io": {
+        "bytes_sent": 132648012,
+        "bytes_recv": 602813996,
+        "packets_sent": 290867,
+        "packets_recv": 749258,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158158.586625,
+      "cpu_percent": 78.7,
+      "memory_mb": 5620.76953125,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234637,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410643373056,
+        "read_time": 8223200,
+        "write_time": 136105322,
+        "read_merged_count": 440506,
+        "write_merged_count": 5845999,
+        "busy_time": 2834248
+      },
+      "network_io": {
+        "bytes_sent": 132648396,
+        "bytes_recv": 602821778,
+        "packets_sent": 290871,
+        "packets_recv": 749272,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158158.6897976,
+      "cpu_percent": 50.3,
+      "memory_mb": 5321.8203125,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234756,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410644388864,
+        "read_time": 8223200,
+        "write_time": 136105427,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834249
+      },
+      "network_io": {
+        "bytes_sent": 132649140,
+        "bytes_recv": 602827107,
+        "packets_sent": 290877,
+        "packets_recv": 749288,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158158.7914865,
+      "cpu_percent": 18.9,
+      "memory_mb": 5347.328125,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234756,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410644388864,
+        "read_time": 8223200,
+        "write_time": 136105427,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834249
+      },
+      "network_io": {
+        "bytes_sent": 132650324,
+        "bytes_recv": 602829312,
+        "packets_sent": 290884,
+        "packets_recv": 749301,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158158.8935559,
+      "cpu_percent": 25.8,
+      "memory_mb": 5395.59375,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234756,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410644388864,
+        "read_time": 8223200,
+        "write_time": 136105427,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834249
+      },
+      "network_io": {
+        "bytes_sent": 132651619,
+        "bytes_recv": 602834834,
+        "packets_sent": 290894,
+        "packets_recv": 749318,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158158.9951603,
+      "cpu_percent": 48.1,
+      "memory_mb": 5425.79296875,
+      "disk_io": {
+        "read_count": 98499897,
+        "write_count": 5234756,
+        "read_bytes": 4759867141632,
+        "write_bytes": 410644388864,
+        "read_time": 8223200,
+        "write_time": 136105427,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834249
+      },
+      "network_io": {
+        "bytes_sent": 132652334,
+        "bytes_recv": 602840203,
+        "packets_sent": 290899,
+        "packets_recv": 749332,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158159.100024,
+      "cpu_percent": 49.7,
+      "memory_mb": 5398.453125,
+      "disk_io": {
+        "read_count": 98499899,
+        "write_count": 5234756,
+        "read_bytes": 4759867182592,
+        "write_bytes": 410644388864,
+        "read_time": 8223203,
+        "write_time": 136105427,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834250
+      },
+      "network_io": {
+        "bytes_sent": 132653652,
+        "bytes_recv": 602848255,
+        "packets_sent": 290907,
+        "packets_recv": 749350,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158159.2026238,
+      "cpu_percent": 62.7,
+      "memory_mb": 5415.76953125,
+      "disk_io": {
+        "read_count": 98499899,
+        "write_count": 5234756,
+        "read_bytes": 4759867182592,
+        "write_bytes": 410644388864,
+        "read_time": 8223203,
+        "write_time": 136105427,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834250
+      },
+      "network_io": {
+        "bytes_sent": 132654825,
+        "bytes_recv": 602850180,
+        "packets_sent": 290915,
+        "packets_recv": 749364,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158159.3056672,
+      "cpu_percent": 23.9,
+      "memory_mb": 5500.9375,
+      "disk_io": {
+        "read_count": 98499899,
+        "write_count": 5234756,
+        "read_bytes": 4759867182592,
+        "write_bytes": 410644388864,
+        "read_time": 8223203,
+        "write_time": 136105427,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834250
+      },
+      "network_io": {
+        "bytes_sent": 132655152,
+        "bytes_recv": 602854447,
+        "packets_sent": 290918,
+        "packets_recv": 749376,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158159.4084105,
+      "cpu_percent": 71.8,
+      "memory_mb": 5513.87890625,
+      "disk_io": {
+        "read_count": 98499900,
+        "write_count": 5234756,
+        "read_bytes": 4759867186688,
+        "write_bytes": 410644388864,
+        "read_time": 8223204,
+        "write_time": 136105427,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834251
+      },
+      "network_io": {
+        "bytes_sent": 132655332,
+        "bytes_recv": 602856887,
+        "packets_sent": 290920,
+        "packets_recv": 749385,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158159.51105,
+      "cpu_percent": 20.7,
+      "memory_mb": 5530.2421875,
+      "disk_io": {
+        "read_count": 98499901,
+        "write_count": 5234810,
+        "read_bytes": 4759867190784,
+        "write_bytes": 410644634624,
+        "read_time": 8223205,
+        "write_time": 136105439,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834252
+      },
+      "network_io": {
+        "bytes_sent": 132655426,
+        "bytes_recv": 602861501,
+        "packets_sent": 290921,
+        "packets_recv": 749396,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158159.6132858,
+      "cpu_percent": 24.1,
+      "memory_mb": 5562.0234375,
+      "disk_io": {
+        "read_count": 98499901,
+        "write_count": 5234810,
+        "read_bytes": 4759867190784,
+        "write_bytes": 410644634624,
+        "read_time": 8223205,
+        "write_time": 136105439,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834252
+      },
+      "network_io": {
+        "bytes_sent": 132656594,
+        "bytes_recv": 602870637,
+        "packets_sent": 290928,
+        "packets_recv": 749419,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158159.7175984,
+      "cpu_percent": 47.0,
+      "memory_mb": 5580.5390625,
+      "disk_io": {
+        "read_count": 98499901,
+        "write_count": 5234810,
+        "read_bytes": 4759867190784,
+        "write_bytes": 410644634624,
+        "read_time": 8223205,
+        "write_time": 136105439,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834252
+      },
+      "network_io": {
+        "bytes_sent": 132658101,
+        "bytes_recv": 602874198,
+        "packets_sent": 290937,
+        "packets_recv": 749433,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158159.8195167,
+      "cpu_percent": 25.5,
+      "memory_mb": 5541.05859375,
+      "disk_io": {
+        "read_count": 98499902,
+        "write_count": 5234810,
+        "read_bytes": 4759867194880,
+        "write_bytes": 410644634624,
+        "read_time": 8223207,
+        "write_time": 136105439,
+        "read_merged_count": 440506,
+        "write_merged_count": 5846128,
+        "busy_time": 2834253
+      },
+      "network_io": {
+        "bytes_sent": 132659458,
+        "bytes_recv": 602879841,
+        "packets_sent": 290945,
+        "packets_recv": 749453,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158159.9224195,
+      "cpu_percent": 31.5,
+      "memory_mb": 5605.14453125,
+      "disk_io": {
+        "read_count": 98499912,
+        "write_count": 5234810,
+        "read_bytes": 4759867244032,
+        "write_bytes": 410644634624,
+        "read_time": 8223214,
+        "write_time": 136105439,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846128,
+        "busy_time": 2834254
+      },
+      "network_io": {
+        "bytes_sent": 132671903,
+        "bytes_recv": 602888140,
+        "packets_sent": 290994,
+        "packets_recv": 749500,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158160.024607,
+      "cpu_percent": 32.9,
+      "memory_mb": 5363.0,
+      "disk_io": {
+        "read_count": 98499914,
+        "write_count": 5234998,
+        "read_bytes": 4759867252224,
+        "write_bytes": 410646576128,
+        "read_time": 8223215,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834256
+      },
+      "network_io": {
+        "bytes_sent": 132674003,
+        "bytes_recv": 602897218,
+        "packets_sent": 291006,
+        "packets_recv": 749521,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158160.1311092,
+      "cpu_percent": 38.3,
+      "memory_mb": 5305.02734375,
+      "disk_io": {
+        "read_count": 98499914,
+        "write_count": 5234998,
+        "read_bytes": 4759867252224,
+        "write_bytes": 410646576128,
+        "read_time": 8223215,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834256
+      },
+      "network_io": {
+        "bytes_sent": 132675033,
+        "bytes_recv": 602904150,
+        "packets_sent": 291012,
+        "packets_recv": 749535,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158160.234389,
+      "cpu_percent": 17.1,
+      "memory_mb": 5339.75390625,
+      "disk_io": {
+        "read_count": 98499914,
+        "write_count": 5234998,
+        "read_bytes": 4759867252224,
+        "write_bytes": 410646576128,
+        "read_time": 8223215,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834256
+      },
+      "network_io": {
+        "bytes_sent": 132676825,
+        "bytes_recv": 602905760,
+        "packets_sent": 291023,
+        "packets_recv": 749546,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158160.3393662,
+      "cpu_percent": 24.0,
+      "memory_mb": 5384.8203125,
+      "disk_io": {
+        "read_count": 98499914,
+        "write_count": 5234998,
+        "read_bytes": 4759867252224,
+        "write_bytes": 410646576128,
+        "read_time": 8223215,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834256
+      },
+      "network_io": {
+        "bytes_sent": 132677811,
+        "bytes_recv": 602910711,
+        "packets_sent": 291030,
+        "packets_recv": 749557,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158160.442424,
+      "cpu_percent": 47.5,
+      "memory_mb": 5407.16015625,
+      "disk_io": {
+        "read_count": 98499914,
+        "write_count": 5234998,
+        "read_bytes": 4759867252224,
+        "write_bytes": 410646576128,
+        "read_time": 8223215,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834256
+      },
+      "network_io": {
+        "bytes_sent": 132678986,
+        "bytes_recv": 602915638,
+        "packets_sent": 291036,
+        "packets_recv": 749573,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158160.546787,
+      "cpu_percent": 69.6,
+      "memory_mb": 5398.74609375,
+      "disk_io": {
+        "read_count": 98499915,
+        "write_count": 5234998,
+        "read_bytes": 4759867256320,
+        "write_bytes": 410646576128,
+        "read_time": 8223216,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834257
+      },
+      "network_io": {
+        "bytes_sent": 132680716,
+        "bytes_recv": 602919466,
+        "packets_sent": 291045,
+        "packets_recv": 749586,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158160.6514275,
+      "cpu_percent": 27.0,
+      "memory_mb": 5413.05078125,
+      "disk_io": {
+        "read_count": 98499915,
+        "write_count": 5234998,
+        "read_bytes": 4759867256320,
+        "write_bytes": 410646576128,
+        "read_time": 8223216,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834257
+      },
+      "network_io": {
+        "bytes_sent": 132682475,
+        "bytes_recv": 602923351,
+        "packets_sent": 291053,
+        "packets_recv": 749600,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158160.755156,
+      "cpu_percent": 55.2,
+      "memory_mb": 5452.44140625,
+      "disk_io": {
+        "read_count": 98499915,
+        "write_count": 5234998,
+        "read_bytes": 4759867256320,
+        "write_bytes": 410646576128,
+        "read_time": 8223216,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834257
+      },
+      "network_io": {
+        "bytes_sent": 132684020,
+        "bytes_recv": 602932400,
+        "packets_sent": 291061,
+        "packets_recv": 749619,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158160.8592868,
+      "cpu_percent": 38.4,
+      "memory_mb": 5433.1015625,
+      "disk_io": {
+        "read_count": 98499915,
+        "write_count": 5234998,
+        "read_bytes": 4759867256320,
+        "write_bytes": 410646576128,
+        "read_time": 8223216,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834257
+      },
+      "network_io": {
+        "bytes_sent": 132685741,
+        "bytes_recv": 602938213,
+        "packets_sent": 291070,
+        "packets_recv": 749633,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158160.9624877,
+      "cpu_percent": 23.4,
+      "memory_mb": 5483.3046875,
+      "disk_io": {
+        "read_count": 98499915,
+        "write_count": 5234998,
+        "read_bytes": 4759867256320,
+        "write_bytes": 410646576128,
+        "read_time": 8223216,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834257
+      },
+      "network_io": {
+        "bytes_sent": 132687302,
+        "bytes_recv": 602942179,
+        "packets_sent": 291078,
+        "packets_recv": 749643,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158161.0682113,
+      "cpu_percent": 43.6,
+      "memory_mb": 5465.7421875,
+      "disk_io": {
+        "read_count": 98499915,
+        "write_count": 5234998,
+        "read_bytes": 4759867256320,
+        "write_bytes": 410646576128,
+        "read_time": 8223216,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 2834257
+      },
+      "network_io": {
+        "bytes_sent": 132688734,
+        "bytes_recv": 602950242,
+        "packets_sent": 291085,
+        "packets_recv": 749656,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158161.1717336,
+      "cpu_percent": 26.8,
+      "memory_mb": 5455.37890625,
+      "disk_io": {
+        "read_count": 98499918,
+        "write_count": 5234998,
+        "read_bytes": 4759867268608,
+        "write_bytes": 410646576128,
+        "read_time": 8223219,
+        "write_time": 136105654,
+        "read_merged_count": 440508,
+        "write_merged_count": 5846414,
+        "busy_time": 3921615
+      },
+      "network_io": {
+        "bytes_sent": 132690429,
+        "bytes_recv": 602951895,
+        "packets_sent": 291094,
+        "packets_recv": 749662,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158161.2751603,
+      "cpu_percent": 27.3,
+      "memory_mb": 5492.6328125,
+      "disk_io": {
+        "read_count": 98500238,
+        "write_count": 5234998,
+        "read_bytes": 4759868665344,
+        "write_bytes": 410646576128,
+        "read_time": 8223252,
+        "write_time": 136105654,
+        "read_merged_count": 440529,
+        "write_merged_count": 5846414,
+        "busy_time": 3921637
+      },
+      "network_io": {
+        "bytes_sent": 132692024,
+        "bytes_recv": 602959561,
+        "packets_sent": 291102,
+        "packets_recv": 749673,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158161.3782365,
+      "cpu_percent": 36.6,
+      "memory_mb": 5522.59765625,
+      "disk_io": {
+        "read_count": 98500281,
+        "write_count": 5234998,
+        "read_bytes": 4759868845568,
+        "write_bytes": 410646576128,
+        "read_time": 8223256,
+        "write_time": 136105654,
+        "read_merged_count": 440530,
+        "write_merged_count": 5846414,
+        "busy_time": 3921642
+      },
+      "network_io": {
+        "bytes_sent": 132693508,
+        "bytes_recv": 602964622,
+        "packets_sent": 291110,
+        "packets_recv": 749686,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158161.4837043,
+      "cpu_percent": 42.7,
+      "memory_mb": 5454.46875,
+      "disk_io": {
+        "read_count": 106708271,
+        "write_count": 5234998,
+        "read_bytes": 5156480576000,
+        "write_bytes": 410646576128,
+        "read_time": 8223293,
+        "write_time": 136105654,
+        "read_merged_count": 440908,
+        "write_merged_count": 5846414,
+        "busy_time": 3921669
+      },
+      "network_io": {
+        "bytes_sent": 132695054,
+        "bytes_recv": 602967825,
+        "packets_sent": 291119,
+        "packets_recv": 749696,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158161.5876167,
+      "cpu_percent": 19.3,
+      "memory_mb": 5464.9140625,
+      "disk_io": {
+        "read_count": 106709108,
+        "write_count": 5235076,
+        "read_bytes": 5156484303360,
+        "write_bytes": 410646895616,
+        "read_time": 8223363,
+        "write_time": 136105663,
+        "read_merged_count": 440980,
+        "write_merged_count": 5846414,
+        "busy_time": 3921716
+      },
+      "network_io": {
+        "bytes_sent": 132696766,
+        "bytes_recv": 602971706,
+        "packets_sent": 291129,
+        "packets_recv": 749707,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158161.693997,
+      "cpu_percent": 30.8,
+      "memory_mb": 5542.6328125,
+      "disk_io": {
+        "read_count": 106709936,
+        "write_count": 5235076,
+        "read_bytes": 5156488145408,
+        "write_bytes": 410646895616,
+        "read_time": 8223454,
+        "write_time": 136105663,
+        "read_merged_count": 441090,
+        "write_merged_count": 5846414,
+        "busy_time": 3921736
+      },
+      "network_io": {
+        "bytes_sent": 132696860,
+        "bytes_recv": 602977456,
+        "packets_sent": 291130,
+        "packets_recv": 749719,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158161.7978444,
+      "cpu_percent": 46.1,
+      "memory_mb": 5482.6796875,
+      "disk_io": {
+        "read_count": 114919442,
+        "write_count": 5235076,
+        "read_bytes": 5553105339904,
+        "write_bytes": 410646895616,
+        "read_time": 8223463,
+        "write_time": 136105663,
+        "read_merged_count": 441097,
+        "write_merged_count": 5846414,
+        "busy_time": 3921747
+      },
+      "network_io": {
+        "bytes_sent": 132698173,
+        "bytes_recv": 602996198,
+        "packets_sent": 291133,
+        "packets_recv": 749743,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158161.901885,
+      "cpu_percent": 65.4,
+      "memory_mb": 5437.95703125,
+      "disk_io": {
+        "read_count": 123130440,
+        "write_count": 5235076,
+        "read_bytes": 5949730353664,
+        "write_bytes": 410646895616,
+        "read_time": 8223540,
+        "write_time": 136105663,
+        "read_merged_count": 882531,
+        "write_merged_count": 5846414,
+        "busy_time": 3921801
+      },
+      "network_io": {
+        "bytes_sent": 132699680,
+        "bytes_recv": 603002038,
+        "packets_sent": 291142,
+        "packets_recv": 749761,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158162.005083,
+      "cpu_percent": 24.8,
+      "memory_mb": 5439.62109375,
+      "disk_io": {
+        "read_count": 123130565,
+        "write_count": 5235076,
+        "read_bytes": 5949731037696,
+        "write_bytes": 410646895616,
+        "read_time": 8223552,
+        "write_time": 136105663,
+        "read_merged_count": 882559,
+        "write_merged_count": 5846414,
+        "busy_time": 3921811
+      },
+      "network_io": {
+        "bytes_sent": 132700533,
+        "bytes_recv": 603007879,
+        "packets_sent": 291149,
+        "packets_recv": 749774,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158162.1067219,
+      "cpu_percent": 52.2,
+      "memory_mb": 5432.07421875,
+      "disk_io": {
+        "read_count": 123130586,
+        "write_count": 5235076,
+        "read_bytes": 5949731488256,
+        "write_bytes": 410646895616,
+        "read_time": 8223554,
+        "write_time": 136105663,
+        "read_merged_count": 882561,
+        "write_merged_count": 5846414,
+        "busy_time": 3921813
+      },
+      "network_io": {
+        "bytes_sent": 132701285,
+        "bytes_recv": 603011359,
+        "packets_sent": 291154,
+        "packets_recv": 749787,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158162.2123952,
+      "cpu_percent": 60.1,
+      "memory_mb": 5427.4609375,
+      "disk_io": {
+        "read_count": 123130603,
+        "write_count": 5235076,
+        "read_bytes": 5949731561984,
+        "write_bytes": 410646895616,
+        "read_time": 8223556,
+        "write_time": 136105663,
+        "read_merged_count": 882562,
+        "write_merged_count": 5846414,
+        "busy_time": 3921814
+      },
+      "network_io": {
+        "bytes_sent": 132701793,
+        "bytes_recv": 603017314,
+        "packets_sent": 291159,
+        "packets_recv": 749806,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158162.3161504,
+      "cpu_percent": 25.3,
+      "memory_mb": 5462.2265625,
+      "disk_io": {
+        "read_count": 123130670,
+        "write_count": 5235076,
+        "read_bytes": 5949732504064,
+        "write_bytes": 410646895616,
+        "read_time": 8223563,
+        "write_time": 136105663,
+        "read_merged_count": 882569,
+        "write_merged_count": 5846414,
+        "busy_time": 3921819
+      },
+      "network_io": {
+        "bytes_sent": 132701887,
+        "bytes_recv": 603025340,
+        "packets_sent": 291160,
+        "packets_recv": 749823,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158162.4183853,
+      "cpu_percent": 43.6,
+      "memory_mb": 5502.93359375,
+      "disk_io": {
+        "read_count": 123130689,
+        "write_count": 5235076,
+        "read_bytes": 5949732606464,
+        "write_bytes": 410646895616,
+        "read_time": 8223565,
+        "write_time": 136105663,
+        "read_merged_count": 882575,
+        "write_merged_count": 5846414,
+        "busy_time": 3921820
+      },
+      "network_io": {
+        "bytes_sent": 132703539,
+        "bytes_recv": 603029630,
+        "packets_sent": 291167,
+        "packets_recv": 749837,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158162.5212433,
+      "cpu_percent": 23.2,
+      "memory_mb": 5459.75390625,
+      "disk_io": {
+        "read_count": 123130697,
+        "write_count": 5235076,
+        "read_bytes": 5949732745728,
+        "write_bytes": 410646895616,
+        "read_time": 8223566,
+        "write_time": 136105663,
+        "read_merged_count": 882575,
+        "write_merged_count": 5846414,
+        "busy_time": 3921821
+      },
+      "network_io": {
+        "bytes_sent": 132704380,
+        "bytes_recv": 603033400,
+        "packets_sent": 291171,
+        "packets_recv": 749850,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158162.6245005,
+      "cpu_percent": 25.6,
+      "memory_mb": 5509.47265625,
+      "disk_io": {
+        "read_count": 123130706,
+        "write_count": 5235076,
+        "read_bytes": 5949732782592,
+        "write_bytes": 410646895616,
+        "read_time": 8223567,
+        "write_time": 136105663,
+        "read_merged_count": 882575,
+        "write_merged_count": 5846414,
+        "busy_time": 3921823
+      },
+      "network_io": {
+        "bytes_sent": 132704564,
+        "bytes_recv": 603038106,
+        "packets_sent": 291173,
+        "packets_recv": 749864,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158162.728348,
+      "cpu_percent": 41.8,
+      "memory_mb": 5564.859375,
+      "disk_io": {
+        "read_count": 123130725,
+        "write_count": 5235076,
+        "read_bytes": 5949732876800,
+        "write_bytes": 410646895616,
+        "read_time": 8223569,
+        "write_time": 136105663,
+        "read_merged_count": 882579,
+        "write_merged_count": 5846414,
+        "busy_time": 3921825
+      },
+      "network_io": {
+        "bytes_sent": 132704854,
+        "bytes_recv": 603042844,
+        "packets_sent": 291176,
+        "packets_recv": 749875,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158162.8322184,
+      "cpu_percent": 57.7,
+      "memory_mb": 5589.76953125,
+      "disk_io": {
+        "read_count": 123130762,
+        "write_count": 5235076,
+        "read_bytes": 5949733097984,
+        "write_bytes": 410646895616,
+        "read_time": 8223575,
+        "write_time": 136105663,
+        "read_merged_count": 882596,
+        "write_merged_count": 5846414,
+        "busy_time": 3921830
+      },
+      "network_io": {
+        "bytes_sent": 132705703,
+        "bytes_recv": 603047695,
+        "packets_sent": 291183,
+        "packets_recv": 749888,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158162.9355533,
+      "cpu_percent": 13.2,
+      "memory_mb": 5596.98828125,
+      "disk_io": {
+        "read_count": 123130762,
+        "write_count": 5235076,
+        "read_bytes": 5949733097984,
+        "write_bytes": 410646895616,
+        "read_time": 8223575,
+        "write_time": 136105663,
+        "read_merged_count": 882596,
+        "write_merged_count": 5846414,
+        "busy_time": 3921830
+      },
+      "network_io": {
+        "bytes_sent": 132705887,
+        "bytes_recv": 603052601,
+        "packets_sent": 291185,
+        "packets_recv": 749901,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158163.0389535,
+      "cpu_percent": 29.0,
+      "memory_mb": 5612.26171875,
+      "disk_io": {
+        "read_count": 123130782,
+        "write_count": 5235076,
+        "read_bytes": 5949733179904,
+        "write_bytes": 410646895616,
+        "read_time": 8223581,
+        "write_time": 136105663,
+        "read_merged_count": 882596,
+        "write_merged_count": 5846414,
+        "busy_time": 3921834
+      },
+      "network_io": {
+        "bytes_sent": 132706075,
+        "bytes_recv": 603065992,
+        "packets_sent": 291187,
+        "packets_recv": 749921,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158163.1424823,
+      "cpu_percent": 46.3,
+      "memory_mb": 5504.44140625,
+      "disk_io": {
+        "read_count": 123130786,
+        "write_count": 5235076,
+        "read_bytes": 5949733237248,
+        "write_bytes": 410646895616,
+        "read_time": 8223582,
+        "write_time": 136105663,
+        "read_merged_count": 882596,
+        "write_merged_count": 5846414,
+        "busy_time": 3921835
+      },
+      "network_io": {
+        "bytes_sent": 132706333,
+        "bytes_recv": 603084815,
+        "packets_sent": 291190,
+        "packets_recv": 749942,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158163.245285,
+      "cpu_percent": 63.0,
+      "memory_mb": 5483.78125,
+      "disk_io": {
+        "read_count": 123130786,
+        "write_count": 5235079,
+        "read_bytes": 5949733237248,
+        "write_bytes": 410647284736,
+        "read_time": 8223582,
+        "write_time": 136105663,
+        "read_merged_count": 882596,
+        "write_merged_count": 5846414,
+        "busy_time": 3921835
+      },
+      "network_io": {
+        "bytes_sent": 132710906,
+        "bytes_recv": 603109730,
+        "packets_sent": 291202,
+        "packets_recv": 749973,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158163.3496852,
+      "cpu_percent": 36.1,
+      "memory_mb": 5483.95703125,
+      "disk_io": {
+        "read_count": 123130790,
+        "write_count": 5235079,
+        "read_bytes": 5949733253632,
+        "write_bytes": 410647284736,
+        "read_time": 8223583,
+        "write_time": 136105663,
+        "read_merged_count": 882596,
+        "write_merged_count": 5846414,
+        "busy_time": 3921836
+      },
+      "network_io": {
+        "bytes_sent": 132711188,
+        "bytes_recv": 603122874,
+        "packets_sent": 291205,
+        "packets_recv": 749991,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158163.452016,
+      "cpu_percent": 49.1,
+      "memory_mb": 5586.05078125,
+      "disk_io": {
+        "read_count": 123130799,
+        "write_count": 5235080,
+        "read_bytes": 5949733396992,
+        "write_bytes": 410647288832,
+        "read_time": 8223584,
+        "write_time": 136105664,
+        "read_merged_count": 882622,
+        "write_merged_count": 5846414,
+        "busy_time": 3921838
+      },
+      "network_io": {
+        "bytes_sent": 132711546,
+        "bytes_recv": 603128339,
+        "packets_sent": 291208,
+        "packets_recv": 750006,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158163.555787,
+      "cpu_percent": 40.9,
+      "memory_mb": 5589.7265625,
+      "disk_io": {
+        "read_count": 123130810,
+        "write_count": 5235080,
+        "read_bytes": 5949733446144,
+        "write_bytes": 410647288832,
+        "read_time": 8223586,
+        "write_time": 136105664,
+        "read_merged_count": 882623,
+        "write_merged_count": 5846414,
+        "busy_time": 3921839
+      },
+      "network_io": {
+        "bytes_sent": 132715248,
+        "bytes_recv": 603135181,
+        "packets_sent": 291216,
+        "packets_recv": 750025,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158163.6582994,
+      "cpu_percent": 22.0,
+      "memory_mb": 5616.0625,
+      "disk_io": {
+        "read_count": 123130810,
+        "write_count": 5235080,
+        "read_bytes": 5949733446144,
+        "write_bytes": 410647288832,
+        "read_time": 8223586,
+        "write_time": 136105664,
+        "read_merged_count": 882623,
+        "write_merged_count": 5846414,
+        "busy_time": 3921839
+      },
+      "network_io": {
+        "bytes_sent": 132715962,
+        "bytes_recv": 603144009,
+        "packets_sent": 291222,
+        "packets_recv": 750049,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158163.7606018,
+      "cpu_percent": 32.7,
+      "memory_mb": 5643.10546875,
+      "disk_io": {
+        "read_count": 123130810,
+        "write_count": 5235080,
+        "read_bytes": 5949733446144,
+        "write_bytes": 410647288832,
+        "read_time": 8223586,
+        "write_time": 136105664,
+        "read_merged_count": 882623,
+        "write_merged_count": 5846414,
+        "busy_time": 3921839
+      },
+      "network_io": {
+        "bytes_sent": 132717397,
+        "bytes_recv": 603150738,
+        "packets_sent": 291226,
+        "packets_recv": 750064,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158163.8641849,
+      "cpu_percent": 35.0,
+      "memory_mb": 5537.69140625,
+      "disk_io": {
+        "read_count": 123130810,
+        "write_count": 5235080,
+        "read_bytes": 5949733446144,
+        "write_bytes": 410647288832,
+        "read_time": 8223586,
+        "write_time": 136105664,
+        "read_merged_count": 882623,
+        "write_merged_count": 5846414,
+        "busy_time": 3921839
+      },
+      "network_io": {
+        "bytes_sent": 132718787,
+        "bytes_recv": 603161052,
+        "packets_sent": 291235,
+        "packets_recv": 750083,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158163.9670603,
+      "cpu_percent": 14.6,
+      "memory_mb": 5559.890625,
+      "disk_io": {
+        "read_count": 123130813,
+        "write_count": 5235080,
+        "read_bytes": 5949733458432,
+        "write_bytes": 410647288832,
+        "read_time": 8223589,
+        "write_time": 136105664,
+        "read_merged_count": 882623,
+        "write_merged_count": 5846414,
+        "busy_time": 3921841
+      },
+      "network_io": {
+        "bytes_sent": 132720052,
+        "bytes_recv": 603170032,
+        "packets_sent": 291243,
+        "packets_recv": 750098,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158164.0698097,
+      "cpu_percent": 27.8,
+      "memory_mb": 5607.55859375,
+      "disk_io": {
+        "read_count": 123130819,
+        "write_count": 5235080,
+        "read_bytes": 5949733487104,
+        "write_bytes": 410647288832,
+        "read_time": 8223591,
+        "write_time": 136105664,
+        "read_merged_count": 882624,
+        "write_merged_count": 5846414,
+        "busy_time": 3921843
+      },
+      "network_io": {
+        "bytes_sent": 132721509,
+        "bytes_recv": 603182987,
+        "packets_sent": 291251,
+        "packets_recv": 750121,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158164.1724408,
+      "cpu_percent": 45.7,
+      "memory_mb": 5568.74609375,
+      "disk_io": {
+        "read_count": 123130819,
+        "write_count": 5235080,
+        "read_bytes": 5949733487104,
+        "write_bytes": 410647288832,
+        "read_time": 8223591,
+        "write_time": 136105664,
+        "read_merged_count": 882624,
+        "write_merged_count": 5846414,
+        "busy_time": 3921843
+      },
+      "network_io": {
+        "bytes_sent": 132723078,
+        "bytes_recv": 603193520,
+        "packets_sent": 291262,
+        "packets_recv": 750139,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158164.276643,
+      "cpu_percent": 19.8,
+      "memory_mb": 5566.37109375,
+      "disk_io": {
+        "read_count": 123130822,
+        "write_count": 5235080,
+        "read_bytes": 5949733499392,
+        "write_bytes": 410647288832,
+        "read_time": 8223593,
+        "write_time": 136105664,
+        "read_merged_count": 882624,
+        "write_merged_count": 5846414,
+        "busy_time": 3921845
+      },
+      "network_io": {
+        "bytes_sent": 132724309,
+        "bytes_recv": 603202820,
+        "packets_sent": 291271,
+        "packets_recv": 750157,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158164.3792775,
+      "cpu_percent": 23.2,
+      "memory_mb": 5599.59375,
+      "disk_io": {
+        "read_count": 123130871,
+        "write_count": 5235080,
+        "read_bytes": 5949733728768,
+        "write_bytes": 410647288832,
+        "read_time": 8223601,
+        "write_time": 136105664,
+        "read_merged_count": 882631,
+        "write_merged_count": 5846414,
+        "busy_time": 3921851
+      },
+      "network_io": {
+        "bytes_sent": 132725545,
+        "bytes_recv": 603206569,
+        "packets_sent": 291277,
+        "packets_recv": 750165,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158164.4826088,
+      "cpu_percent": 45.4,
+      "memory_mb": 5589.7265625,
+      "disk_io": {
+        "read_count": 123130871,
+        "write_count": 5235080,
+        "read_bytes": 5949733728768,
+        "write_bytes": 410647288832,
+        "read_time": 8223601,
+        "write_time": 136105664,
+        "read_merged_count": 882631,
+        "write_merged_count": 5846414,
+        "busy_time": 3921851
+      },
+      "network_io": {
+        "bytes_sent": 132727003,
+        "bytes_recv": 603216121,
+        "packets_sent": 291286,
+        "packets_recv": 750185,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158164.5861995,
+      "cpu_percent": 52.8,
+      "memory_mb": 5540.7890625,
+      "disk_io": {
+        "read_count": 123130871,
+        "write_count": 5235086,
+        "read_bytes": 5949733728768,
+        "write_bytes": 410647788544,
+        "read_time": 8223601,
+        "write_time": 136105667,
+        "read_merged_count": 882631,
+        "write_merged_count": 5846438,
+        "busy_time": 3921853
+      },
+      "network_io": {
+        "bytes_sent": 132727511,
+        "bytes_recv": 603231083,
+        "packets_sent": 291291,
+        "packets_recv": 750206,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158164.6903887,
+      "cpu_percent": 47.0,
+      "memory_mb": 5248.89453125,
+      "disk_io": {
+        "read_count": 123130875,
+        "write_count": 5235087,
+        "read_bytes": 5949733745152,
+        "write_bytes": 410647829504,
+        "read_time": 8223602,
+        "write_time": 136105668,
+        "read_merged_count": 882631,
+        "write_merged_count": 5846447,
+        "busy_time": 3921854
+      },
+      "network_io": {
+        "bytes_sent": 132727617,
+        "bytes_recv": 603276273,
+        "packets_sent": 291292,
+        "packets_recv": 750246,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158164.793851,
+      "cpu_percent": 25.7,
+      "memory_mb": 5358.453125,
+      "disk_io": {
+        "read_count": 123130875,
+        "write_count": 5235088,
+        "read_bytes": 5949733745152,
+        "write_bytes": 410647833600,
+        "read_time": 8223602,
+        "write_time": 136105668,
+        "read_merged_count": 882631,
+        "write_merged_count": 5846447,
+        "busy_time": 3921854
+      },
+      "network_io": {
+        "bytes_sent": 132727817,
+        "bytes_recv": 603288933,
+        "packets_sent": 291294,
+        "packets_recv": 750262,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158164.8978686,
+      "cpu_percent": 62.0,
+      "memory_mb": 5453.2890625,
+      "disk_io": {
+        "read_count": 123130875,
+        "write_count": 5235088,
+        "read_bytes": 5949733745152,
+        "write_bytes": 410647833600,
+        "read_time": 8223602,
+        "write_time": 136105668,
+        "read_merged_count": 882631,
+        "write_merged_count": 5846447,
+        "busy_time": 3921854
+      },
+      "network_io": {
+        "bytes_sent": 132728671,
+        "bytes_recv": 603306961,
+        "packets_sent": 291302,
+        "packets_recv": 750287,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158165.0020473,
+      "cpu_percent": 23.2,
+      "memory_mb": 5493.625,
+      "disk_io": {
+        "read_count": 123130875,
+        "write_count": 5235088,
+        "read_bytes": 5949733745152,
+        "write_bytes": 410647833600,
+        "read_time": 8223602,
+        "write_time": 136105668,
+        "read_merged_count": 882631,
+        "write_merged_count": 5846447,
+        "busy_time": 3921854
+      },
+      "network_io": {
+        "bytes_sent": 132728879,
+        "bytes_recv": 603317918,
+        "packets_sent": 291304,
+        "packets_recv": 750298,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158165.104869,
+      "cpu_percent": 25.3,
+      "memory_mb": 5504.44140625,
+      "disk_io": {
+        "read_count": 123130913,
+        "write_count": 5235088,
+        "read_bytes": 5949733966336,
+        "write_bytes": 410647833600,
+        "read_time": 8223607,
+        "write_time": 136105668,
+        "read_merged_count": 882636,
+        "write_merged_count": 5846447,
+        "busy_time": 3921859
+      },
+      "network_io": {
+        "bytes_sent": 132729231,
+        "bytes_recv": 603321861,
+        "packets_sent": 291308,
+        "packets_recv": 750304,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158165.210179,
+      "cpu_percent": 41.6,
+      "memory_mb": 5508.1640625,
+      "disk_io": {
+        "read_count": 123130914,
+        "write_count": 5235088,
+        "read_bytes": 5949733970432,
+        "write_bytes": 410647833600,
+        "read_time": 8223607,
+        "write_time": 136105668,
+        "read_merged_count": 882636,
+        "write_merged_count": 5846447,
+        "busy_time": 3921859
+      },
+      "network_io": {
+        "bytes_sent": 132729317,
+        "bytes_recv": 603326842,
+        "packets_sent": 291309,
+        "packets_recv": 750312,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158165.3136473,
+      "cpu_percent": 12.8,
+      "memory_mb": 5537.28125,
+      "disk_io": {
+        "read_count": 123130914,
+        "write_count": 5235088,
+        "read_bytes": 5949733970432,
+        "write_bytes": 410647833600,
+        "read_time": 8223607,
+        "write_time": 136105668,
+        "read_merged_count": 882636,
+        "write_merged_count": 5846447,
+        "busy_time": 3921859
+      },
+      "network_io": {
+        "bytes_sent": 132730567,
+        "bytes_recv": 603328261,
+        "packets_sent": 291317,
+        "packets_recv": 750321,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158165.416888,
+      "cpu_percent": 22.6,
+      "memory_mb": 5575.25390625,
+      "disk_io": {
+        "read_count": 123130917,
+        "write_count": 5235088,
+        "read_bytes": 5949733982720,
+        "write_bytes": 410647833600,
+        "read_time": 8223609,
+        "write_time": 136105668,
+        "read_merged_count": 882636,
+        "write_merged_count": 5846447,
+        "busy_time": 3921860
+      },
+      "network_io": {
+        "bytes_sent": 132732481,
+        "bytes_recv": 603335855,
+        "packets_sent": 291328,
+        "packets_recv": 750338,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158165.5218499,
+      "cpu_percent": 47.3,
+      "memory_mb": 5599.984375,
+      "disk_io": {
+        "read_count": 123130917,
+        "write_count": 5235088,
+        "read_bytes": 5949733982720,
+        "write_bytes": 410647833600,
+        "read_time": 8223609,
+        "write_time": 136105668,
+        "read_merged_count": 882636,
+        "write_merged_count": 5846447,
+        "busy_time": 3921860
+      },
+      "network_io": {
+        "bytes_sent": 132734011,
+        "bytes_recv": 603344598,
+        "packets_sent": 291335,
+        "packets_recv": 750352,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158165.6252897,
+      "cpu_percent": 22.8,
+      "memory_mb": 5610.16015625,
+      "disk_io": {
+        "read_count": 123130917,
+        "write_count": 5235088,
+        "read_bytes": 5949733982720,
+        "write_bytes": 410647833600,
+        "read_time": 8223609,
+        "write_time": 136105668,
+        "read_merged_count": 882636,
+        "write_merged_count": 5846447,
+        "busy_time": 3921860
+      },
+      "network_io": {
+        "bytes_sent": 132735626,
+        "bytes_recv": 603348394,
+        "packets_sent": 291343,
+        "packets_recv": 750362,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158165.7289824,
+      "cpu_percent": 22.4,
+      "memory_mb": 5648.8203125,
+      "disk_io": {
+        "read_count": 123130919,
+        "write_count": 5235088,
+        "read_bytes": 5949733990912,
+        "write_bytes": 410647833600,
+        "read_time": 8223611,
+        "write_time": 136105668,
+        "read_merged_count": 882636,
+        "write_merged_count": 5846447,
+        "busy_time": 3921861
+      },
+      "network_io": {
+        "bytes_sent": 132737144,
+        "bytes_recv": 603351412,
+        "packets_sent": 291350,
+        "packets_recv": 750368,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158165.8335154,
+      "cpu_percent": 28.1,
+      "memory_mb": 5681.91015625,
+      "disk_io": {
+        "read_count": 123130952,
+        "write_count": 5235088,
+        "read_bytes": 5949734150656,
+        "write_bytes": 410647833600,
+        "read_time": 8223614,
+        "write_time": 136105668,
+        "read_merged_count": 882642,
+        "write_merged_count": 5846447,
+        "busy_time": 3921865
+      },
+      "network_io": {
+        "bytes_sent": 132738664,
+        "bytes_recv": 603376519,
+        "packets_sent": 291358,
+        "packets_recv": 750393,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158165.936424,
+      "cpu_percent": 47.2,
+      "memory_mb": 5643.54296875,
+      "disk_io": {
+        "read_count": 123130952,
+        "write_count": 5235088,
+        "read_bytes": 5949734150656,
+        "write_bytes": 410647833600,
+        "read_time": 8223614,
+        "write_time": 136105668,
+        "read_merged_count": 882642,
+        "write_merged_count": 5846447,
+        "busy_time": 3921865
+      },
+      "network_io": {
+        "bytes_sent": 132740284,
+        "bytes_recv": 603384354,
+        "packets_sent": 291366,
+        "packets_recv": 750407,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158166.0381825,
+      "cpu_percent": 67.5,
+      "memory_mb": 5663.0546875,
+      "disk_io": {
+        "read_count": 123130952,
+        "write_count": 5235091,
+        "read_bytes": 5949734150656,
+        "write_bytes": 410648222720,
+        "read_time": 8223614,
+        "write_time": 136105672,
+        "read_merged_count": 882642,
+        "write_merged_count": 5846447,
+        "busy_time": 3921867
+      },
+      "network_io": {
+        "bytes_sent": 132741788,
+        "bytes_recv": 603395208,
+        "packets_sent": 291374,
+        "packets_recv": 750425,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158166.1476831,
+      "cpu_percent": 34.7,
+      "memory_mb": 5663.68359375,
+      "disk_io": {
+        "read_count": 123130968,
+        "write_count": 5235091,
+        "read_bytes": 5949734224384,
+        "write_bytes": 410648222720,
+        "read_time": 8223617,
+        "write_time": 136105672,
+        "read_merged_count": 882644,
+        "write_merged_count": 5846447,
+        "busy_time": 3921868
+      },
+      "network_io": {
+        "bytes_sent": 132743118,
+        "bytes_recv": 603401455,
+        "packets_sent": 291381,
+        "packets_recv": 750439,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158166.2503493,
+      "cpu_percent": 46.6,
+      "memory_mb": 5736.09375,
+      "disk_io": {
+        "read_count": 123130969,
+        "write_count": 5235092,
+        "read_bytes": 5949734228480,
+        "write_bytes": 410648226816,
+        "read_time": 8223618,
+        "write_time": 136105672,
+        "read_merged_count": 882644,
+        "write_merged_count": 5846447,
+        "busy_time": 3921870
+      },
+      "network_io": {
+        "bytes_sent": 132744771,
+        "bytes_recv": 603410514,
+        "packets_sent": 291391,
+        "packets_recv": 750455,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158166.3535018,
+      "cpu_percent": 44.2,
+      "memory_mb": 5560.01953125,
+      "disk_io": {
+        "read_count": 123130987,
+        "write_count": 5235095,
+        "read_bytes": 5949734310400,
+        "write_bytes": 410648243200,
+        "read_time": 8223621,
+        "write_time": 136105835,
+        "read_merged_count": 882646,
+        "write_merged_count": 5846448,
+        "busy_time": 3921925
+      },
+      "network_io": {
+        "bytes_sent": 132745558,
+        "bytes_recv": 603431380,
+        "packets_sent": 291397,
+        "packets_recv": 750478,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158166.4563103,
+      "cpu_percent": 27.8,
+      "memory_mb": 5606.4296875,
+      "disk_io": {
+        "read_count": 123132508,
+        "write_count": 5235095,
+        "read_bytes": 5949741310464,
+        "write_bytes": 410648243200,
+        "read_time": 8223806,
+        "write_time": 136105835,
+        "read_merged_count": 882840,
+        "write_merged_count": 5846448,
+        "busy_time": 3921941
+      },
+      "network_io": {
+        "bytes_sent": 132746820,
+        "bytes_recv": 603444815,
+        "packets_sent": 291403,
+        "packets_recv": 750496,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158166.5590687,
+      "cpu_percent": 37.7,
+      "memory_mb": 5625.4765625,
+      "disk_io": {
+        "read_count": 123135714,
+        "write_count": 5235095,
+        "read_bytes": 5949757424128,
+        "write_bytes": 410648243200,
+        "read_time": 8224130,
+        "write_time": 136105835,
+        "read_merged_count": 883562,
+        "write_merged_count": 5846448,
+        "busy_time": 3921988
+      },
+      "network_io": {
+        "bytes_sent": 132748542,
+        "bytes_recv": 603453793,
+        "packets_sent": 291414,
+        "packets_recv": 750512,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158166.6642392,
+      "cpu_percent": 48.8,
+      "memory_mb": 5612.37109375,
+      "disk_io": {
+        "read_count": 123135715,
+        "write_count": 5235095,
+        "read_bytes": 5949757428224,
+        "write_bytes": 410648243200,
+        "read_time": 8224130,
+        "write_time": 136105835,
+        "read_merged_count": 883562,
+        "write_merged_count": 5846448,
+        "busy_time": 3921988
+      },
+      "network_io": {
+        "bytes_sent": 132750048,
+        "bytes_recv": 603467524,
+        "packets_sent": 291423,
+        "packets_recv": 750535,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158166.7673216,
+      "cpu_percent": 17.7,
+      "memory_mb": 5613.19921875,
+      "disk_io": {
+        "read_count": 123135808,
+        "write_count": 5235095,
+        "read_bytes": 5949758497280,
+        "write_bytes": 410648243200,
+        "read_time": 8224141,
+        "write_time": 136105835,
+        "read_merged_count": 883705,
+        "write_merged_count": 5846448,
+        "busy_time": 3921996
+      },
+      "network_io": {
+        "bytes_sent": 132753041,
+        "bytes_recv": 603471402,
+        "packets_sent": 291436,
+        "packets_recv": 750549,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158166.8708677,
+      "cpu_percent": 34.1,
+      "memory_mb": 5659.4453125,
+      "disk_io": {
+        "read_count": 123135909,
+        "write_count": 5235095,
+        "read_bytes": 5949759033856,
+        "write_bytes": 410648243200,
+        "read_time": 8224152,
+        "write_time": 136105835,
+        "read_merged_count": 883721,
+        "write_merged_count": 5846448,
+        "busy_time": 3922005
+      },
+      "network_io": {
+        "bytes_sent": 132754752,
+        "bytes_recv": 603482948,
+        "packets_sent": 291448,
+        "packets_recv": 750575,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158166.974989,
+      "cpu_percent": 49.4,
+      "memory_mb": 5644.14453125,
+      "disk_io": {
+        "read_count": 123135937,
+        "write_count": 5235173,
+        "read_bytes": 5949759410688,
+        "write_bytes": 410650115072,
+        "read_time": 8224155,
+        "write_time": 136106244,
+        "read_merged_count": 883739,
+        "write_merged_count": 5846827,
+        "busy_time": 3922009
+      },
+      "network_io": {
+        "bytes_sent": 132764210,
+        "bytes_recv": 603508283,
+        "packets_sent": 291478,
+        "packets_recv": 750618,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158167.0804045,
+      "cpu_percent": 48.5,
+      "memory_mb": 5604.54296875,
+      "disk_io": {
+        "read_count": 123135942,
+        "write_count": 5235173,
+        "read_bytes": 5949759431168,
+        "write_bytes": 410650115072,
+        "read_time": 8224156,
+        "write_time": 136106244,
+        "read_merged_count": 883739,
+        "write_merged_count": 5846827,
+        "busy_time": 3922010
+      },
+      "network_io": {
+        "bytes_sent": 132765930,
+        "bytes_recv": 603523914,
+        "packets_sent": 291488,
+        "packets_recv": 750645,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158167.1837912,
+      "cpu_percent": 17.6,
+      "memory_mb": 5622.515625,
+      "disk_io": {
+        "read_count": 123135944,
+        "write_count": 5235173,
+        "read_bytes": 5949759443456,
+        "write_bytes": 410650115072,
+        "read_time": 8224157,
+        "write_time": 136106244,
+        "read_merged_count": 883740,
+        "write_merged_count": 5846827,
+        "busy_time": 3922011
+      },
+      "network_io": {
+        "bytes_sent": 132768340,
+        "bytes_recv": 603536146,
+        "packets_sent": 291502,
+        "packets_recv": 750665,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158167.2870708,
+      "cpu_percent": 28.2,
+      "memory_mb": 5702.8515625,
+      "disk_io": {
+        "read_count": 123135946,
+        "write_count": 5235173,
+        "read_bytes": 5949759455744,
+        "write_bytes": 410650115072,
+        "read_time": 8224157,
+        "write_time": 136106244,
+        "read_merged_count": 883740,
+        "write_merged_count": 5846827,
+        "busy_time": 3922013
+      },
+      "network_io": {
+        "bytes_sent": 132778721,
+        "bytes_recv": 603553284,
+        "packets_sent": 291520,
+        "packets_recv": 750695,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158167.3931308,
+      "cpu_percent": 62.3,
+      "memory_mb": 5324.5390625,
+      "disk_io": {
+        "read_count": 123135948,
+        "write_count": 5235436,
+        "read_bytes": 5949759472128,
+        "write_bytes": 410651769856,
+        "read_time": 8224158,
+        "write_time": 136109553,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922022
+      },
+      "network_io": {
+        "bytes_sent": 132780631,
+        "bytes_recv": 603559076,
+        "packets_sent": 291529,
+        "packets_recv": 750708,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158167.4967203,
+      "cpu_percent": 74.0,
+      "memory_mb": 5393.66796875,
+      "disk_io": {
+        "read_count": 123135950,
+        "write_count": 5235439,
+        "read_bytes": 5949759480320,
+        "write_bytes": 410652158976,
+        "read_time": 8224160,
+        "write_time": 136109553,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922025
+      },
+      "network_io": {
+        "bytes_sent": 132782456,
+        "bytes_recv": 603583007,
+        "packets_sent": 291540,
+        "packets_recv": 750742,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158167.6121044,
+      "cpu_percent": 61.2,
+      "memory_mb": 5399.3125,
+      "disk_io": {
+        "read_count": 123135950,
+        "write_count": 5235439,
+        "read_bytes": 5949759480320,
+        "write_bytes": 410652158976,
+        "read_time": 8224160,
+        "write_time": 136109553,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922025
+      },
+      "network_io": {
+        "bytes_sent": 132784540,
+        "bytes_recv": 603595825,
+        "packets_sent": 291551,
+        "packets_recv": 750766,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158167.7166767,
+      "cpu_percent": 17.9,
+      "memory_mb": 5396.71875,
+      "disk_io": {
+        "read_count": 123135950,
+        "write_count": 5235439,
+        "read_bytes": 5949759480320,
+        "write_bytes": 410652158976,
+        "read_time": 8224160,
+        "write_time": 136109553,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922025
+      },
+      "network_io": {
+        "bytes_sent": 132786149,
+        "bytes_recv": 603600434,
+        "packets_sent": 291559,
+        "packets_recv": 750780,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158167.8186908,
+      "cpu_percent": 68.3,
+      "memory_mb": 5390.48046875,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132787869,
+        "bytes_recv": 603608658,
+        "packets_sent": 291568,
+        "packets_recv": 750802,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158167.9225485,
+      "cpu_percent": 37.5,
+      "memory_mb": 5373.171875,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132789661,
+        "bytes_recv": 603615097,
+        "packets_sent": 291577,
+        "packets_recv": 750825,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158168.0357666,
+      "cpu_percent": 30.1,
+      "memory_mb": 5437.27734375,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132791235,
+        "bytes_recv": 603619437,
+        "packets_sent": 291586,
+        "packets_recv": 750833,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158168.140557,
+      "cpu_percent": 48.2,
+      "memory_mb": 5437.02734375,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132792720,
+        "bytes_recv": 603629394,
+        "packets_sent": 291594,
+        "packets_recv": 750846,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158168.242404,
+      "cpu_percent": 13.2,
+      "memory_mb": 5416.65625,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132794380,
+        "bytes_recv": 603637588,
+        "packets_sent": 291603,
+        "packets_recv": 750858,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158168.3450606,
+      "cpu_percent": 28.7,
+      "memory_mb": 5415.1171875,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132796001,
+        "bytes_recv": 603642664,
+        "packets_sent": 291612,
+        "packets_recv": 750872,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158168.4473329,
+      "cpu_percent": 42.0,
+      "memory_mb": 5451.01953125,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132797344,
+        "bytes_recv": 603653440,
+        "packets_sent": 291618,
+        "packets_recv": 750886,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158168.5496736,
+      "cpu_percent": 23.8,
+      "memory_mb": 5436.3828125,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132799186,
+        "bytes_recv": 603656518,
+        "packets_sent": 291628,
+        "packets_recv": 750897,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158168.651805,
+      "cpu_percent": 21.5,
+      "memory_mb": 5507.9453125,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132800966,
+        "bytes_recv": 603661332,
+        "packets_sent": 291638,
+        "packets_recv": 750912,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158168.753804,
+      "cpu_percent": 64.8,
+      "memory_mb": 5545.2734375,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132803015,
+        "bytes_recv": 603675787,
+        "packets_sent": 291649,
+        "packets_recv": 750933,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158168.8574545,
+      "cpu_percent": 63.6,
+      "memory_mb": 5438.76953125,
+      "disk_io": {
+        "read_count": 123135951,
+        "write_count": 5235440,
+        "read_bytes": 5949759484416,
+        "write_bytes": 410652163072,
+        "read_time": 8224160,
+        "write_time": 136109554,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922026
+      },
+      "network_io": {
+        "bytes_sent": 132804763,
+        "bytes_recv": 603688756,
+        "packets_sent": 291659,
+        "packets_recv": 750951,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158168.9718573,
+      "cpu_percent": 50.0,
+      "memory_mb": 5425.47265625,
+      "disk_io": {
+        "read_count": 123135952,
+        "write_count": 5235443,
+        "read_bytes": 5949759488512,
+        "write_bytes": 410652552192,
+        "read_time": 8224160,
+        "write_time": 136109558,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922028
+      },
+      "network_io": {
+        "bytes_sent": 132806525,
+        "bytes_recv": 603697331,
+        "packets_sent": 291668,
+        "packets_recv": 750962,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158169.0738037,
+      "cpu_percent": 18.9,
+      "memory_mb": 5420.46484375,
+      "disk_io": {
+        "read_count": 123135952,
+        "write_count": 5235443,
+        "read_bytes": 5949759488512,
+        "write_bytes": 410652552192,
+        "read_time": 8224160,
+        "write_time": 136109558,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922028
+      },
+      "network_io": {
+        "bytes_sent": 132808207,
+        "bytes_recv": 603704440,
+        "packets_sent": 291677,
+        "packets_recv": 750974,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158169.177285,
+      "cpu_percent": 68.7,
+      "memory_mb": 5420.46484375,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235444,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410652556288,
+        "read_time": 8224160,
+        "write_time": 136109560,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846968,
+        "busy_time": 3922029
+      },
+      "network_io": {
+        "bytes_sent": 132809748,
+        "bytes_recv": 603707537,
+        "packets_sent": 291685,
+        "packets_recv": 750991,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158169.2803962,
+      "cpu_percent": 33.5,
+      "memory_mb": 5421.40625,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235445,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410652564480,
+        "read_time": 8224160,
+        "write_time": 136109560,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846969,
+        "busy_time": 3922029
+      },
+      "network_io": {
+        "bytes_sent": 132811179,
+        "bytes_recv": 603729843,
+        "packets_sent": 291692,
+        "packets_recv": 751016,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158169.3840642,
+      "cpu_percent": 26.8,
+      "memory_mb": 5421.65234375,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235445,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410652564480,
+        "read_time": 8224160,
+        "write_time": 136109560,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846969,
+        "busy_time": 3922029
+      },
+      "network_io": {
+        "bytes_sent": 132812544,
+        "bytes_recv": 603740433,
+        "packets_sent": 291698,
+        "packets_recv": 751030,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158169.4857259,
+      "cpu_percent": 46.2,
+      "memory_mb": 5431.46484375,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235445,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410652564480,
+        "read_time": 8224160,
+        "write_time": 136109560,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846969,
+        "busy_time": 3922029
+      },
+      "network_io": {
+        "bytes_sent": 132814120,
+        "bytes_recv": 603760677,
+        "packets_sent": 291707,
+        "packets_recv": 751052,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158169.5877662,
+      "cpu_percent": 16.5,
+      "memory_mb": 5431.7109375,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235445,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410652564480,
+        "read_time": 8224160,
+        "write_time": 136109560,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846969,
+        "busy_time": 3922029
+      },
+      "network_io": {
+        "bytes_sent": 132816463,
+        "bytes_recv": 603790611,
+        "packets_sent": 291722,
+        "packets_recv": 751087,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158169.6928666,
+      "cpu_percent": 29.0,
+      "memory_mb": 5432.41015625,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235445,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410652564480,
+        "read_time": 8224160,
+        "write_time": 136109560,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846969,
+        "busy_time": 3922029
+      },
+      "network_io": {
+        "bytes_sent": 132818013,
+        "bytes_recv": 603835404,
+        "packets_sent": 291730,
+        "packets_recv": 751127,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158169.7949274,
+      "cpu_percent": 50.0,
+      "memory_mb": 5422.4296875,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235487,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410652838912,
+        "read_time": 8224160,
+        "write_time": 136109630,
+        "read_merged_count": 883742,
+        "write_merged_count": 5846992,
+        "busy_time": 3922030
+      },
+      "network_io": {
+        "bytes_sent": 132819022,
+        "bytes_recv": 603858711,
+        "packets_sent": 291737,
+        "packets_recv": 751150,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158169.8968983,
+      "cpu_percent": 14.8,
+      "memory_mb": 5422.7109375,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235491,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653072384,
+        "read_time": 8224160,
+        "write_time": 136109633,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922032
+      },
+      "network_io": {
+        "bytes_sent": 132819108,
+        "bytes_recv": 603879815,
+        "packets_sent": 291738,
+        "packets_recv": 751171,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158169.9994195,
+      "cpu_percent": 23.9,
+      "memory_mb": 5430.578125,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235491,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653072384,
+        "read_time": 8224160,
+        "write_time": 136109633,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922032
+      },
+      "network_io": {
+        "bytes_sent": 132819304,
+        "bytes_recv": 603900226,
+        "packets_sent": 291740,
+        "packets_recv": 751194,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158170.1018414,
+      "cpu_percent": 44.2,
+      "memory_mb": 5355.71484375,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235491,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653072384,
+        "read_time": 8224160,
+        "write_time": 136109633,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922032
+      },
+      "network_io": {
+        "bytes_sent": 132819724,
+        "bytes_recv": 603921494,
+        "packets_sent": 291744,
+        "packets_recv": 751223,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158170.2043927,
+      "cpu_percent": 57.1,
+      "memory_mb": 5310.44921875,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235494,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653461504,
+        "read_time": 8224160,
+        "write_time": 136109637,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922034
+      },
+      "network_io": {
+        "bytes_sent": 132820454,
+        "bytes_recv": 603932374,
+        "packets_sent": 291750,
+        "packets_recv": 751246,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158170.306988,
+      "cpu_percent": 44.1,
+      "memory_mb": 5311.79296875,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235494,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653461504,
+        "read_time": 8224160,
+        "write_time": 136109637,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922034
+      },
+      "network_io": {
+        "bytes_sent": 132820650,
+        "bytes_recv": 603946880,
+        "packets_sent": 291752,
+        "packets_recv": 751268,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158170.4094954,
+      "cpu_percent": 20.7,
+      "memory_mb": 5308.42578125,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235495,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653465600,
+        "read_time": 8224160,
+        "write_time": 136109638,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922035
+      },
+      "network_io": {
+        "bytes_sent": 132820945,
+        "bytes_recv": 603982406,
+        "packets_sent": 291755,
+        "packets_recv": 751307,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158170.5140052,
+      "cpu_percent": 55.2,
+      "memory_mb": 5308.671875,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235495,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653465600,
+        "read_time": 8224160,
+        "write_time": 136109638,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922035
+      },
+      "network_io": {
+        "bytes_sent": 132821201,
+        "bytes_recv": 604021077,
+        "packets_sent": 291757,
+        "packets_recv": 751347,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158170.6157277,
+      "cpu_percent": 23.7,
+      "memory_mb": 5303.515625,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235495,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653465600,
+        "read_time": 8224160,
+        "write_time": 136109638,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922035
+      },
+      "network_io": {
+        "bytes_sent": 132822876,
+        "bytes_recv": 604034917,
+        "packets_sent": 291765,
+        "packets_recv": 751367,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158170.7178812,
+      "cpu_percent": 40.5,
+      "memory_mb": 5357.14453125,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235495,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653465600,
+        "read_time": 8224160,
+        "write_time": 136109638,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922035
+      },
+      "network_io": {
+        "bytes_sent": 132823159,
+        "bytes_recv": 604046696,
+        "packets_sent": 291768,
+        "packets_recv": 751385,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158170.82225,
+      "cpu_percent": 25.3,
+      "memory_mb": 5355.9453125,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235496,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653469696,
+        "read_time": 8224160,
+        "write_time": 136109640,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922036
+      },
+      "network_io": {
+        "bytes_sent": 132823249,
+        "bytes_recv": 604056842,
+        "packets_sent": 291769,
+        "packets_recv": 751399,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158170.9244466,
+      "cpu_percent": 21.1,
+      "memory_mb": 5356.8984375,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235496,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653469696,
+        "read_time": 8224160,
+        "write_time": 136109640,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922036
+      },
+      "network_io": {
+        "bytes_sent": 132823532,
+        "bytes_recv": 604069295,
+        "packets_sent": 291772,
+        "packets_recv": 751421,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158171.0264788,
+      "cpu_percent": 43.8,
+      "memory_mb": 5366.2890625,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235496,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653469696,
+        "read_time": 8224160,
+        "write_time": 136109640,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922036
+      },
+      "network_io": {
+        "bytes_sent": 132824362,
+        "bytes_recv": 604085692,
+        "packets_sent": 291779,
+        "packets_recv": 751447,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158171.1290553,
+      "cpu_percent": 28.6,
+      "memory_mb": 5377.56640625,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235496,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653469696,
+        "read_time": 8224160,
+        "write_time": 136109640,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922036
+      },
+      "network_io": {
+        "bytes_sent": 132824574,
+        "bytes_recv": 604098299,
+        "packets_sent": 291781,
+        "packets_recv": 751472,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158171.2310011,
+      "cpu_percent": 18.5,
+      "memory_mb": 5407.37109375,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235496,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653469696,
+        "read_time": 8224160,
+        "write_time": 136109640,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922036
+      },
+      "network_io": {
+        "bytes_sent": 132824782,
+        "bytes_recv": 604123988,
+        "packets_sent": 291783,
+        "packets_recv": 751508,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158171.3341749,
+      "cpu_percent": 28.5,
+      "memory_mb": 5408.28125,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235496,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653469696,
+        "read_time": 8224160,
+        "write_time": 136109640,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922036
+      },
+      "network_io": {
+        "bytes_sent": 132824982,
+        "bytes_recv": 604132407,
+        "packets_sent": 291785,
+        "packets_recv": 751528,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158171.4412105,
+      "cpu_percent": 48.2,
+      "memory_mb": 5286.41796875,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235499,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653858816,
+        "read_time": 8224160,
+        "write_time": 136109643,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922037
+      },
+      "network_io": {
+        "bytes_sent": 132825618,
+        "bytes_recv": 604155019,
+        "packets_sent": 291790,
+        "packets_recv": 751559,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158171.546162,
+      "cpu_percent": 57.9,
+      "memory_mb": 5280.0859375,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235499,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653858816,
+        "read_time": 8224160,
+        "write_time": 136109643,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922037
+      },
+      "network_io": {
+        "bytes_sent": 132830275,
+        "bytes_recv": 604166166,
+        "packets_sent": 291805,
+        "packets_recv": 751587,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158171.648678,
+      "cpu_percent": 19.1,
+      "memory_mb": 5280.33203125,
+      "disk_io": {
+        "read_count": 123135954,
+        "write_count": 5235499,
+        "read_bytes": 5949759496704,
+        "write_bytes": 410653858816,
+        "read_time": 8224160,
+        "write_time": 136109643,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922037
+      },
+      "network_io": {
+        "bytes_sent": 132830553,
+        "bytes_recv": 604180606,
+        "packets_sent": 291808,
+        "packets_recv": 751609,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158171.7513738,
+      "cpu_percent": 60.1,
+      "memory_mb": 5271.00390625,
+      "disk_io": {
+        "read_count": 123135956,
+        "write_count": 5235500,
+        "read_bytes": 5949759504896,
+        "write_bytes": 410653862912,
+        "read_time": 8224160,
+        "write_time": 136109645,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922040
+      },
+      "network_io": {
+        "bytes_sent": 132830993,
+        "bytes_recv": 604190952,
+        "packets_sent": 291813,
+        "packets_recv": 751634,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158171.8539915,
+      "cpu_percent": 32.7,
+      "memory_mb": 5266.84375,
+      "disk_io": {
+        "read_count": 123135956,
+        "write_count": 5235501,
+        "read_bytes": 5949759504896,
+        "write_bytes": 410653867008,
+        "read_time": 8224160,
+        "write_time": 136109645,
+        "read_merged_count": 883742,
+        "write_merged_count": 5847002,
+        "busy_time": 3922040
+      },
+      "network_io": {
+        "bytes_sent": 132832364,
+        "bytes_recv": 604206507,
+        "packets_sent": 291824,
+        "packets_recv": 751660,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158171.9568524,
+      "cpu_percent": 28.7,
+      "memory_mb": 5290.3203125,
+      "disk_io": {
+        "read_count": 123136044,
+        "write_count": 5235527,
+        "read_bytes": 5949763420672,
+        "write_bytes": 410656242688,
+        "read_time": 8224188,
+        "write_time": 136109653,
+        "read_merged_count": 883747,
+        "write_merged_count": 5847043,
+        "busy_time": 3922055
+      },
+      "network_io": {
+        "bytes_sent": 132832992,
+        "bytes_recv": 604223656,
+        "packets_sent": 291828,
+        "packets_recv": 751686,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158172.059329,
+      "cpu_percent": 62.9,
+      "memory_mb": 5371.5234375,
+      "disk_io": {
+        "read_count": 123136111,
+        "write_count": 5235546,
+        "read_bytes": 5949765374464,
+        "write_bytes": 410657926144,
+        "read_time": 8224200,
+        "write_time": 136109659,
+        "read_merged_count": 883765,
+        "write_merged_count": 5847055,
+        "busy_time": 3922062
+      },
+      "network_io": {
+        "bytes_sent": 132835203,
+        "bytes_recv": 604242369,
+        "packets_sent": 291842,
+        "packets_recv": 751717,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158172.1616008,
+      "cpu_percent": 20.6,
+      "memory_mb": 5378.0546875,
+      "disk_io": {
+        "read_count": 123136115,
+        "write_count": 5235546,
+        "read_bytes": 5949765431808,
+        "write_bytes": 410657926144,
+        "read_time": 8224200,
+        "write_time": 136109659,
+        "read_merged_count": 883775,
+        "write_merged_count": 5847055,
+        "busy_time": 3922063
+      },
+      "network_io": {
+        "bytes_sent": 132836877,
+        "bytes_recv": 604252669,
+        "packets_sent": 291852,
+        "packets_recv": 751741,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158172.2641008,
+      "cpu_percent": 46.2,
+      "memory_mb": 5240.5625,
+      "disk_io": {
+        "read_count": 123136116,
+        "write_count": 5235550,
+        "read_bytes": 5949765435904,
+        "write_bytes": 410658372608,
+        "read_time": 8224201,
+        "write_time": 136109665,
+        "read_merged_count": 883775,
+        "write_merged_count": 5847160,
+        "busy_time": 3922066
+      },
+      "network_io": {
+        "bytes_sent": 132837329,
+        "bytes_recv": 604266297,
+        "packets_sent": 291856,
+        "packets_recv": 751762,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158172.3671105,
+      "cpu_percent": 57.7,
+      "memory_mb": 5370.41015625,
+      "disk_io": {
+        "read_count": 123136116,
+        "write_count": 5235550,
+        "read_bytes": 5949765435904,
+        "write_bytes": 410658372608,
+        "read_time": 8224201,
+        "write_time": 136109665,
+        "read_merged_count": 883775,
+        "write_merged_count": 5847160,
+        "busy_time": 3922066
+      },
+      "network_io": {
+        "bytes_sent": 132837899,
+        "bytes_recv": 604291359,
+        "packets_sent": 291861,
+        "packets_recv": 751793,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158172.469853,
+      "cpu_percent": 36.2,
+      "memory_mb": 5427.078125,
+      "disk_io": {
+        "read_count": 123136117,
+        "write_count": 5235550,
+        "read_bytes": 5949765440000,
+        "write_bytes": 410658372608,
+        "read_time": 8224202,
+        "write_time": 136109665,
+        "read_merged_count": 883775,
+        "write_merged_count": 5847160,
+        "busy_time": 3922068
+      },
+      "network_io": {
+        "bytes_sent": 132838099,
+        "bytes_recv": 604302595,
+        "packets_sent": 291863,
+        "packets_recv": 751813,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158172.5719123,
+      "cpu_percent": 77.0,
+      "memory_mb": 5441.84765625,
+      "disk_io": {
+        "read_count": 123136119,
+        "write_count": 5235550,
+        "read_bytes": 5949765452288,
+        "write_bytes": 410658372608,
+        "read_time": 8224203,
+        "write_time": 136109665,
+        "read_merged_count": 883776,
+        "write_merged_count": 5847160,
+        "busy_time": 3922068
+      },
+      "network_io": {
+        "bytes_sent": 132838197,
+        "bytes_recv": 604319326,
+        "packets_sent": 291864,
+        "packets_recv": 751841,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158172.6756546,
+      "cpu_percent": 43.6,
+      "memory_mb": 5492.64453125,
+      "disk_io": {
+        "read_count": 123136121,
+        "write_count": 5235550,
+        "read_bytes": 5949765460480,
+        "write_bytes": 410658372608,
+        "read_time": 8224206,
+        "write_time": 136109665,
+        "read_merged_count": 883776,
+        "write_merged_count": 5847160,
+        "busy_time": 3922070
+      },
+      "network_io": {
+        "bytes_sent": 132839040,
+        "bytes_recv": 604337860,
+        "packets_sent": 291872,
+        "packets_recv": 751870,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158172.7805266,
+      "cpu_percent": 65.9,
+      "memory_mb": 5480.23046875,
+      "disk_io": {
+        "read_count": 123136121,
+        "write_count": 5235683,
+        "read_bytes": 5949765460480,
+        "write_bytes": 410675231744,
+        "read_time": 8224206,
+        "write_time": 136110012,
+        "read_merged_count": 883776,
+        "write_merged_count": 5847194,
+        "busy_time": 3922076
+      },
+      "network_io": {
+        "bytes_sent": 132839311,
+        "bytes_recv": 604346020,
+        "packets_sent": 291875,
+        "packets_recv": 751887,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158172.8828437,
+      "cpu_percent": 54.6,
+      "memory_mb": 5411.2421875,
+      "disk_io": {
+        "read_count": 123136121,
+        "write_count": 5235686,
+        "read_bytes": 5949765460480,
+        "write_bytes": 410675620864,
+        "read_time": 8224206,
+        "write_time": 136110016,
+        "read_merged_count": 883776,
+        "write_merged_count": 5847194,
+        "busy_time": 3922077
+      },
+      "network_io": {
+        "bytes_sent": 132840453,
+        "bytes_recv": 604355517,
+        "packets_sent": 291883,
+        "packets_recv": 751905,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158172.9869106,
+      "cpu_percent": 65.0,
+      "memory_mb": 5411.2734375,
+      "disk_io": {
+        "read_count": 123136135,
+        "write_count": 5235686,
+        "read_bytes": 5949765521920,
+        "write_bytes": 410675620864,
+        "read_time": 8224209,
+        "write_time": 136110016,
+        "read_merged_count": 883777,
+        "write_merged_count": 5847194,
+        "busy_time": 3922079
+      },
+      "network_io": {
+        "bytes_sent": 132841617,
+        "bytes_recv": 604362741,
+        "packets_sent": 291892,
+        "packets_recv": 751923,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158173.089173,
+      "cpu_percent": 20.6,
+      "memory_mb": 5405.46484375,
+      "disk_io": {
+        "read_count": 123136135,
+        "write_count": 5235686,
+        "read_bytes": 5949765521920,
+        "write_bytes": 410675620864,
+        "read_time": 8224209,
+        "write_time": 136110016,
+        "read_merged_count": 883777,
+        "write_merged_count": 5847194,
+        "busy_time": 3922079
+      },
+      "network_io": {
+        "bytes_sent": 132842222,
+        "bytes_recv": 604369077,
+        "packets_sent": 291897,
+        "packets_recv": 751937,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158173.1916652,
+      "cpu_percent": 66.7,
+      "memory_mb": 5398.10546875,
+      "disk_io": {
+        "read_count": 123136139,
+        "write_count": 5235687,
+        "read_bytes": 5949765538304,
+        "write_bytes": 410675624960,
+        "read_time": 8224210,
+        "write_time": 136110018,
+        "read_merged_count": 883777,
+        "write_merged_count": 5847194,
+        "busy_time": 3922080
+      },
+      "network_io": {
+        "bytes_sent": 132842461,
+        "bytes_recv": 604377504,
+        "packets_sent": 291900,
+        "packets_recv": 751951,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158173.2948494,
+      "cpu_percent": 23.5,
+      "memory_mb": 5398.44140625,
+      "disk_io": {
+        "read_count": 123136139,
+        "write_count": 5235687,
+        "read_bytes": 5949765538304,
+        "write_bytes": 410675624960,
+        "read_time": 8224210,
+        "write_time": 136110018,
+        "read_merged_count": 883777,
+        "write_merged_count": 5847194,
+        "busy_time": 3922080
+      },
+      "network_io": {
+        "bytes_sent": 132842649,
+        "bytes_recv": 604386466,
+        "packets_sent": 291902,
+        "packets_recv": 751966,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158173.3995647,
+      "cpu_percent": 31.5,
+      "memory_mb": 5396.94140625,
+      "disk_io": {
+        "read_count": 123136139,
+        "write_count": 5235687,
+        "read_bytes": 5949765538304,
+        "write_bytes": 410675624960,
+        "read_time": 8224210,
+        "write_time": 136110018,
+        "read_merged_count": 883777,
+        "write_merged_count": 5847194,
+        "busy_time": 3922080
+      },
+      "network_io": {
+        "bytes_sent": 132842841,
+        "bytes_recv": 604392065,
+        "packets_sent": 291904,
+        "packets_recv": 751982,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158173.50202,
+      "cpu_percent": 49.4,
+      "memory_mb": 5402.80859375,
+      "disk_io": {
+        "read_count": 123136139,
+        "write_count": 5235687,
+        "read_bytes": 5949765538304,
+        "write_bytes": 410675624960,
+        "read_time": 8224210,
+        "write_time": 136110018,
+        "read_merged_count": 883777,
+        "write_merged_count": 5847194,
+        "busy_time": 3922080
+      },
+      "network_io": {
+        "bytes_sent": 132843664,
+        "bytes_recv": 604400269,
+        "packets_sent": 291912,
+        "packets_recv": 752001,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158173.6045592,
+      "cpu_percent": 17.3,
+      "memory_mb": 5403.984375,
+      "disk_io": {
+        "read_count": 123136143,
+        "write_count": 5235687,
+        "read_bytes": 5949765554688,
+        "write_bytes": 410675624960,
+        "read_time": 8224212,
+        "write_time": 136110018,
+        "read_merged_count": 883777,
+        "write_merged_count": 5847194,
+        "busy_time": 3922082
+      },
+      "network_io": {
+        "bytes_sent": 132844090,
+        "bytes_recv": 604405640,
+        "packets_sent": 291916,
+        "packets_recv": 752013,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158173.7093215,
+      "cpu_percent": 29.3,
+      "memory_mb": 5402.1015625,
+      "disk_io": {
+        "read_count": 123136143,
+        "write_count": 5235687,
+        "read_bytes": 5949765554688,
+        "write_bytes": 410675624960,
+        "read_time": 8224212,
+        "write_time": 136110018,
+        "read_merged_count": 883777,
+        "write_merged_count": 5847194,
+        "busy_time": 3922082
+      },
+      "network_io": {
+        "bytes_sent": 132844503,
+        "bytes_recv": 604406122,
+        "packets_sent": 291920,
+        "packets_recv": 752016,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158173.811525,
+      "cpu_percent": 46.0,
+      "memory_mb": 5446.140625,
+      "disk_io": {
+        "read_count": 123136143,
+        "write_count": 5235687,
+        "read_bytes": 5949765554688,
+        "write_bytes": 410675624960,
+        "read_time": 8224212,
+        "write_time": 136110018,
+        "read_merged_count": 883777,
+        "write_merged_count": 5847194,
+        "busy_time": 3922082
+      },
+      "network_io": {
+        "bytes_sent": 132844687,
+        "bytes_recv": 604415234,
+        "packets_sent": 291922,
+        "packets_recv": 752029,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158173.9136155,
+      "cpu_percent": 29.7,
+      "memory_mb": 5511.01171875,
+      "disk_io": {
+        "read_count": 123136201,
+        "write_count": 5235687,
+        "read_bytes": 5949770277376,
+        "write_bytes": 410675624960,
+        "read_time": 8224223,
+        "write_time": 136110018,
+        "read_merged_count": 883777,
+        "write_merged_count": 5847194,
+        "busy_time": 3922093
+      },
+      "network_io": {
+        "bytes_sent": 132864094,
+        "bytes_recv": 604429926,
+        "packets_sent": 291953,
+        "packets_recv": 752056,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158174.0162568,
+      "cpu_percent": 33.1,
+      "memory_mb": 5554.9375,
+      "disk_io": {
+        "read_count": 123136241,
+        "write_count": 5235691,
+        "read_bytes": 5949773353472,
+        "write_bytes": 410675747840,
+        "read_time": 8224231,
+        "write_time": 136110018,
+        "read_merged_count": 883778,
+        "write_merged_count": 5847220,
+        "busy_time": 3922101
+      },
+      "network_io": {
+        "bytes_sent": 132864398,
+        "bytes_recv": 604440651,
+        "packets_sent": 291956,
+        "packets_recv": 752071,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158174.1216362,
+      "cpu_percent": 41.0,
+      "memory_mb": 5501.5390625,
+      "disk_io": {
+        "read_count": 123136241,
+        "write_count": 5235691,
+        "read_bytes": 5949773353472,
+        "write_bytes": 410675747840,
+        "read_time": 8224231,
+        "write_time": 136110018,
+        "read_merged_count": 883778,
+        "write_merged_count": 5847220,
+        "busy_time": 3922101
+      },
+      "network_io": {
+        "bytes_sent": 132864804,
+        "bytes_recv": 604444635,
+        "packets_sent": 291961,
+        "packets_recv": 752083,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158174.225718,
+      "cpu_percent": 61.1,
+      "memory_mb": 5502.015625,
+      "disk_io": {
+        "read_count": 123136241,
+        "write_count": 5235694,
+        "read_bytes": 5949773353472,
+        "write_bytes": 410676136960,
+        "read_time": 8224231,
+        "write_time": 136110022,
+        "read_merged_count": 883778,
+        "write_merged_count": 5847220,
+        "busy_time": 3922102
+      },
+      "network_io": {
+        "bytes_sent": 132866369,
+        "bytes_recv": 604446877,
+        "packets_sent": 291971,
+        "packets_recv": 752093,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158174.3287466,
+      "cpu_percent": 26.5,
+      "memory_mb": 5489.56640625,
+      "disk_io": {
+        "read_count": 123136241,
+        "write_count": 5235694,
+        "read_bytes": 5949773353472,
+        "write_bytes": 410676136960,
+        "read_time": 8224231,
+        "write_time": 136110022,
+        "read_merged_count": 883778,
+        "write_merged_count": 5847220,
+        "busy_time": 3922102
+      },
+      "network_io": {
+        "bytes_sent": 132868486,
+        "bytes_recv": 604452095,
+        "packets_sent": 291982,
+        "packets_recv": 752110,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158174.4308498,
+      "cpu_percent": 57.4,
+      "memory_mb": 5480.6953125,
+      "disk_io": {
+        "read_count": 123136241,
+        "write_count": 5235695,
+        "read_bytes": 5949773353472,
+        "write_bytes": 410676141056,
+        "read_time": 8224231,
+        "write_time": 136110023,
+        "read_merged_count": 883778,
+        "write_merged_count": 5847220,
+        "busy_time": 3922103
+      },
+      "network_io": {
+        "bytes_sent": 132870090,
+        "bytes_recv": 604458895,
+        "packets_sent": 291990,
+        "packets_recv": 752128,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158174.5326793,
+      "cpu_percent": 56.3,
+      "memory_mb": 5471.015625,
+      "disk_io": {
+        "read_count": 123136241,
+        "write_count": 5235695,
+        "read_bytes": 5949773353472,
+        "write_bytes": 410676141056,
+        "read_time": 8224231,
+        "write_time": 136110023,
+        "read_merged_count": 883778,
+        "write_merged_count": 5847220,
+        "busy_time": 3922103
+      },
+      "network_io": {
+        "bytes_sent": 132874920,
+        "bytes_recv": 604467795,
+        "packets_sent": 292003,
+        "packets_recv": 752148,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158174.6351864,
+      "cpu_percent": 29.9,
+      "memory_mb": 5461.15625,
+      "disk_io": {
+        "read_count": 123136242,
+        "write_count": 5235695,
+        "read_bytes": 5949773361664,
+        "write_bytes": 410676141056,
+        "read_time": 8224232,
+        "write_time": 136110023,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922104
+      },
+      "network_io": {
+        "bytes_sent": 132876594,
+        "bytes_recv": 604480578,
+        "packets_sent": 292011,
+        "packets_recv": 752167,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158174.7372165,
+      "cpu_percent": 50.3,
+      "memory_mb": 5470.69921875,
+      "disk_io": {
+        "read_count": 123136244,
+        "write_count": 5235695,
+        "read_bytes": 5949773369856,
+        "write_bytes": 410676141056,
+        "read_time": 8224233,
+        "write_time": 136110023,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922106
+      },
+      "network_io": {
+        "bytes_sent": 132878594,
+        "bytes_recv": 604499253,
+        "packets_sent": 292021,
+        "packets_recv": 752194,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158174.839356,
+      "cpu_percent": 29.2,
+      "memory_mb": 5465.60546875,
+      "disk_io": {
+        "read_count": 123136244,
+        "write_count": 5235695,
+        "read_bytes": 5949773369856,
+        "write_bytes": 410676141056,
+        "read_time": 8224233,
+        "write_time": 136110023,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922106
+      },
+      "network_io": {
+        "bytes_sent": 132880998,
+        "bytes_recv": 604520675,
+        "packets_sent": 292032,
+        "packets_recv": 752221,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158174.941805,
+      "cpu_percent": 24.4,
+      "memory_mb": 5452.4296875,
+      "disk_io": {
+        "read_count": 123136244,
+        "write_count": 5235695,
+        "read_bytes": 5949773369856,
+        "write_bytes": 410676141056,
+        "read_time": 8224233,
+        "write_time": 136110023,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922106
+      },
+      "network_io": {
+        "bytes_sent": 132882359,
+        "bytes_recv": 604537108,
+        "packets_sent": 292039,
+        "packets_recv": 752245,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158175.043776,
+      "cpu_percent": 38.9,
+      "memory_mb": 5465.9921875,
+      "disk_io": {
+        "read_count": 123136245,
+        "write_count": 5235695,
+        "read_bytes": 5949773373952,
+        "write_bytes": 410676141056,
+        "read_time": 8224235,
+        "write_time": 136110023,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922107
+      },
+      "network_io": {
+        "bytes_sent": 132884319,
+        "bytes_recv": 604540404,
+        "packets_sent": 292049,
+        "packets_recv": 752253,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158175.147086,
+      "cpu_percent": 36.8,
+      "memory_mb": 5467.59765625,
+      "disk_io": {
+        "read_count": 123136245,
+        "write_count": 5235695,
+        "read_bytes": 5949773373952,
+        "write_bytes": 410676141056,
+        "read_time": 8224235,
+        "write_time": 136110023,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922107
+      },
+      "network_io": {
+        "bytes_sent": 132888485,
+        "bytes_recv": 604550187,
+        "packets_sent": 292061,
+        "packets_recv": 752266,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158175.2493155,
+      "cpu_percent": 25.9,
+      "memory_mb": 5487.23828125,
+      "disk_io": {
+        "read_count": 123136245,
+        "write_count": 5235695,
+        "read_bytes": 5949773373952,
+        "write_bytes": 410676141056,
+        "read_time": 8224235,
+        "write_time": 136110023,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922107
+      },
+      "network_io": {
+        "bytes_sent": 132889921,
+        "bytes_recv": 604554427,
+        "packets_sent": 292069,
+        "packets_recv": 752275,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158175.3514662,
+      "cpu_percent": 31.7,
+      "memory_mb": 5487.23828125,
+      "disk_io": {
+        "read_count": 123136245,
+        "write_count": 5235695,
+        "read_bytes": 5949773373952,
+        "write_bytes": 410676141056,
+        "read_time": 8224235,
+        "write_time": 136110023,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922107
+      },
+      "network_io": {
+        "bytes_sent": 132893519,
+        "bytes_recv": 604563927,
+        "packets_sent": 292078,
+        "packets_recv": 752288,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158175.4566524,
+      "cpu_percent": 53.9,
+      "memory_mb": 5489.87109375,
+      "disk_io": {
+        "read_count": 123136245,
+        "write_count": 5235698,
+        "read_bytes": 5949773373952,
+        "write_bytes": 410676530176,
+        "read_time": 8224235,
+        "write_time": 136110027,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922109
+      },
+      "network_io": {
+        "bytes_sent": 132893789,
+        "bytes_recv": 604565466,
+        "packets_sent": 292081,
+        "packets_recv": 752297,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158175.5653553,
+      "cpu_percent": 58.9,
+      "memory_mb": 5491.08203125,
+      "disk_io": {
+        "read_count": 123136245,
+        "write_count": 5235698,
+        "read_bytes": 5949773373952,
+        "write_bytes": 410676530176,
+        "read_time": 8224235,
+        "write_time": 136110027,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922109
+      },
+      "network_io": {
+        "bytes_sent": 132893973,
+        "bytes_recv": 604574236,
+        "packets_sent": 292083,
+        "packets_recv": 752314,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158175.669606,
+      "cpu_percent": 17.0,
+      "memory_mb": 5476.46484375,
+      "disk_io": {
+        "read_count": 123136245,
+        "write_count": 5235699,
+        "read_bytes": 5949773373952,
+        "write_bytes": 410676534272,
+        "read_time": 8224235,
+        "write_time": 136110029,
+        "read_merged_count": 883779,
+        "write_merged_count": 5847220,
+        "busy_time": 3922110
+      },
+      "network_io": {
+        "bytes_sent": 132894804,
+        "bytes_recv": 604595877,
+        "packets_sent": 292091,
+        "packets_recv": 752345,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158175.7807784,
+      "cpu_percent": 74.9,
+      "memory_mb": 5473.25,
+      "disk_io": {
+        "read_count": 123136246,
+        "write_count": 5235699,
+        "read_bytes": 5949773386240,
+        "write_bytes": 410676534272,
+        "read_time": 8224235,
+        "write_time": 136110029,
+        "read_merged_count": 883781,
+        "write_merged_count": 5847220,
+        "busy_time": 3922110
+      },
+      "network_io": {
+        "bytes_sent": 132895107,
+        "bytes_recv": 604604174,
+        "packets_sent": 292094,
+        "packets_recv": 752369,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158175.8871303,
+      "cpu_percent": 25.6,
+      "memory_mb": 5468.890625,
+      "disk_io": {
+        "read_count": 123136246,
+        "write_count": 5235699,
+        "read_bytes": 5949773386240,
+        "write_bytes": 410676534272,
+        "read_time": 8224235,
+        "write_time": 136110029,
+        "read_merged_count": 883781,
+        "write_merged_count": 5847220,
+        "busy_time": 3922110
+      },
+      "network_io": {
+        "bytes_sent": 132895387,
+        "bytes_recv": 604609042,
+        "packets_sent": 292097,
+        "packets_recv": 752384,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158175.9907193,
+      "cpu_percent": 28.8,
+      "memory_mb": 5468.890625,
+      "disk_io": {
+        "read_count": 123136246,
+        "write_count": 5235699,
+        "read_bytes": 5949773386240,
+        "write_bytes": 410676534272,
+        "read_time": 8224235,
+        "write_time": 136110029,
+        "read_merged_count": 883781,
+        "write_merged_count": 5847220,
+        "busy_time": 3922110
+      },
+      "network_io": {
+        "bytes_sent": 132895669,
+        "bytes_recv": 604626231,
+        "packets_sent": 292100,
+        "packets_recv": 752404,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158176.0966043,
+      "cpu_percent": 36.1,
+      "memory_mb": 5487.796875,
+      "disk_io": {
+        "read_count": 123136246,
+        "write_count": 5235699,
+        "read_bytes": 5949773386240,
+        "write_bytes": 410676534272,
+        "read_time": 8224235,
+        "write_time": 136110029,
+        "read_merged_count": 883781,
+        "write_merged_count": 5847220,
+        "busy_time": 3922110
+      },
+      "network_io": {
+        "bytes_sent": 132896330,
+        "bytes_recv": 604644511,
+        "packets_sent": 292106,
+        "packets_recv": 752425,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158176.2005477,
+      "cpu_percent": 23.6,
+      "memory_mb": 5488.50390625,
+      "disk_io": {
+        "read_count": 123136246,
+        "write_count": 5235699,
+        "read_bytes": 5949773386240,
+        "write_bytes": 410676534272,
+        "read_time": 8224235,
+        "write_time": 136110029,
+        "read_merged_count": 883781,
+        "write_merged_count": 5847220,
+        "busy_time": 3922110
+      },
+      "network_io": {
+        "bytes_sent": 132896539,
+        "bytes_recv": 604667442,
+        "packets_sent": 292108,
+        "packets_recv": 752453,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158176.3056426,
+      "cpu_percent": 35.2,
+      "memory_mb": 5489.6953125,
+      "disk_io": {
+        "read_count": 123136246,
+        "write_count": 5235699,
+        "read_bytes": 5949773386240,
+        "write_bytes": 410676534272,
+        "read_time": 8224235,
+        "write_time": 136110029,
+        "read_merged_count": 883781,
+        "write_merged_count": 5847220,
+        "busy_time": 3922110
+      },
+      "network_io": {
+        "bytes_sent": 132896853,
+        "bytes_recv": 604680857,
+        "packets_sent": 292111,
+        "packets_recv": 752475,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158176.411243,
+      "cpu_percent": 41.4,
+      "memory_mb": 5443.10546875,
+      "disk_io": {
+        "read_count": 123136246,
+        "write_count": 5235699,
+        "read_bytes": 5949773386240,
+        "write_bytes": 410676534272,
+        "read_time": 8224235,
+        "write_time": 136110029,
+        "read_merged_count": 883781,
+        "write_merged_count": 5847220,
+        "busy_time": 3922110
+      },
+      "network_io": {
+        "bytes_sent": 132897341,
+        "bytes_recv": 604687740,
+        "packets_sent": 292116,
+        "packets_recv": 752489,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158176.513514,
+      "cpu_percent": 48.8,
+      "memory_mb": 5472.5703125,
+      "disk_io": {
+        "read_count": 123136258,
+        "write_count": 5235699,
+        "read_bytes": 5949773476352,
+        "write_bytes": 410676534272,
+        "read_time": 8224238,
+        "write_time": 136110029,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847220,
+        "busy_time": 3922112
+      },
+      "network_io": {
+        "bytes_sent": 132898227,
+        "bytes_recv": 604690494,
+        "packets_sent": 292124,
+        "packets_recv": 752498,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158176.6220465,
+      "cpu_percent": 39.4,
+      "memory_mb": 5484.203125,
+      "disk_io": {
+        "read_count": 123136258,
+        "write_count": 5235699,
+        "read_bytes": 5949773476352,
+        "write_bytes": 410676534272,
+        "read_time": 8224238,
+        "write_time": 136110029,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847220,
+        "busy_time": 3922112
+      },
+      "network_io": {
+        "bytes_sent": 132899727,
+        "bytes_recv": 604695833,
+        "packets_sent": 292134,
+        "packets_recv": 752512,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158176.7285662,
+      "cpu_percent": 56.0,
+      "memory_mb": 5519.52734375,
+      "disk_io": {
+        "read_count": 123136296,
+        "write_count": 5235699,
+        "read_bytes": 5949773681152,
+        "write_bytes": 410676534272,
+        "read_time": 8224251,
+        "write_time": 136110029,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847220,
+        "busy_time": 3922118
+      },
+      "network_io": {
+        "bytes_sent": 132900070,
+        "bytes_recv": 604697412,
+        "packets_sent": 292137,
+        "packets_recv": 752522,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158176.836853,
+      "cpu_percent": 75.4,
+      "memory_mb": 5544.83203125,
+      "disk_io": {
+        "read_count": 123136306,
+        "write_count": 5235702,
+        "read_bytes": 5949773730304,
+        "write_bytes": 410676923392,
+        "read_time": 8224253,
+        "write_time": 136110029,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847220,
+        "busy_time": 3922119
+      },
+      "network_io": {
+        "bytes_sent": 132901299,
+        "bytes_recv": 604698546,
+        "packets_sent": 292145,
+        "packets_recv": 752530,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158176.9442964,
+      "cpu_percent": 64.3,
+      "memory_mb": 5556.171875,
+      "disk_io": {
+        "read_count": 123136307,
+        "write_count": 5235773,
+        "read_bytes": 5949773734400,
+        "write_bytes": 410677578752,
+        "read_time": 8224253,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922120
+      },
+      "network_io": {
+        "bytes_sent": 132902636,
+        "bytes_recv": 604699821,
+        "packets_sent": 292152,
+        "packets_recv": 752540,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158177.0516953,
+      "cpu_percent": 36.9,
+      "memory_mb": 5556.91015625,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132908362,
+        "bytes_recv": 604701075,
+        "packets_sent": 292170,
+        "packets_recv": 752551,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158177.1593964,
+      "cpu_percent": 91.7,
+      "memory_mb": 5556.546875,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132910479,
+        "bytes_recv": 604703274,
+        "packets_sent": 292183,
+        "packets_recv": 752567,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158177.2651105,
+      "cpu_percent": 30.8,
+      "memory_mb": 5557.04296875,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132911990,
+        "bytes_recv": 604706109,
+        "packets_sent": 292190,
+        "packets_recv": 752581,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158177.367641,
+      "cpu_percent": 34.6,
+      "memory_mb": 5564.7421875,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132913586,
+        "bytes_recv": 604708352,
+        "packets_sent": 292198,
+        "packets_recv": 752596,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158177.469659,
+      "cpu_percent": 56.3,
+      "memory_mb": 5461.83203125,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132915898,
+        "bytes_recv": 604710799,
+        "packets_sent": 292209,
+        "packets_recv": 752611,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158177.5734756,
+      "cpu_percent": 31.7,
+      "memory_mb": 5445.98046875,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132917468,
+        "bytes_recv": 604712597,
+        "packets_sent": 292216,
+        "packets_recv": 752625,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158177.6769023,
+      "cpu_percent": 27.7,
+      "memory_mb": 5467.3671875,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132919200,
+        "bytes_recv": 604763180,
+        "packets_sent": 292224,
+        "packets_recv": 752672,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158177.7798584,
+      "cpu_percent": 37.2,
+      "memory_mb": 5491.8515625,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132920622,
+        "bytes_recv": 604829264,
+        "packets_sent": 292232,
+        "packets_recv": 752732,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158177.8829706,
+      "cpu_percent": 55.8,
+      "memory_mb": 5474.1328125,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132922528,
+        "bytes_recv": 604840879,
+        "packets_sent": 292242,
+        "packets_recv": 752747,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158177.9862888,
+      "cpu_percent": 18.6,
+      "memory_mb": 5489.30859375,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132923385,
+        "bytes_recv": 604866459,
+        "packets_sent": 292248,
+        "packets_recv": 752775,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158178.0883489,
+      "cpu_percent": 24.7,
+      "memory_mb": 5510.05859375,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132925308,
+        "bytes_recv": 604892661,
+        "packets_sent": 292261,
+        "packets_recv": 752799,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158178.1913006,
+      "cpu_percent": 46.0,
+      "memory_mb": 5505.68359375,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235774,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677582848,
+        "read_time": 8224255,
+        "write_time": 136110115,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922122
+      },
+      "network_io": {
+        "bytes_sent": 132926676,
+        "bytes_recv": 604902043,
+        "packets_sent": 292269,
+        "packets_recv": 752812,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158178.2936857,
+      "cpu_percent": 53.7,
+      "memory_mb": 5483.53515625,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235777,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677971968,
+        "read_time": 8224255,
+        "write_time": 136110120,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922124
+      },
+      "network_io": {
+        "bytes_sent": 132927173,
+        "bytes_recv": 604911676,
+        "packets_sent": 292273,
+        "packets_recv": 752827,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158178.3963704,
+      "cpu_percent": 42.1,
+      "memory_mb": 5473.3828125,
+      "disk_io": {
+        "read_count": 123136312,
+        "write_count": 5235777,
+        "read_bytes": 5949773754880,
+        "write_bytes": 410677971968,
+        "read_time": 8224255,
+        "write_time": 136110120,
+        "read_merged_count": 883785,
+        "write_merged_count": 5847221,
+        "busy_time": 3922124
+      },
+      "network_io": {
+        "bytes_sent": 132927267,
+        "bytes_recv": 604916474,
+        "packets_sent": 292274,
+        "packets_recv": 752838,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158178.4982696,
+      "cpu_percent": 31.9,
+      "memory_mb": 5418.328125,
+      "disk_io": {
+        "read_count": 123136325,
+        "write_count": 5235778,
+        "read_bytes": 5949773922816,
+        "write_bytes": 410677976064,
+        "read_time": 8224258,
+        "write_time": 136110121,
+        "read_merged_count": 883813,
+        "write_merged_count": 5847221,
+        "busy_time": 3922127
+      },
+      "network_io": {
+        "bytes_sent": 132927459,
+        "bytes_recv": 604927728,
+        "packets_sent": 292276,
+        "packets_recv": 752856,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    },
+    {
+      "timestamp": 1759158178.600859,
+      "cpu_percent": 74.4,
+      "memory_mb": 5424.37109375,
+      "disk_io": {
+        "read_count": 123136325,
+        "write_count": 5235778,
+        "read_bytes": 5949773922816,
+        "write_bytes": 410677976064,
+        "read_time": 8224258,
+        "write_time": 136110121,
+        "read_merged_count": 883813,
+        "write_merged_count": 5847221,
+        "busy_time": 3922127
+      },
+      "network_io": {
+        "bytes_sent": 132928319,
+        "bytes_recv": 604948890,
+        "packets_sent": 292283,
+        "packets_recv": 752881,
+        "errin": 0,
+        "errout": 0,
+        "dropin": 0,
+        "dropout": 32
+      }
+    }
+  ]
+}

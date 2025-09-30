@@ -1,0 +1,20 @@
+{
+  "verification_id": "verify_round_008_1759171025_1759171085",
+  "round_id": "round_008_1759171025",
+  "timestamp": "2025-09-30T00:08:05.697757",
+  "aggregated_proof_id": "aggregated_round_008_1759171025_1759171085",
+  "individual_proofs": [
+    "proof_575113775643055e",
+    "proof_0e0f2e85ed78ce5e",
+    "proof_e9d67e82621b4619",
+    "proof_717fc267d113ea1e",
+    "proof_f7ca78269f301cb4",
+    "proof_b37111d8915ad4b6",
+    "proof_d9f05c2d4e71d2d3",
+    "proof_8bbe2bab1860db20"
+  ],
+  "verification_status": true,
+  "verification_time": 0.05029106140136719,
+  "protogalaxy_aggregation_time": 0.10032534599304199,
+  "error_message": null
+}

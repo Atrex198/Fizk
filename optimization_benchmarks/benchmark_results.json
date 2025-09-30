@@ -1,0 +1,409 @@
+{
+  "constraint_reduction": {
+    "reduction_0.0": {
+      "avg_proof_time": 0.00026949246724446613,
+      "std_proof_time": 7.59530855719143e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "constraint_0.0",
+      "config": {
+        "enable_constraint_reduction": true,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.0,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "reduction_0.1": {
+      "avg_proof_time": 0.0002251267433166504,
+      "std_proof_time": 1.6597405397847945e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "constraint_0.1",
+      "config": {
+        "enable_constraint_reduction": true,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.1,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "reduction_0.2": {
+      "avg_proof_time": 0.00022906064987182617,
+      "std_proof_time": 1.911544282977275e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "constraint_0.2",
+      "config": {
+        "enable_constraint_reduction": true,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.2,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "reduction_0.3": {
+      "avg_proof_time": 0.0003493030865987142,
+      "std_proof_time": 2.7019859221402232e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "constraint_0.3",
+      "config": {
+        "enable_constraint_reduction": true,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "reduction_0.4": {
+      "avg_proof_time": 0.00036396582921346027,
+      "std_proof_time": 2.6733279369226594e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "constraint_0.4",
+      "config": {
+        "enable_constraint_reduction": true,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.4,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "reduction_0.5": {
+      "avg_proof_time": 0.0004029273986816406,
+      "std_proof_time": 3.6329572921050944e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "constraint_0.5",
+      "config": {
+        "enable_constraint_reduction": true,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.5,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    }
+  },
+  "parallel_processing": {
+    "workers_1": {
+      "avg_proof_time": 0.00038882096608479816,
+      "std_proof_time": 6.262931557977049e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "parallel_1",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": true,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": 1,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "workers_2": {
+      "avg_proof_time": 0.0003829797108968099,
+      "std_proof_time": 5.527827291217096e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "parallel_2",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": true,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": 2,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "workers_4": {
+      "avg_proof_time": 0.007326920827229817,
+      "std_proof_time": 0.02264975153047038,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "parallel_4",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": true,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": 4,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "workers_8": {
+      "avg_proof_time": 0.00044550498326619464,
+      "std_proof_time": 5.298290442149412e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "parallel_8",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": true,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": 8,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "workers_16": {
+      "avg_proof_time": 0.00047010183334350586,
+      "std_proof_time": 0.00010898385625733494,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "parallel_16",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": true,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": 16,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    }
+  },
+  "memory_optimization": {
+    "limit_512mb": {
+      "avg_proof_time": 0.00033287207285563153,
+      "std_proof_time": 3.925032110426676e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "memory_512",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": true,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 512,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "limit_1024mb": {
+      "avg_proof_time": 0.0004852016766866048,
+      "std_proof_time": 6.979032548077709e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "memory_1024",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": true,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 1024,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "limit_2048mb": {
+      "avg_proof_time": 0.00047397613525390625,
+      "std_proof_time": 8.695945220834417e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "memory_2048",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": true,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "limit_4096mb": {
+      "avg_proof_time": 0.0004963477452596029,
+      "std_proof_time": 5.1697431206985906e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "memory_4096",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": true,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 4096,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "limit_8192mb": {
+      "avg_proof_time": 0.00043207406997680664,
+      "std_proof_time": 6.661542848508053e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "memory_8192",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": true,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 8192,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    }
+  },
+  "end_to_end_performance": {
+    "baseline": {
+      "avg_proof_time": 0.00040340423583984375,
+      "std_proof_time": 3.074783271055218e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "baseline",
+      "config": {
+        "enable_constraint_reduction": false,
+        "enable_parallel_processing": false,
+        "enable_memory_optimization": false,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": null,
+        "constraint_reduction_factor": 0.3,
+        "memory_limit_mb": 2048,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "optimized": {
+      "avg_proof_time": 0.0004375576972961426,
+      "std_proof_time": 5.0332972790503125e-05,
+      "avg_memory_usage": 606.953125,
+      "std_memory_usage": 0.0,
+      "total_rounds": 3,
+      "test_name": "optimized",
+      "config": {
+        "enable_constraint_reduction": true,
+        "enable_parallel_processing": true,
+        "enable_memory_optimization": true,
+        "enable_batch_processing": true,
+        "max_parallel_proofs": 8,
+        "constraint_reduction_factor": 0.35,
+        "memory_limit_mb": 4096,
+        "batch_size": 4,
+        "use_gpu_acceleration": false
+      }
+    },
+    "improvements": {
+      "speedup_factor": 0.9219452390682469,
+      "memory_reduction_factor": 1.0,
+      "proof_time_reduction_percent": -8.466312056737578,
+      "memory_usage_reduction_percent": 0.0
+    }
+  },
+  "scalability_analysis": {
+    "clients_2": {
+      "num_clients": 2,
+      "total_time": 0.0018019676208496094,
+      "avg_time_per_client": 0.0009009838104248047,
+      "successful_clients": 2,
+      "parallel_efficiency": 1.0,
+      "throughput_clients_per_second": 1109.8978565758136
+    },
+    "clients_4": {
+      "num_clients": 4,
+      "total_time": 0.003111600875854492,
+      "avg_time_per_client": 0.000777900218963623,
+      "successful_clients": 4,
+      "parallel_efficiency": 1.0,
+      "throughput_clients_per_second": 1285.511914795801
+    },
+    "clients_8": {
+      "num_clients": 8,
+      "total_time": 0.0071527957916259766,
+      "avg_time_per_client": 0.0008940994739532471,
+      "successful_clients": 8,
+      "parallel_efficiency": 1.0,
+      "throughput_clients_per_second": 1118.4437852071599
+    },
+    "clients_16": {
+      "num_clients": 16,
+      "total_time": 0.01545262336730957,
+      "avg_time_per_client": 0.0009657889604568481,
+      "successful_clients": 16,
+      "parallel_efficiency": 1.0,
+      "throughput_clients_per_second": 1035.4228935553053
+    },
+    "clients_32": {
+      "num_clients": 32,
+      "total_time": 0.036763668060302734,
+      "avg_time_per_client": 0.0011488646268844604,
+      "successful_clients": 32,
+      "parallel_efficiency": 1.0,
+      "throughput_clients_per_second": 870.424571006109
+    }
+  },
+  "benchmark_timestamp": 1759159168.7837405,
+  "system_specs": {
+    "cpu_count": 16,
+    "cpu_count_logical": 16,
+    "memory_total_gb": 14.885063171386719,
+    "python_version": "3.12",
+    "torch_version": "2.8.0+cu128",
+    "numpy_version": "2.3.3"
+  }
+}

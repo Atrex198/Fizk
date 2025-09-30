@@ -1,0 +1,8 @@
+{
+  "constraint_reduction": "OptimizationResults(baseline_proof_time=0.25, optimized_proof_time=0.18, baseline_memory_usage=512, optimized_memory_usage=435.2, baseline_constraint_count=10000, optimized_constraint_count=6500, speedup_factor=1.3888888888888888, memory_reduction_factor=1.1764705882352942, constraint_reduction_percent=35.0)",
+  "parallel_processing": "OptimizationResults(baseline_proof_time=1.76, optimized_proof_time=0.5176470588235295, baseline_memory_usage=2048, optimized_memory_usage=1228.8, baseline_constraint_count=10000, optimized_constraint_count=10000, speedup_factor=3.4, memory_reduction_factor=1.6666666666666667, constraint_reduction_percent=0.0)",
+  "memory_optimization": "OptimizationResults(baseline_proof_time=0.23, optimized_proof_time=0.2116, baseline_memory_usage=1024, optimized_memory_usage=563.2, baseline_constraint_count=10000, optimized_constraint_count=10000, speedup_factor=1.0869565217391304, memory_reduction_factor=1.8181818181818181, constraint_reduction_percent=0.0)",
+  "batch_processing": "OptimizationResults(baseline_proof_time=3.52, optimized_proof_time=2.2880000000000003, baseline_memory_usage=4096, optimized_memory_usage=3276.8, baseline_constraint_count=160000, optimized_constraint_count=144000, speedup_factor=1.5384615384615383, memory_reduction_factor=1.25, constraint_reduction_percent=10.0)",
+  "end_to_end_optimization": "OptimizationResults(baseline_proof_time=0.25, optimized_proof_time=0.06079234049580786, baseline_memory_usage=1024, optimized_memory_usage=409.6, baseline_constraint_count=10000, optimized_constraint_count=6000, speedup_factor=4.112360175, memory_reduction_factor=2.5, constraint_reduction_percent=40.0)",
+  "implementation_timestamp": 1759159281.0826867
+}

@@ -1,0 +1,72 @@
+{
+  "test_duration_seconds": 9.54580283164978,
+  "data_preparation": true,
+  "proof_generation": {
+    "success": true,
+    "clients_tested": 3,
+    "proofs_generated": 3,
+    "generation_times": [
+      0.253265380859375,
+      0.23015236854553223,
+      0.25453758239746094
+    ],
+    "proof_details": [
+      {
+        "client_id": "test_client_1",
+        "training_loss": 0.6942821741104126,
+        "generation_time": 0.253265380859375,
+        "proof_hash": "unknown"
+      },
+      {
+        "client_id": "test_client_2",
+        "training_loss": 0.7234374284744263,
+        "generation_time": 0.23015236854553223,
+        "proof_hash": "unknown"
+      },
+      {
+        "client_id": "test_client_3",
+        "training_loss": 0.6086654663085938,
+        "generation_time": 0.25453758239746094,
+        "proof_hash": "unknown"
+      }
+    ],
+    "avg_generation_time": 0.2459851106007894
+  },
+  "aggregation": {
+    "success": true,
+    "aggregations_tested": 1,
+    "aggregation_times": [
+      0.003427743911743164
+    ],
+    "aggregation_hash": "a257c976a69872453f69",
+    "num_proofs_aggregated": 3,
+    "aggregation_stats": {
+      "total_rounds": 1,
+      "total_proofs_aggregated": 3,
+      "total_cross_terms_computed": 3,
+      "average_proofs_per_round": 3.0,
+      "latest_round": 0
+    }
+  },
+  "federated_learning": {
+    "success": true,
+    "rounds_completed": 2,
+    "total_aggregations": 2,
+    "final_loss": 0.3561694125334422,
+    "final_aggregation_stats": {
+      "total_rounds": 2,
+      "total_proofs_aggregated": 6,
+      "total_cross_terms_computed": 6,
+      "average_proofs_per_round": 3.0,
+      "latest_round": 0
+    }
+  },
+  "performance": {
+    "performance_analysis_complete": true,
+    "rounds_completed": 2,
+    "total_aggregations": 2,
+    "final_training_loss": 0.3561694125334422,
+    "aggregation_success_rate": 1.0
+  },
+  "overall_success": true
+}

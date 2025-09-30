@@ -1,0 +1,13 @@
+{
+  "circuit_hash": "8e7e227f604339a87f41decf26bd8955c0a13e905a7cd78429d60750a622d00b",
+  "client_id": "test_client_1",
+  "proof_hash": "02ac06009c095651860e9bf002f50f88762dda918631d9395e263c5128ecca7f",
+  "public_inputs": [
+    0.45,
+    5
+  ],
+  "step_number": 1,
+  "timestamp": 1759150073,
+  "verification_key": "vk_8e7e227f604339a87f41decf26bd8955c0a13e905a7cd78429d60750a622d00b",
+  "witness_hash": "d398b8e32bbdb34a41b82b0cd6690ae41eaa10bcd56e33bfb005e98f67853cca"
+}

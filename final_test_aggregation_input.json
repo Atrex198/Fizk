@@ -1,0 +1,57 @@
+{
+  "round_number": 5,
+  "client_metadata": [
+    {"client_id": "final_test_client_1", "num_samples": 200, "loss": 0.42},
+    {"client_id": "final_test_client_2", "num_samples": 180, "loss": 0.38},
+    {"client_id": "final_test_client_3", "num_samples": 220, "loss": 0.46}
+  ],
+  "proofs": [
+    {
+      "proof": {
+        "type": "groth16_bn254",
+        "proof_data": {
+          "alpha": "final_test_alpha_1",
+          "beta": "final_test_beta_1",
+          "gamma": "final_test_gamma_1"
+        },
+        "public_inputs": {
+          "loss_value": 420,
+          "training_data_hash": "final_test_hash_1"
+        }
+      }
+    },
+    {
+      "proof": {
+        "type": "groth16_bn254",
+        "proof_data": {
+          "alpha": "final_test_alpha_2",
+          "beta": "final_test_beta_2",
+          "gamma": "final_test_gamma_2"
+        },
+        "public_inputs": {
+          "loss_value": 380,
+          "training_data_hash": "final_test_hash_2"
+        }
+      }
+    },
+    {
+      "proof": {
+        "type": "groth16_bn254",
+        "proof_data": {
+          "alpha": "final_test_alpha_3",
+          "beta": "final_test_beta_3",
+          "gamma": "final_test_gamma_3"
+        },
+        "public_inputs": {
+          "loss_value": 460,
+          "training_data_hash": "final_test_hash_3"
+        }
+      }
+    }
+  ],
+  "aggregation_config": {
+    "max_proofs": 3,
+    "polynomial_degree_bound": 6,
+    "challenge_generation_method": "fiat_shamir"
+  }
+}
