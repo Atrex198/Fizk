@@ -45,6 +45,7 @@ tracing-subscriber = "0.3"
 num-bigint = "0.4"
 num-traits = "0.2"
 nalgebra = "0.32"
+md5 = "0.7"
 
 # Main binary dependencies
 clap = { version = "4.0", features = ["derive"] }

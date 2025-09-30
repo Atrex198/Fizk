@@ -1,6 +1,7 @@
 use clap::{Arg, Command};
 use serde_json;
 use std::fs;
+use md5;
 
 fn main() -> anyhow::Result<()> {
     let matches = Command::new("zkp-fl")
