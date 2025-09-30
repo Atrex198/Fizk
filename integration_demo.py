@@ -73,12 +73,12 @@ def simulate_real_fl_scenario():
             "round": round_num,
             "proof_valid": is_valid,
             "proof_system": proof["metadata"]["proof_system"],
-            "accumulator_size": proof["metadata"]["accumulator_size"],
+            "r1cs_constraints": proof["metadata"]["r1cs_constraints"],
             "rounds_accumulated": proof["metadata"]["rounds_accumulated"]
         }
         
         fl_results.append(round_result)
-        logger.info(f"✅ Round {round_num}: Proof valid={is_valid}, Size={round_result['accumulator_size']} bytes")
+        logger.info(f"✅ Round {round_num}: Proof valid={is_valid}, Constraints={round_result['r1cs_constraints']}")
     
     # Get final accumulator summary
     final_summary = zkp_gen.get_ivc_accumulator_summary()
@@ -86,7 +86,7 @@ def simulate_real_fl_scenario():
     logger.info(f"   - Total rounds: {final_summary['rounds_folded']}")
     logger.info(f"   - Proof size: {final_summary['proof_size_bytes']} bytes")
     logger.info(f"   - Verification: {final_summary['verification_complexity']}")
-    logger.info(f"   - Model weights: {final_summary['weights_count']} tensors")
+    logger.info(f"   - R1CS constraints: {final_summary.get('r1cs_constraints', 30)} constraints")
     
     # Export final aggregated weights
     final_weights = zkp_gen.export_ivc_final_weights()
