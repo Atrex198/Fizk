@@ -162,22 +162,57 @@ class RealMLTrainer:
         
         logger.info(f"Real ML Trainer initialized with {self.config.optimizer} optimizer")
     
-    def train_local_model(self, X_train: np.ndarray, y_train: np.ndarray,
+    def train_local_model(self, X: np.ndarray = None, y: np.ndarray = None,
+                         X_train: np.ndarray = None, y_train: np.ndarray = None,
                          X_val: Optional[np.ndarray] = None, 
-                         y_val: Optional[np.ndarray] = None) -> TrainingResult:
+                         y_val: Optional[np.ndarray] = None,
+                         initial_weights: Optional[Dict[str, torch.Tensor]] = None,
+                         epochs: Optional[int] = None,
+                         learning_rate: Optional[float] = None,
+                         batch_size: Optional[int] = None) -> TrainingResult:
         """
         Perform real local training with authentic ML algorithms.
         
         Args:
+            X: Training features (alternative parameter name)
+            y: Training labels (alternative parameter name)
             X_train: Training features
             y_train: Training labels  
             X_val: Validation features (optional)
             y_val: Validation labels (optional)
+            initial_weights: Initial model weights (optional)
+            epochs: Number of training epochs (optional, overrides config)
+            learning_rate: Learning rate (optional, overrides config)
+            batch_size: Batch size (optional, overrides config)
             
         Returns:
             TrainingResult with genuine training metrics
         """
         start_time = time.time()
+        
+        # Handle alternative parameter names
+        if X is not None and X_train is None:
+            X_train = X
+        if y is not None and y_train is None:
+            y_train = y
+            
+        if X_train is None or y_train is None:
+            raise ValueError("Training data (X_train/X and y_train/y) must be provided")
+        
+        # Override config with provided parameters
+        if epochs is not None:
+            self.config.local_epochs = epochs
+        if learning_rate is not None:
+            self.config.learning_rate = learning_rate
+            # Update optimizer with new learning rate
+            for param_group in self.optimizer.param_groups:
+                param_group['lr'] = learning_rate
+        if batch_size is not None:
+            self.config.batch_size = batch_size
+            
+        # Set initial weights if provided
+        if initial_weights is not None:
+            self.model.set_parameters(initial_weights)
         
         # Store initial model state
         initial_params = self.model.get_parameter_dict()

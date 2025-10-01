@@ -607,6 +607,21 @@ class RealProtostarIVC:
             logger.error(f"Real IVC folding failed: {e}")
             raise
     
+    def prove_and_fold(self, new_weights: Dict[str, torch.Tensor], 
+                       round_number: int) -> Dict:
+        """
+        Alias for fold_round method to maintain API compatibility.
+        Performs proof generation and folding in a single step.
+        
+        Args:
+            new_weights: New model weights from FL round
+            round_number: Round number for folding
+            
+        Returns:
+            Dictionary containing proof and metadata
+        """
+        return self.fold_round(new_weights, round_number)
+    
     def verify_accumulator(self, proof_data: Union[bytes, str, Dict]) -> bool:
         """
         Verify accumulator with real cryptographic verification
