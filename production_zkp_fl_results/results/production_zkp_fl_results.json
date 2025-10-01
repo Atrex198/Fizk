@@ -1,0 +1,319 @@
+{
+  "start_time": 1759307943.242254,
+  "configuration": {
+    "num_clients": 3,
+    "num_rounds": 6,
+    "trusted_setup_size": 2048,
+    "dataset": "cardio",
+    "zkp_system": "Production_Protostar_IVC_BN128",
+    "aggregation": "Production_Protogalaxy"
+  },
+  "rounds": [
+    {
+      "round_number": 1,
+      "timestamp": 1759308016.265126,
+      "client_participation": {
+        "total_clients": 3,
+        "verified_clients": 3,
+        "verification_rate": 1.0
+      },
+      "production_zkp_verification": {
+        "individual_results": [
+          {
+            "client_id": "prod_client_000",
+            "proof_valid": true,
+            "proof_size_bytes": 25045281,
+            "constraint_count": 1586
+          },
+          {
+            "client_id": "prod_client_001",
+            "proof_valid": true,
+            "proof_size_bytes": 25044930,
+            "constraint_count": 1586
+          },
+          {
+            "client_id": "prod_client_002",
+            "proof_valid": true,
+            "proof_size_bytes": 25044726,
+            "constraint_count": 1586
+          }
+        ],
+        "success_rate": 1.0,
+        "total_proof_size_bytes": 75134937,
+        "total_constraints_verified": 4758
+      },
+      "production_protogalaxy_aggregation": {
+        "aggregation_valid": true,
+        "num_proofs_aggregated": 3,
+        "aggregation_time": 0.27228450775146484,
+        "aggregated_proof_size_bytes": 47782,
+        "aggregation_complexity": "O(log 3)"
+      },
+      "performance_metrics": {
+        "total_round_time": 71.12633967399597,
+        "avg_client_accuracy": 0.6999287784459932,
+        "avg_client_loss": 0.6023226465808746,
+        "total_samples_trained": 70000
+      }
+    },
+    {
+      "round_number": 2,
+      "timestamp": 1759308074.7406528,
+      "client_participation": {
+        "total_clients": 3,
+        "verified_clients": 3,
+        "verification_rate": 1.0
+      },
+      "production_zkp_verification": {
+        "individual_results": [
+          {
+            "client_id": "prod_client_000",
+            "proof_valid": true,
+            "proof_size_bytes": 25825646,
+            "constraint_count": 1636
+          },
+          {
+            "client_id": "prod_client_001",
+            "proof_valid": true,
+            "proof_size_bytes": 25825357,
+            "constraint_count": 1636
+          },
+          {
+            "client_id": "prod_client_002",
+            "proof_valid": true,
+            "proof_size_bytes": 25825171,
+            "constraint_count": 1636
+          }
+        ],
+        "success_rate": 1.0,
+        "total_proof_size_bytes": 77476174,
+        "total_constraints_verified": 4908
+      },
+      "production_protogalaxy_aggregation": {
+        "aggregation_valid": true,
+        "num_proofs_aggregated": 3,
+        "aggregation_time": 0.40111207962036133,
+        "aggregated_proof_size_bytes": 47783,
+        "aggregation_complexity": "O(log 3)"
+      },
+      "performance_metrics": {
+        "total_round_time": 58.438520669937134,
+        "avg_client_accuracy": 0.7097575747733226,
+        "avg_client_loss": 0.5848509421631626,
+        "total_samples_trained": 70000
+      }
+    },
+    {
+      "round_number": 3,
+      "timestamp": 1759308147.843393,
+      "client_participation": {
+        "total_clients": 3,
+        "verified_clients": 3,
+        "verification_rate": 1.0
+      },
+      "production_zkp_verification": {
+        "individual_results": [
+          {
+            "client_id": "prod_client_000",
+            "proof_valid": true,
+            "proof_size_bytes": 26605515,
+            "constraint_count": 1686
+          },
+          {
+            "client_id": "prod_client_001",
+            "proof_valid": true,
+            "proof_size_bytes": 26604926,
+            "constraint_count": 1686
+          },
+          {
+            "client_id": "prod_client_002",
+            "proof_valid": true,
+            "proof_size_bytes": 26604879,
+            "constraint_count": 1686
+          }
+        ],
+        "success_rate": 1.0,
+        "total_proof_size_bytes": 79815320,
+        "total_constraints_verified": 5058
+      },
+      "production_protogalaxy_aggregation": {
+        "aggregation_valid": true,
+        "num_proofs_aggregated": 3,
+        "aggregation_time": 0.2768373489379883,
+        "aggregated_proof_size_bytes": 47782,
+        "aggregation_complexity": "O(log 3)"
+      },
+      "performance_metrics": {
+        "total_round_time": 73.06884479522705,
+        "avg_client_accuracy": 0.713185838248509,
+        "avg_client_loss": 0.5802826846026939,
+        "total_samples_trained": 70000
+      }
+    },
+    {
+      "round_number": 4,
+      "timestamp": 1759308198.1709397,
+      "client_participation": {
+        "total_clients": 3,
+        "verified_clients": 3,
+        "verification_rate": 1.0
+      },
+      "production_zkp_verification": {
+        "individual_results": [
+          {
+            "client_id": "prod_client_000",
+            "proof_valid": true,
+            "proof_size_bytes": 27385545,
+            "constraint_count": 1736
+          },
+          {
+            "client_id": "prod_client_001",
+            "proof_valid": true,
+            "proof_size_bytes": 27385503,
+            "constraint_count": 1736
+          },
+          {
+            "client_id": "prod_client_002",
+            "proof_valid": true,
+            "proof_size_bytes": 27385958,
+            "constraint_count": 1736
+          }
+        ],
+        "success_rate": 1.0,
+        "total_proof_size_bytes": 82157006,
+        "total_constraints_verified": 5208
+      },
+      "production_protogalaxy_aggregation": {
+        "aggregation_valid": true,
+        "num_proofs_aggregated": 3,
+        "aggregation_time": 0.2935478687286377,
+        "aggregated_proof_size_bytes": 47778,
+        "aggregation_complexity": "O(log 3)"
+      },
+      "performance_metrics": {
+        "total_round_time": 50.30018615722656,
+        "avg_client_accuracy": 0.7011574029355326,
+        "avg_client_loss": 0.5887230064226613,
+        "total_samples_trained": 70000
+      }
+    },
+    {
+      "round_number": 5,
+      "timestamp": 1759308247.81333,
+      "client_participation": {
+        "total_clients": 3,
+        "verified_clients": 3,
+        "verification_rate": 1.0
+      },
+      "production_zkp_verification": {
+        "individual_results": [
+          {
+            "client_id": "prod_client_000",
+            "proof_valid": true,
+            "proof_size_bytes": 28166646,
+            "constraint_count": 1786
+          },
+          {
+            "client_id": "prod_client_001",
+            "proof_valid": true,
+            "proof_size_bytes": 28166273,
+            "constraint_count": 1786
+          },
+          {
+            "client_id": "prod_client_002",
+            "proof_valid": true,
+            "proof_size_bytes": 28166338,
+            "constraint_count": 1786
+          }
+        ],
+        "success_rate": 1.0,
+        "total_proof_size_bytes": 84499257,
+        "total_constraints_verified": 5358
+      },
+      "production_protogalaxy_aggregation": {
+        "aggregation_valid": true,
+        "num_proofs_aggregated": 3,
+        "aggregation_time": 0.29830169677734375,
+        "aggregated_proof_size_bytes": 47781,
+        "aggregation_complexity": "O(log 3)"
+      },
+      "performance_metrics": {
+        "total_round_time": 49.611976146698,
+        "avg_client_accuracy": 0.7057574245697541,
+        "avg_client_loss": 0.5921757024717114,
+        "total_samples_trained": 70000
+      }
+    },
+    {
+      "round_number": 6,
+      "timestamp": 1759308297.562506,
+      "client_participation": {
+        "total_clients": 3,
+        "verified_clients": 3,
+        "verification_rate": 1.0
+      },
+      "production_zkp_verification": {
+        "individual_results": [
+          {
+            "client_id": "prod_client_000",
+            "proof_valid": true,
+            "proof_size_bytes": 28947088,
+            "constraint_count": 1836
+          },
+          {
+            "client_id": "prod_client_001",
+            "proof_valid": true,
+            "proof_size_bytes": 28946633,
+            "constraint_count": 1836
+          },
+          {
+            "client_id": "prod_client_002",
+            "proof_valid": true,
+            "proof_size_bytes": 28947261,
+            "constraint_count": 1836
+          }
+        ],
+        "success_rate": 1.0,
+        "total_proof_size_bytes": 86840982,
+        "total_constraints_verified": 5508
+      },
+      "production_protogalaxy_aggregation": {
+        "aggregation_valid": true,
+        "num_proofs_aggregated": 3,
+        "aggregation_time": 0.37754225730895996,
+        "aggregated_proof_size_bytes": 47791,
+        "aggregation_complexity": "O(log 3)"
+      },
+      "performance_metrics": {
+        "total_round_time": 49.717604875564575,
+        "avg_client_accuracy": 0.7134287839616286,
+        "avg_client_loss": 0.5797042422370824,
+        "total_samples_trained": 70000
+      }
+    }
+  ],
+  "final_analysis": {
+    "overall_performance": {
+      "total_demo_time": 354.35366797447205,
+      "average_round_time": 58.71057871977488,
+      "final_accuracy": 0.7134287839616286,
+      "accuracy_improvement": 0.01350000551563535,
+      "zkp_verification_reliability": 1.0
+    },
+    "production_zkp_metrics": {
+      "average_proof_size_bytes": 80987279.33333333,
+      "total_proof_size_bytes": 485923676,
+      "average_constraints_per_round": 5133.0,
+      "total_constraints_verified": 30798,
+      "trusted_setup_size": 2048,
+      "cryptographic_security_level": 128
+    },
+    "scalability_analysis": {
+      "clients_supported": 3,
+      "proof_aggregation_complexity": "O(log N)",
+      "verification_complexity": "O(1)",
+      "proof_size_growth": "O(log N)",
+      "constraint_efficiency": 1711.0
+    }
+  }
+}
