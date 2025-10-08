@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 @dataclass 
 class TrainingConfig:
     """Configuration for real ML training"""
-    learning_rate: float = 0.01
+    learning_rate: float = 0.001  # Reduced from 0.01 for federated learning stability
     batch_size: int = 32
     local_epochs: int = 5
     optimizer: str = "sgd"  # "sgd" or "adam"
@@ -112,7 +112,7 @@ class MedicalMLPModel(nn.Module):
         return {name: param.detach().clone() for name, param in self.named_parameters()}
     
     def set_parameters(self, parameters: Dict[str, torch.Tensor]):
-        """Set model parameters from dictionary"""
+        """Set model parameters from dictionary and reset optimizer state"""
         with torch.no_grad():
             for name, param in self.named_parameters():
                 if name in parameters:
@@ -366,10 +366,29 @@ class RealMLTrainer:
         
         return avg_loss, accuracy
     
+    def reset_optimizer_state(self):
+        """Reset optimizer state to prevent momentum/history contamination"""
+        # Reinitialize optimizer with same parameters but clean state
+        if self.config.optimizer.lower() == "adam":
+            self.optimizer = optim.Adam(
+                self.model.parameters(), 
+                lr=self.config.learning_rate,
+                weight_decay=self.config.regularization
+            )
+        else:  # SGD
+            self.optimizer = optim.SGD(
+                self.model.parameters(), 
+                lr=self.config.learning_rate, 
+                momentum=0.9,
+                weight_decay=self.config.regularization
+            )
+        logger.info("Optimizer state reset")
+    
     def load_global_model(self, global_parameters: Dict[str, torch.Tensor]):
         """Load global model parameters for federated learning"""
         self.model.set_parameters(global_parameters)
-        logger.info("Global model parameters loaded")
+        self.reset_optimizer_state()  # CRITICAL: Reset optimizer state to prevent momentum contamination
+        logger.info("Global model parameters loaded and optimizer state reset")
     
     def get_model_updates(self) -> Dict[str, torch.Tensor]:
         """Get model parameter updates for federated aggregation"""
