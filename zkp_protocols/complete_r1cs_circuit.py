@@ -421,17 +421,37 @@ class MLCircuitR1CS:
         
         # Convert to PyTorch tensors for REAL computation
         device = torch.device('cpu')
+        
+        # Ensure X_sample dimensions match expected input features
+        if len(X_sample) != input_features:
+            print(f"  ⚠️  Sample feature mismatch: got {len(X_sample)}, expected {input_features}")
+            # Pad or truncate to match
+            if len(X_sample) < input_features:
+                X_sample = list(X_sample) + [0.0] * (input_features - len(X_sample))
+            else:
+                X_sample = X_sample[:input_features]
+        
         X_tensor = torch.tensor(X_sample, dtype=torch.float32, device=device, requires_grad=False)
         y_tensor = torch.tensor(y_sample, dtype=torch.long, device=device)
+        
+        # Determine input features from the actual model weights
+        input_features = 11  # Default fallback
+        if 'network.0.weight' in initial_weights:
+            # Extract input dimension from first layer weight shape
+            first_layer_weight = initial_weights['network.0.weight']
+            if hasattr(first_layer_weight, 'shape'):
+                input_features = first_layer_weight.shape[1]
+            elif isinstance(first_layer_weight, (list, tuple, np.ndarray)):
+                input_features = len(first_layer_weight[0]) if len(first_layer_weight) > 0 else 11
         
         # Create the EXACT same network architecture used in training
         # Based on the layer configurations from the main circuit
         class ExactNetworkCopy(nn.Module):
-            def __init__(self):
+            def __init__(self, input_dim):
                 super().__init__()
                 # Simplified architecture without BatchNorm for single-sample gradient computation
                 self.network = nn.Sequential(
-                    nn.Linear(11, 64),  # Input layer: 11 features -> 64 neurons
+                    nn.Linear(input_dim, 64),  # Input layer: dynamic features -> 64 neurons
                     nn.ReLU(),
                     nn.Linear(64, 32),  # Hidden layer: 64 -> 32
                     nn.ReLU(),
@@ -442,8 +462,8 @@ class MLCircuitR1CS:
                 """Forward pass through the network"""
                 return self.network(x)
         
-        # Initialize network
-        model = ExactNetworkCopy()
+        # Initialize network with dynamic input features
+        model = ExactNetworkCopy(input_features)
         model.eval()  # Set to evaluation mode
         
         # Load REAL initial weights into the model with CORRECT mapping

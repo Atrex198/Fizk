@@ -49,7 +49,7 @@ class TrainingConfig:
 
 @dataclass
 class TrainingResult:
-    """Results from real ML training"""
+    """Results from real ML training with comprehensive metrics"""
     initial_loss: float
     final_loss: float
     initial_accuracy: float  
@@ -60,6 +60,16 @@ class TrainingResult:
     parameter_updates: Dict[str, torch.Tensor]
     gradient_norms: List[float]
     convergence_achieved: bool
+    
+    # Enhanced metrics for federated learning
+    initial_weights: Dict[str, torch.Tensor]
+    final_weights: Dict[str, torch.Tensor]
+    loss_history: List[float]
+    accuracy_history: List[float]
+    data_distribution: Dict[str, int]  # Class distribution in training data
+    training_samples: int
+    weight_delta_norm: float  # L2 norm of weight changes
+    learning_progress: float  # Improvement percentage
 
 class MedicalMLPModel(nn.Module):
     """
@@ -116,7 +126,11 @@ class MedicalMLPModel(nn.Module):
         with torch.no_grad():
             for name, param in self.named_parameters():
                 if name in parameters:
-                    param.copy_(parameters[name])
+                    # Convert numpy arrays to tensors if needed
+                    param_value = parameters[name]
+                    if isinstance(param_value, np.ndarray):
+                        param_value = torch.from_numpy(param_value).float()
+                    param.copy_(param_value)
 
 class RealMLTrainer:
     """
@@ -250,6 +264,8 @@ class RealMLTrainer:
         best_val_loss = float('inf')
         patience_counter = 0
         gradient_norms = []
+        loss_history = []
+        accuracy_history = []
         
         for epoch in range(self.config.local_epochs):
             epoch_loss = 0.0
@@ -289,6 +305,10 @@ class RealMLTrainer:
             epoch_loss /= len(dataloader)
             epoch_accuracy = epoch_correct / epoch_total
             
+            # Store history
+            loss_history.append(epoch_loss)
+            accuracy_history.append(epoch_accuracy)
+            
             # Validation check
             val_loss = None
             if val_loader is not None:
@@ -324,6 +344,16 @@ class RealMLTrainer:
             for name in initial_params.keys()
         }
         
+        # Calculate weight delta norm
+        weight_delta_norm = sum(torch.norm(update).item() ** 2 for update in parameter_updates.values()) ** 0.5
+        
+        # Calculate data distribution
+        unique_labels, counts = torch.unique(torch.LongTensor(y_train), return_counts=True)
+        data_distribution = {f"class_{label.item()}": count.item() for label, count in zip(unique_labels, counts)}
+        
+        # Calculate learning progress
+        learning_progress = ((initial_loss - final_loss) / initial_loss * 100) if initial_loss > 0 else 0.0
+        
         training_time = time.time() - start_time
         epochs_completed = epoch + 1
         convergence_achieved = patience_counter < self.config.early_stopping_patience
@@ -338,7 +368,16 @@ class RealMLTrainer:
             model_parameters=final_params,
             parameter_updates=parameter_updates,
             gradient_norms=gradient_norms,
-            convergence_achieved=convergence_achieved
+            convergence_achieved=convergence_achieved,
+            # Enhanced metrics
+            initial_weights=initial_params,
+            final_weights=final_params,
+            loss_history=loss_history,
+            accuracy_history=accuracy_history,
+            data_distribution=data_distribution,
+            training_samples=len(y_train),
+            weight_delta_norm=weight_delta_norm,
+            learning_progress=learning_progress
         )
         
         logger.info(f"Training completed: {epochs_completed} epochs, "
@@ -346,6 +385,79 @@ class RealMLTrainer:
         
         return result
     
+    def evaluate_federated_model(self, X_test: np.ndarray, y_test: np.ndarray) -> Dict[str, float]:
+        """
+        Evaluate the federated model on test data after aggregation
+        
+        Args:
+            X_test: Test features
+            y_test: Test labels
+            
+        Returns:
+            Dictionary with comprehensive test metrics
+        """
+        self.model.eval()
+        
+        # Convert to tensors
+        X_test_tensor = torch.FloatTensor(X_test)
+        y_test_tensor = torch.LongTensor(y_test)
+        
+        # Create test dataset and loader
+        test_dataset = TensorDataset(X_test_tensor, y_test_tensor)
+        test_loader = DataLoader(test_dataset, batch_size=self.config.batch_size, shuffle=False)
+        
+        total_loss = 0.0
+        correct = 0
+        total = 0
+        predictions = []
+        true_labels = []
+        
+        with torch.no_grad():
+            for batch_X, batch_y in test_loader:
+                outputs = self.model(batch_X)
+                loss = self.criterion(outputs, batch_y)
+                
+                total_loss += loss.item()
+                _, predicted = torch.max(outputs.data, 1)
+                total += batch_y.size(0)
+                correct += (predicted == batch_y).sum().item()
+                
+                predictions.extend(predicted.cpu().numpy())
+                true_labels.extend(batch_y.cpu().numpy())
+        
+        # Calculate metrics
+        test_loss = total_loss / len(test_loader)
+        test_accuracy = correct / total
+        
+        # Calculate per-class accuracy
+        predictions = np.array(predictions)
+        true_labels = np.array(true_labels)
+        
+        unique_classes = np.unique(true_labels)
+        per_class_accuracy = {}
+        
+        for cls in unique_classes:
+            cls_mask = true_labels == cls
+            if cls_mask.sum() > 0:
+                cls_correct = (predictions[cls_mask] == true_labels[cls_mask]).sum()
+                per_class_accuracy[f"class_{cls}_accuracy"] = cls_correct / cls_mask.sum()
+        
+        # Calculate class distribution in test set
+        unique_labels, counts = np.unique(true_labels, return_counts=True)
+        test_distribution = {f"class_{label}": count for label, count in zip(unique_labels, counts)}
+        
+        metrics = {
+            'test_loss': test_loss,
+            'test_accuracy': test_accuracy,
+            'test_samples': len(y_test),
+            'test_distribution': test_distribution,
+            **per_class_accuracy
+        }
+        
+        logger.info(f"Federated model test results: Loss={test_loss:.4f}, Accuracy={test_accuracy:.4f}")
+        
+        return metrics
+
     def _evaluate_model(self, dataloader: DataLoader) -> Tuple[float, float]:
         """Evaluate model on given dataloader"""
         total_loss = 0.0

@@ -167,10 +167,10 @@ class NovaProver:
         # Add learning rate to witness
         witness_values.append(int(first_round.learning_rate * scale_factor) % FIELD_MODULUS)
         
-        # Commit to witness and error (use deterministic blinding for testing)
-        # In production, should use secure randomness
-        witness_blinding = hash(str(witness_values) + str(first_round.round_number)) % FIELD_MODULUS
-        error_blinding = hash(str(witness_values) + str(first_round.round_number) + "error") % FIELD_MODULUS
+        # FIXED: Use cryptographically secure randomness (NO MOCKS)
+        import secrets
+        witness_blinding = secrets.randbits(256) % FIELD_MODULUS
+        error_blinding = secrets.randbits(256) % FIELD_MODULUS
         
         witness_commit = self.commitment.commit(witness_values, witness_blinding)
         error_commit = self.commitment.commit([0] * len(witness_values), error_blinding)
@@ -218,9 +218,10 @@ class NovaProver:
             lr_grad = int(round_data.learning_rate * grad * scale_factor * scale_factor) % FIELD_MODULUS
             witness_values.append(lr_grad)
         
-        # Commit to witness
-        witness_blinding = hash(str(witness_values) + str(round_data.round_number)) % FIELD_MODULUS
-        error_blinding = hash(str(witness_values) + str(round_data.round_number) + "error") % FIELD_MODULUS
+        # FIXED: Use cryptographically secure randomness (NO MOCKS)
+        import secrets
+        witness_blinding = secrets.randbits(256) % FIELD_MODULUS
+        error_blinding = secrets.randbits(256) % FIELD_MODULUS
         
         witness_commit = self.commitment.commit(witness_values, witness_blinding)
         error_commit = self.commitment.commit([0] * len(witness_values), error_blinding)

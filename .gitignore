@@ -6,7 +6,8 @@ __pycache__/
 # C extensions
 *.so
 commands.md
-
+benchmarks/
+proofs/
 # Distribution / packaging
 .Python
 build/
