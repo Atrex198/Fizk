@@ -1,0 +1,181 @@
+{
+  "protocol_type": "protostar",
+  "proof_data": {
+    "protocol": "ProductionProtoGalaxy",
+    "version": "2.0",
+    "aggregation_metadata": {
+      "original_proof_count": 3,
+      "aggregation_challenge": "12414684991236954862784235376270497256016886186928500161169162376237080004014",
+      "aggregation_coefficients": [
+        "2496966128081430908875849496579492784789460258792241507892188169208020999346",
+        "8882829926862580133256164716727009965979098836595975688687235130542226659726",
+        "7829216381634806148981120797919198454542800705379925469517342606393829817479"
+      ],
+      "ec_operations_performed": 16,
+      "cross_terms_computed": 3,
+      "tree_depth": 2
+    },
+    "aggregated_witness_commitment": {
+      "point_coords": [
+        "14196241587261342774130396726552005797777954140907194461494883526415383665478",
+        "14098530280886427759163022038385528960303258174352726219358568430118011042421"
+      ],
+      "type": "aggregated_witness",
+      "metadata": {},
+      "is_ec_point": true
+    },
+    "aggregated_witness_error_commitment": {
+      "point_coords": [
+        "5009736750090425376314991015549049612231771504953300874743813439480809486727",
+        "2427470203301519297954047852547766236894121474677631493119806929429478215108"
+      ],
+      "type": "aggregated_witness_error",
+      "metadata": {},
+      "is_ec_point": true
+    },
+    "aggregated_constraint_commitment": {
+      "point_coords": [
+        "6868667439861065628011660182929187223256391258117710902797587697512563634548",
+        "378536175039041477962402458038146478816834628057651062206451101477750678437"
+      ],
+      "type": "aggregated_constraint",
+      "metadata": {},
+      "is_ec_point": true
+    },
+    "aggregated_constraint_error_commitment": {
+      "point_coords": [
+        "12270071661106857179944568764730613243267109283602380924651211964943332426382",
+        "12610180615538349408244979613029351863234855042560693042954846724588456101697"
+      ],
+      "type": "aggregated_constraint_error",
+      "metadata": {},
+      "is_ec_point": true
+    },
+    "cross_term_error_commitments": [
+      {
+        "point_coords": [
+          "4262275937406412014704504690646111491787228147450336987726947378591507814059",
+          "6514216766876729463899074255323721218200928111304031395683723559813304412187"
+        ],
+        "type": "cross_term_error",
+        "metadata": {
+          "proof_indices": [
+            0,
+            1
+          ],
+          "challenge": "17112912144896552661820883346468501886141663504355113759744942528014586127045"
+        },
+        "is_ec_point": true
+      },
+      {
+        "point_coords": [
+          "13581466396651098326793815949890952758860494156060983438758641197181829967039",
+          "3792721340178268156657070594558623229946231145043743326591912455553521805675"
+        ],
+        "type": "cross_term_error",
+        "metadata": {
+          "proof_indices": [
+            0,
+            2
+          ],
+          "challenge": "2756624906182013209082157844904613820849195029146565124940604386074256837517"
+        },
+        "is_ec_point": true
+      },
+      {
+        "point_coords": [
+          "17217539089647266495625994974814456076577587681066107465359406156992033632711",
+          "13802128731761816175922659552642548818062702755312130730178829392024935829330"
+        ],
+        "type": "cross_term_error",
+        "metadata": {
+          "proof_indices": [
+            1,
+            2
+          ],
+          "challenge": "4657814138461435730874474704038123000033566106643449231613486755112845224314"
+        },
+        "is_ec_point": true
+      }
+    ],
+    "verification_tree": {
+      "depth": 2,
+      "leaf_count": 3,
+      "levels": [
+        [
+          {
+            "level": 0,
+            "node_index": 0,
+            "challenge": "12413012000069644133299938614818075829217224688068149485826783493454275010983",
+            "verification_path_length": 2
+          }
+        ],
+        [
+          {
+            "level": 1,
+            "node_index": 0,
+            "challenge": "3610202416420631489385785684446082230850376018365389264971007740889719906488",
+            "verification_path_length": 1
+          },
+          {
+            "level": 1,
+            "node_index": 1,
+            "challenge": "10060285348541535184581973280754720753468819063274429190465808013393714348934",
+            "verification_path_length": 1
+          }
+        ]
+      ]
+    },
+    "relaxed_witness": {
+      "vector_size": 557,
+      "error_vector_size": 557,
+      "witness_commitment": {
+        "point_coords": [
+          "14196241587261342774130396726552005797777954140907194461494883526415383665478",
+          "14098530280886427759163022038385528960303258174352726219358568430118011042421"
+        ],
+        "type": "witness_folded",
+        "metadata": {},
+        "is_ec_point": true
+      },
+      "error_commitment": {
+        "point_coords": [
+          "5009736750090425376314991015549049612231771504953300874743813439480809486727",
+          "2427470203301519297954047852547766236894121474677631493119806929429478215108"
+        ],
+        "type": "error_folded",
+        "metadata": {},
+        "is_ec_point": true
+      }
+    },
+    "cryptographic_properties": {
+      "all_commitments_ec_points": true,
+      "error_polynomials_committed": true,
+      "witness_fully_folded": true,
+      "cross_terms_have_commitments": true,
+      "verification_tree_built": true,
+      "production_grade": true
+    }
+  },
+  "statement": {
+    "model_architecture": "FederatedNN",
+    "initial_weights_commitment": "a7fe0f6d1da04aca55c46a7b5ff434c0d73630841974989e741fc844c774215f",
+    "final_weights_commitment": "aee94c23e6a2fa9f876bd8bcd25463d06ee19fa98b3369f4ee12b6be4d039448",
+    "dataset_commitment": "60ebfe17ca14f3e417aac1e3c96a199d568cd91412cab9373e1a2d0554c9d89a",
+    "local_epochs": 5,
+    "batch_size": 64,
+    "learning_rate": 0.01,
+    "claimed_accuracy": 0.7095101358590837,
+    "claimed_loss": 0.5741021300015384,
+    "sample_count": 23333,
+    "round_number": 1,
+    "client_id": "client_0",
+    "timestamp": 1759976868.9930623
+  },
+  "metadata": {
+    "aggregation_time": 0.2078719139099121,
+    "original_proofs": 3,
+    "is_aggregated": true,
+    "ec_operations": 16
+  }
+}
