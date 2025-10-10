@@ -148,8 +148,8 @@ class PairingVerifier:
         logger.info("🔍 Verifying KZG polynomial commitment with pairing check")
         
         if not self.use_py_ecc:
-            logger.warning("⚠️ py_ecc not available - using simulated verification")
-            return self._verify_simulated(commitment, proof)
+            # FRAUD PREVENTION: No simulation allowed
+            raise RuntimeError("py_ecc not available - cannot perform real cryptographic verification. NO SIMULATION ALLOWED!")
         
         try:
             # Convert points to py_ecc format
@@ -217,8 +217,8 @@ class PairingVerifier:
         logger.info("🔍 Verifying Groth16 proof with pairing check")
         
         if not self.use_py_ecc:
-            logger.warning("⚠️ py_ecc not available - using simulated verification")
-            return self._verify_simulated(proof_a, proof_c)
+            # FRAUD PREVENTION: No simulation allowed
+            raise RuntimeError("py_ecc not available - cannot perform real cryptographic verification. NO SIMULATION ALLOWED!")
         
         try:
             # Convert proof elements
@@ -293,20 +293,13 @@ class PairingVerifier:
         logger.info("🔍 Verifying PLONK proof with pairing check")
         
         if not self.use_py_ecc:
-            logger.warning("⚠️ py_ecc not available - using simulated verification")
-            return self._verify_simulated(commitments['a'], proof)
+            # FRAUD PREVENTION: No simulation allowed  
+            raise RuntimeError("py_ecc not available - cannot perform real cryptographic verification. NO SIMULATION ALLOWED!")
         
         try:
-            # PLONK verification is complex - simplified version here
-            # Full implementation would compute linearization polynomial
-            
-            # For now, just verify that proof has valid structure
-            A = self._tuple_to_g1(commitments['a'])
-            B = self._tuple_to_g1(commitments['b'])
-            C = self._tuple_to_g1(commitments['c'])
-            pi = self._tuple_to_g1(proof)
-            
-            # Simplified check: verify points are on curve
+            # FRAUD PREVENTION: PLONK verification requires full implementation
+            # Simplified versions are not cryptographically secure
+            raise RuntimeError("PLONK verification requires full implementation - simplified versions are not secure!")
             is_valid = all([
                 self._is_on_curve_g1(A),
                 self._is_on_curve_g1(B),

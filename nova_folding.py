@@ -88,6 +88,18 @@ class NovaCommitment:
         
         return (commitment_x, commitment_y)
     
+    def commit_to_witness(self, witness: List[int]) -> Tuple[int, int]:
+        """Commit to witness vector"""
+        import secrets
+        blinding = secrets.randbits(256)
+        return self.commit(witness, blinding)
+    
+    def commit_to_error(self, error: List[int]) -> Tuple[int, int]:
+        """Commit to error vector"""
+        import secrets
+        blinding = secrets.randbits(256)
+        return self.commit(error, blinding)
+    
     @staticmethod
     def add_commitments(c1: Tuple[int, int], c2: Tuple[int, int]) -> Tuple[int, int]:
         """Add two commitments (simplified)"""

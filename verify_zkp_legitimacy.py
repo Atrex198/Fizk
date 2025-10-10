@@ -374,18 +374,26 @@ def verify_no_mock_operations():
         for file_path in files_to_check:
             full_path = Path(file_path)
             if full_path.exists():
-                with open(full_path, 'r') as f:
-                    content = f.read().lower()
-                    
-                    for pattern in mock_patterns:
-                        if pattern.lower() in content:
-                            # Ignore legitimate uses
-                            if pattern == 'random.randint' and 'np.random.randint' in content:
-                                continue  # NumPy random is fine for data generation
-                            if pattern == 'random.randint' and 'synthetic' in content:
-                                continue  # Synthetic data generation is fine
-                            
-                            suspicious_findings.append(f"{file_path}: {pattern}")
+                try:
+                    with open(full_path, 'r', encoding='utf-8') as f:
+                        content = f.read().lower()
+                except UnicodeDecodeError:
+                    try:
+                        with open(full_path, 'r', encoding='latin-1') as f:
+                            content = f.read().lower()
+                    except Exception:
+                        print(f"⚠️  Could not read {file_path} - skipping")
+                        continue
+                        
+                for pattern in mock_patterns:
+                    if pattern.lower() in content:
+                        # Ignore legitimate uses
+                        if pattern == 'random.randint' and 'np.random.randint' in content:
+                            continue  # NumPy random is fine for data generation
+                        if pattern == 'random.randint' and 'synthetic' in content:
+                            continue  # Synthetic data generation is fine
+                        
+                        suspicious_findings.append(f"{file_path}: {pattern}")
         
         if suspicious_findings:
             print("   ⚠️  Suspicious patterns found:")

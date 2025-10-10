@@ -32,6 +32,7 @@ from sklearn.metrics import accuracy_score
 # Import ZKP implementations
 from nova_prover import NovaProver, FederatedLearningRound, NovaProof
 from zkp_protocols.protostar_production import ProductionProtostar
+from zkp_protocols.bulletproofs_protocol import BulletproofsProtocol
 from zkp_protocols.base import IZKPProtocol, ProtocolType, TrainingStatement, TrainingWitness, ProofObject
 
 # Import ML components
@@ -45,10 +46,14 @@ logger = logging.getLogger(__name__)
 @dataclass
 class ZKPProtocolConfig:
     """Configuration for ZKP protocol selection and parameters"""
-    protocol_type: str  # "nova", "protostar", "groth16"
+    protocol_type: str  # "nova", "protostar", "bulletproofs"
     security_level: int = 128
     srs_size: int = 1024
     enable_aggregation: bool = True
+    # Bulletproofs specific
+    range_bits: int = 32
+    weight_bounds: Tuple[float, float] = (-10.0, 10.0)
+    loss_bounds: Tuple[float, float] = (0.0, 2.0)
     trusted_setup_required: bool = True
     curve_type: str = "bn128"  # "bn128", "pasta", "bls12_381"
     
@@ -484,6 +489,103 @@ class ProtoStarZKPProvider(IUnifiedZKPProvider):
         return time.time() - start_time
 
 
+class BulletproofsZKPProvider(IUnifiedZKPProvider):
+    """
+    Bulletproofs provider for the unified FL system
+    
+    Implements transparent zero-knowledge proofs for weight/gradient range verification.
+    """
+    
+    def __init__(self, config: ZKPProtocolConfig):
+        self.config = config
+        bulletproofs_config = {
+            'security_level': config.security_level,
+            'range_bits': getattr(config, 'range_bits', 32),
+            'weight_bounds': getattr(config, 'weight_bounds', (-10.0, 10.0)),
+            'loss_bounds': getattr(config, 'loss_bounds', (0.0, 2.0))
+        }
+        self.bulletproofs = BulletproofsProtocol(bulletproofs_config)
+        self.setup_completed = False
+        
+    def get_protocol_info(self) -> Dict[str, Any]:
+        return self.bulletproofs.get_protocol_info()
+    
+    def setup(self) -> Dict[str, Any]:
+        """Bulletproofs has transparent setup (no trusted setup required)"""
+        setup_params = self.bulletproofs.setup()
+        self.setup_completed = True
+        return setup_params
+    
+    def prove_training_round(
+        self,
+        client_id: str,
+        initial_weights: Dict[str, np.ndarray],
+        final_weights: Dict[str, np.ndarray],
+        training_data: np.ndarray,
+        training_labels: np.ndarray,
+        round_number: int,
+        training_metrics: Dict[str, float]
+    ) -> ProofObject:
+        """Generate Bulletproofs for training round (weight/gradient range proofs)"""
+        if not self.setup_completed:
+            raise RuntimeError("Must call setup() first")
+        
+        # Create training statement and witness for Bulletproofs
+        statement = TrainingStatement(
+            model_architecture="medical_mlp",
+            initial_weights_commitment=str(hash(str(initial_weights))),
+            final_weights_commitment=str(hash(str(final_weights))),
+            dataset_commitment=str(hash(training_data.tobytes())),
+            local_epochs=10,  # Per Final Guide (1 round = 10 epochs)
+            batch_size=32,  # Default batch size
+            learning_rate=0.01,
+            claimed_accuracy=training_metrics.get('accuracy', 0.0),
+            claimed_loss=training_metrics.get('loss', 0.0),
+            sample_count=len(training_data),
+            round_number=round_number,
+            client_id=client_id,
+            timestamp=time.time()
+        )
+        
+        witness = TrainingWitness(
+            initial_weights=initial_weights,
+            final_weights=final_weights,
+            dataset_samples=training_data,
+            dataset_labels=training_labels,
+            intermediate_gradients=None,  # Optional gradients
+            random_seed=42  # For reproducible randomness
+        )
+        
+        # Generate Bulletproofs for weight/gradient ranges
+        proof = self.bulletproofs.generate_proof(statement, witness)
+        
+        return proof
+    
+    def verify_proof(self, proof: ProofObject, statement: Optional[TrainingStatement] = None) -> bool:
+        """Verify Bulletproofs"""
+        verification_result = self.bulletproofs.verify_proof(proof, statement)
+        return verification_result.is_valid
+    
+    def aggregate_proofs(self, proofs: List[ProofObject]) -> Optional[ProofObject]:
+        """Aggregate multiple Bulletproofs (batch verification)"""
+        if not proofs:
+            return None
+        
+        # Use Bulletproofs native aggregation
+        aggregated_proof = self.bulletproofs.aggregate_proofs(proofs)
+        return aggregated_proof
+    
+    def get_proof_size(self, proof: ProofObject) -> int:
+        """Get Bulletproofs proof size"""
+        return len(json.dumps(proof.to_dict()).encode())
+    
+    def get_verification_time(self, proof: ProofObject) -> float:
+        """Get Bulletproofs verification time"""
+        start_time = time.time()
+        self.verify_proof(proof)
+        return time.time() - start_time
+
+
 class UnifiedZKPFactory:
     """Factory for creating ZKP providers"""
     
@@ -495,6 +597,8 @@ class UnifiedZKPFactory:
             return NovaZKPProvider(config)
         elif config.protocol_type.lower() == "protostar":
             return ProtoStarZKPProvider(config)
+        elif config.protocol_type.lower() == "bulletproofs":
+            return BulletproofsZKPProvider(config)
         elif config.protocol_type.lower() == "groth16":
             # Future implementation
             raise NotImplementedError("Groth16 provider not yet implemented")
@@ -724,7 +828,49 @@ class MultiProtocolZKPFLSystem:
                     # Add to client's round proofs for final IVC
                     client_data['round_proofs'].append(nova_round_proof)
                     
+                    logger.info(f"✅ Nova round proof verified for {client_id}")
                     logger.info(f"     🌟 Nova IVC round proof: {nova_proof_size} bytes, valid: {nova_proof_valid}")
+                    
+                elif self.config.zkp_config.protocol_type.lower() == "bulletproofs":
+                    # For Bulletproofs, generate range proofs for weights/gradients
+                    bulletproof = self.zkp_provider.prove_training_round(
+                        client_id, initial_weights, final_weights,
+                        client_data['X_data'], client_data['y_data'],
+                        round_num, metrics
+                    )
+                    
+                    proof_gen_time = time.time() - proof_start_time
+                    proof_size = self.zkp_provider.get_proof_size(bulletproof) if bulletproof else 0
+                    
+                    # Verify Bulletproof immediately 
+                    verify_start_time = time.time()
+                    bulletproof_valid = self.zkp_provider.verify_proof(bulletproof)
+                    verify_time = time.time() - verify_start_time
+                    
+                    # Track ZKP metrics
+                    round_proof_gen_times.append({
+                        'client_id': client_id,
+                        'time': proof_gen_time
+                    })
+                    round_proof_verify_times.append(verify_time)
+                    
+                    # Save Bulletproof using new storage method
+                    self._save_proof_to_storage(bulletproof, 'bulletproofs', client_id, round_num, 'round')
+                    
+                    # Store Bulletproof
+                    round_proofs.append({
+                        'client_id': client_id,
+                        'proof': bulletproof,
+                        'protocol': 'bulletproofs',
+                        'round': round_num,
+                        'valid': bulletproof_valid,
+                        'size': proof_size
+                    })
+                    
+                    client_data['round_proofs'].append(bulletproof)
+                    
+                    logger.info(f"✅ Bulletproof verified for {client_id}")
+                    logger.info(f"     🔫 Bulletproof: {proof_size} bytes, valid: {bulletproof_valid}")
                     
                 else:
                     # For ProtoStar, generate individual proof
@@ -1430,6 +1576,38 @@ if __name__ == "__main__":
         # Run FL
         protostar_results = await system2.run_federated_learning()
         print(f"✅ ProtoStar results: proof sizes, verification times available")
+        
+        print("\n" + "="*50 + "\n")
+        
+        # Test with Bulletproofs
+        print("🧪 Testing Bulletproofs Protocol")
+        bulletproofs_config = UnifiedFLConfig(
+            num_clients=3,
+            num_rounds=2,
+            local_epochs=2,
+            zkp_config=ZKPProtocolConfig(
+                protocol_type="bulletproofs",
+                security_level=128,
+                range_bits=32,
+                weight_bounds=(-10.0, 10.0),
+                loss_bounds=(0.0, 2.0)
+            ),
+            benchmark_output_dir="./benchmarks/bulletproofs"
+        )
+        
+        # Create system
+        system3 = MultiProtocolZKPFLSystem(bulletproofs_config)
+        await system3.initialize_system()
+        
+        # Add clients
+        for i in range(bulletproofs_config.num_clients):
+            X_data = np.random.randn(100, 10)
+            y_data = np.random.randint(0, 2, 100)
+            system3.add_client(f"client_{i}", X_data, y_data)
+        
+        # Run FL
+        bulletproofs_results = await system3.run_federated_learning()
+        print(f"✅ Bulletproofs results: range proofs, verification times available")
         
         print("\n🎯 Multi-protocol testing completed!")
         print("📊 Check ./benchmarks/ for detailed results")

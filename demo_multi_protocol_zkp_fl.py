@@ -9,7 +9,7 @@ Demonstrates the complete multi-protocol ZKP federated learning system:
 - Side-by-side comparison of protocols
 
 Usage:
-    python demo_multi_protocol_zkp_fl.py [--protocol nova|protostar|both]
+    python demo_multi_protocol_zkp_fl.py [--protocol nova|protostar|bulletproofs|all]
     
 Author: Multi-ZKP FL Team
 Version: 1.0
@@ -217,7 +217,7 @@ def visualize_comparison(nova_results: dict, protostar_results: dict):
 async def main():
     """Main demonstration function"""
     parser = argparse.ArgumentParser(description='Multi-Protocol ZKP-FL Demo')
-    parser.add_argument('--protocol', choices=['nova', 'protostar', 'both'], default='both',
+    parser.add_argument('--protocol', choices=['nova', 'protostar', 'bulletproofs', 'all'], default='all',
                        help='Which protocol(s) to demonstrate')
     parser.add_argument('--clients', type=int, default=3, help='Number of FL clients')
     parser.add_argument('--rounds', type=int, default=2, help='Number of FL rounds')

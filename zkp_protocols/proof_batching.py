@@ -228,8 +228,8 @@ class ProofBatcher:
                 coefficients
             )
         else:
-            # Simulation mode: simplified verification
-            return self._verify_simulated(combined_proof)
+            # FRAUD PREVENTION: No simulation allowed - use real verification only
+            raise RuntimeError("Simulated verification not allowed - only real cryptographic verification permitted!")
     
     def _verify_with_py_ecc(
         self,
@@ -280,9 +280,9 @@ class ProofBatcher:
             return is_valid
             
         except Exception as e:
-            logger.warning(f"⚠️ py_ecc verification failed, using fallback: {e}")
-            # Fall back to simulated verification
-            return self._verify_simulated(combined_proof)
+            logger.error(f"py_ecc verification failed: {e}")
+            # FRAUD PREVENTION: No simulated fallbacks allowed
+            raise RuntimeError("Cryptographic verification failed - no simulation fallbacks permitted!")
     
     def _verify_simulated(self, combined_proof: ProofObject) -> bool:
         """

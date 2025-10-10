@@ -31,15 +31,41 @@ import json
 # Set up logging
 logger = logging.getLogger(__name__)
 
-# Pasta curve parameters (from the Pasta curves specification)
-# These are the actual parameters used in the Nova paper
-# Pallas curve parameters
-PALLAS_MODULUS = 0x40000000000000000000000000000000224698fc094cf91b992d30ed00000001
-PALLAS_ORDER = 0x40000000000000000000000000000000224698fc0994a8dd8c46eb2100000001
+# UPGRADED: Use real py_ecc cryptography for production-grade Nova
+try:
+    from py_ecc.bn128.bn128_curve import G1, multiply, add, curve_order as bn_curve_order
+    from py_ecc.bn128.bn128_pairing import pairing
+    from py_ecc.fields import bn128_FQ as FQ
+    print("✅ Nova upgraded to use real py_ecc cryptography (BN128)")
+    USING_REAL_CRYPTO = True
+    
+    # Use BN128 for compatibility with other protocols
+    FIELD_MODULUS = bn_curve_order  # Use same field as BN128
+    CURVE_ORDER = bn_curve_order
+    G1_GENERATOR = G1
+    
+    # Also define Pasta curve constants for compatibility
+    PALLAS_MODULUS = 0x40000000000000000000000000000000224698fc094cf91b992d30ed00000001
+    PALLAS_ORDER = 0x40000000000000000000000000000000224698fc0994a8dd8c46eb2100000001
+    VESTA_MODULUS = PALLAS_ORDER
+    VESTA_ORDER = PALLAS_MODULUS
 
-# Vesta curve parameters (forms 2-cycle with Pallas)
-VESTA_MODULUS = PALLAS_ORDER  # Vesta base field = Pallas scalar field  
-VESTA_ORDER = PALLAS_MODULUS  # Vesta scalar field = Pallas base field
+except ImportError:
+    print("⚠️  py_ecc not available, using custom Pasta curves")
+    USING_REAL_CRYPTO = False
+    
+    # Fallback: Pasta curve parameters (from the Pasta curves specification)
+    # These are the actual parameters used in the Nova paper
+    # Pallas curve parameters
+    PALLAS_MODULUS = 0x40000000000000000000000000000000224698fc094cf91b992d30ed00000001
+    PALLAS_ORDER = 0x40000000000000000000000000000000224698fc0994a8dd8c46eb2100000001
+    
+    # Vesta curve parameters (forms 2-cycle with Pallas)
+    VESTA_MODULUS = PALLAS_ORDER  # Vesta base field = Pallas scalar field  
+    VESTA_ORDER = PALLAS_MODULUS  # Vesta scalar field = Pallas base field
+    
+    FIELD_MODULUS = PALLAS_ORDER
+    CURVE_ORDER = PALLAS_ORDER
 
 @dataclass
 class FieldElement:

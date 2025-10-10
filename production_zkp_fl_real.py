@@ -68,9 +68,6 @@ class FLConfig:
     srs_size: int = 2048  # UPGRADED: Larger SRS for production (was 256)
     proof_validity_window: int = 300  # Seconds - proofs expire after 5 minutes
     max_error_accumulation: float = 1e-6  # Maximum acceptable error in aggregation
-    enable_weight_encryption: bool = True  # 🔒 Hide weights from server
-    paillier_key_size: int = 512  # 🔒 NEW: Paillier key size (512=fast demo, 2048=production)
-    encryption_sample_rate: float = 0.1  # 🔒 NEW: Encrypt 10% of weights (1.0=all weights)
     use_bls12_381: bool = False  # 🔒 NEW: Use BLS12-381 curve (True for production)
     
 
@@ -91,8 +88,7 @@ class ProductionZKPFLClient:
         y_data: np.ndarray,
         zkp_protocol: ProductionProtostar,
         config: FLConfig,
-        proof_dir: Path,
-        encryption_public_key: Optional[Any] = None  # 🔒 NEW: Server's public key
+        proof_dir: Path
     ):
         self.client_id = client_id
         self.X_data = X_data
@@ -100,7 +96,6 @@ class ProductionZKPFLClient:
         self.zkp_protocol = zkp_protocol
         self.config = config
         self.proof_dir = proof_dir
-        self.encryption_public_key = encryption_public_key  # 🔒 Store server's public key
         
         # Create client directories (client_id already has "client_" prefix)
         self.client_proof_dir = proof_dir / client_id
@@ -340,10 +335,9 @@ class ProductionZKPFLServer:
         self.nonce_db = NonceDatabase(db_path=str(base_dir / "nonces.db"))
         logger.info(f"[Server] ✅ Nonce database initialized for replay protection")
         
-        # Privacy is provided by ZKP proofs - Paillier encryption removed
+        # Privacy is provided by ZKP proofs only
         # ZKP already ensures server cannot see individual client weights
-        self.paillier_he = None
-        logger.info(f"[Server] Privacy mode: ZKP proofs only (Paillier removed)")
+        logger.info(f"[Server] Privacy mode: ZKP proofs only")
         
         # Initialize ZKP protocol
         logger.info("[Server] Initializing production ZKP protocol...")
@@ -659,7 +653,7 @@ class ProductionZKPFLServer:
             'avg_proof_time': np.mean([u['proof_metadata']['proof_generation_time'] for u in verified_updates]),
             'aggregated_proof_available': aggregated_proof is not None,
             'round_time': time.time() - round_start,
-            'privacy_mode_active': self.config.enable_weight_encryption
+            'privacy_mode_active': False  # Encryption removed
         }
         
         if aggregated_proof:
@@ -811,9 +805,6 @@ async def main():
         srs_size=2048,  # 🔒 Production SRS size  
         proof_validity_window=300,  # 🔒 5-minute proof validity
         max_error_accumulation=1e-6,  # 🔒 Error bounds
-        enable_weight_encryption=True,  # 🔒 Privacy protection
-        paillier_key_size=512,  # 🔒 512-bit for speed (2048-bit for production)
-        encryption_sample_rate=0.1,  # 🔒 Encrypt 10% of weights (1.0 for production)
         use_bls12_381=False  # 🔒 Set to True for BLS12-381 (requires py_ecc>=6.0.0)
     )
     
@@ -883,8 +874,7 @@ async def main():
             y_data=client_data[i]['y'],
             zkp_protocol=server.zkp_protocol,  # Share ZKP protocol
             config=config,
-            proof_dir=server.proof_dir,
-            encryption_public_key=server.paillier_he if config.enable_weight_encryption else None  # 🔒 Share public key
+            proof_dir=server.proof_dir
         )
         for i in range(config.num_clients)
     ]
