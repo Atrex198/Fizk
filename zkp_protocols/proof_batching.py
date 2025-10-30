@@ -58,7 +58,7 @@ class ProofBatcher:
     
     def __init__(self, field_modulus: int = 2**256 - 2**224 + 2**192 + 2**96 - 1):
         """
-        Initialize batch verifier
+        Initialize batch verifier - SECURITY: py_ecc REQUIRED
         
         Args:
             field_modulus: Prime field modulus for scalar operations
@@ -66,8 +66,7 @@ class ProofBatcher:
         self.field_modulus = field_modulus
         self.batch_size_limit = 1000  # Max proofs per batch (security limit)
         
-        # Try to use py_ecc for real pairing operations
-        self.use_py_ecc = False
+        # SECURITY: py_ecc is REQUIRED for real pairing operations
         try:
             from py_ecc.bn128 import G1, G2, multiply, add, pairing, FQ
             self.G1 = G1
@@ -76,10 +75,14 @@ class ProofBatcher:
             self.add = add
             self.pairing = pairing
             self.FQ = FQ
-            self.use_py_ecc = True
             logger.info("✅ Using py_ecc for real pairing operations")
-        except ImportError:
-            logger.info("ℹ️ py_ecc not available - using simulation mode")
+        except ImportError as e:
+            raise ImportError(
+                f"CRITICAL SECURITY ERROR: py_ecc library is REQUIRED for proof batching.\n"
+                f"Original error: {e}\n"
+                f"Install with: pip install py_ecc\n"
+                f"No simulation mode available for security reasons."
+            )
     
     def batch_verify(
         self,
@@ -220,16 +223,13 @@ class ProofBatcher:
         """
         logger.debug("   Performing pairing check on combined proof")
         
-        if self.use_py_ecc:
-            return self._verify_with_py_ecc(
-                combined_proof,
-                public_inputs_list,
-                verification_keys,
-                coefficients
-            )
-        else:
-            # Simulation mode: simplified verification
-            return self._verify_simulated(combined_proof)
+        # Always use py_ecc - verified in __init__
+        return self._verify_with_py_ecc(
+            combined_proof,
+            public_inputs_list,
+            verification_keys,
+            coefficients
+        )
     
     def _verify_with_py_ecc(
         self,
@@ -280,18 +280,9 @@ class ProofBatcher:
             return is_valid
             
         except Exception as e:
-            logger.warning(f"⚠️ py_ecc verification failed, using fallback: {e}")
-            # Fall back to simulated verification
-            return self._verify_simulated(combined_proof)
-    
-    def _verify_simulated(self, combined_proof: ProofObject) -> bool:
-        """
-        Simulated verification (for testing without py_ecc)
-        
-        Check that proof has valid structure
-        """
-        # Basic structural checks
-        has_commitments = len(combined_proof.commitments) > 0
+            logger.error(f"❌ FATAL: py_ecc verification failed: {e}")
+            # SECURITY: Verification failure is NOT acceptable
+            return False
         has_evaluations = len(combined_proof.evaluations) > 0
         valid_challenge = 0 < combined_proof.challenge < self.field_modulus
         
@@ -338,18 +329,10 @@ class ProofBatcher:
         """
         Scalar multiplication on elliptic curve: k · P
         """
-        if self.use_py_ecc:
-            # Use py_ecc for real EC operations
-            point_fq = (self.FQ(point[0]), self.FQ(point[1]))
-            result = self.multiply(point_fq, scalar)
-            return (int(result[0]), int(result[1]))
-        else:
-            # Simulation: just multiply coordinates (NOT secure, just for PoC)
-            x, y = point
-            return (
-                (x * scalar) % self.field_modulus,
-                (y * scalar) % self.field_modulus
-            )
+        # Always use py_ecc - verified in __init__
+        point_fq = (self.FQ(point[0]), self.FQ(point[1]))
+        result = self.multiply(point_fq, scalar)
+        return (int(result[0]), int(result[1]))
     
     def _add_ec_points(
         self,
@@ -365,18 +348,11 @@ class ProofBatcher:
         if p2 == (0, 0):
             return p1
         
-        if self.use_py_ecc:
-            # Use py_ecc for real EC addition
-            p1_fq = (self.FQ(p1[0]), self.FQ(p1[1]))
-            p2_fq = (self.FQ(p2[0]), self.FQ(p2[1]))
-            result = self.add(p1_fq, p2_fq)
-            return (int(result[0]), int(result[1]))
-        else:
-            # Simulation: component-wise addition (NOT secure, just for PoC)
-            return (
-                (p1[0] + p2[0]) % self.field_modulus,
-                (p1[1] + p2[1]) % self.field_modulus
-            )
+        # Always use py_ecc - verified in __init__
+        p1_fq = (self.FQ(p1[0]), self.FQ(p1[1]))
+        p2_fq = (self.FQ(p2[0]), self.FQ(p2[1]))
+        result = self.add(p1_fq, p2_fq)
+        return (int(result[0]), int(result[1]))
 
 
 def test_proof_batching():
@@ -415,28 +391,18 @@ def test_proof_batching():
     public_inputs = [[i] for i in range(num_proofs)]
     vks = [{'dummy': 'vk'} for _ in range(num_proofs)]
     
-    print(f"\n🔄 Testing individual verification (baseline)...")
-    start_individual = time.time()
-    for proof in proofs:
-        batcher._verify_simulated(proof)
-    time_individual = time.time() - start_individual
-    print(f"   Time: {time_individual:.3f}s ({time_individual/num_proofs:.3f}s per proof)")
-    
-    print(f"\n🚀 Testing batch verification...")
+    print(f"\n Testing batch verification...")
     start_batch = time.time()
     result = batcher.batch_verify(proofs, public_inputs, vks)
     time_batch = time.time() - start_batch
     
     print(f"\n{'✅ PASSED' if result else '❌ FAILED'}")
     print(f"   Batch time: {time_batch:.3f}s")
-    print(f"   Speedup: {time_individual/time_batch:.1f}x")
     print(f"   Per-proof time: {time_batch/num_proofs:.4f}s")
     
     print("\n" + "=" * 80)
-    print("BATCHING BENEFIT:")
-    print(f"  10 proofs: {time_individual/time_batch:.1f}x speedup")
-    print(f"  100 proofs: ~{10*time_individual/time_batch:.0f}x speedup (estimated)")
-    print(f"  1000 proofs: ~{100*time_individual/time_batch:.0f}x speedup (estimated)")
+    print("BATCH VERIFICATION COMPLETED")
+    print(f"  Processed {num_proofs} proofs in {time_batch:.3f}s")
     print("=" * 80)
 
 

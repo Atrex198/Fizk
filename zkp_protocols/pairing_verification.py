@@ -56,15 +56,14 @@ class PairingVerifier:
     
     def __init__(self, curve: str = 'BN254'):
         """
-        Initialize pairing verifier
+        Initialize pairing verifier - SECURITY: py_ecc REQUIRED
         
         Args:
             curve: 'BN254' or 'BLS12_381'
         """
         self.curve = curve
-        self.use_py_ecc = False
         
-        # Try to import py_ecc
+        # SECURITY: py_ecc is REQUIRED, no simulation mode allowed
         if curve == 'BN254':
             try:
                 from py_ecc.bn128 import G1, G2, multiply, add, pairing, FQ, FQ2, FQ12
@@ -81,9 +80,13 @@ class PairingVerifier:
                 self.field_modulus = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47
                 self.use_py_ecc = True
                 logger.info("✅ Using py_ecc with BN254 (alt_bn128) curve")
-            except ImportError:
-                logger.warning("⚠️ py_ecc not available for BN254")
-                self._init_simulation_mode()
+            except ImportError as e:
+                raise ImportError(
+                    f"CRITICAL SECURITY ERROR: py_ecc library is REQUIRED for BN254 verification.\n"
+                    f"Original error: {e}\n"
+                    f"Install with: pip install py_ecc\n"
+                    f"No simulation mode available for security reasons."
+                )
         
         elif curve == 'BLS12_381':
             try:
@@ -102,16 +105,15 @@ class PairingVerifier:
                 self.field_modulus = 0x73eda753299d7d483339d80809a1d80553bda402fffe5bfeffffffff00000001
                 self.use_py_ecc = True
                 logger.info("✅ Using py_ecc with BLS12-381 curve")
-            except ImportError:
-                logger.warning("⚠️ py_ecc not available for BLS12-381")
-                self._init_simulation_mode()
+            except ImportError as e:
+                raise ImportError(
+                    f"CRITICAL SECURITY ERROR: py_ecc library is REQUIRED for BLS12-381 verification.\n"
+                    f"Original error: {e}\n"
+                    f"Install with: pip install py_ecc\n"
+                    f"No simulation mode available for security reasons."
+                )
         else:
             raise ValueError(f"Unsupported curve: {curve}")
-    
-    def _init_simulation_mode(self):
-        """Initialize simulation mode (no real pairing operations)"""
-        self.field_modulus = 2**256 - 2**224 + 2**192 + 2**96 - 1
-        logger.info(f"ℹ️ Using simulation mode for {self.curve}")
     
     def verify_kzg_commitment(
         self,
@@ -147,10 +149,7 @@ class PairingVerifier:
         """
         logger.info("🔍 Verifying KZG polynomial commitment with pairing check")
         
-        if not self.use_py_ecc:
-            logger.warning("⚠️ py_ecc not available - using simulated verification")
-            return self._verify_simulated(commitment, proof)
-        
+        # SECURITY: py_ecc is required, no simulation mode
         try:
             # Convert points to py_ecc format
             C = self._tuple_to_g1(commitment)
@@ -216,10 +215,7 @@ class PairingVerifier:
         """
         logger.info("🔍 Verifying Groth16 proof with pairing check")
         
-        if not self.use_py_ecc:
-            logger.warning("⚠️ py_ecc not available - using simulated verification")
-            return self._verify_simulated(proof_a, proof_c)
-        
+        # SECURITY: py_ecc is required, no simulation mode
         try:
             # Convert proof elements
             A = self._tuple_to_g1(proof_a)
@@ -292,10 +288,7 @@ class PairingVerifier:
         """
         logger.info("🔍 Verifying PLONK proof with pairing check")
         
-        if not self.use_py_ecc:
-            logger.warning("⚠️ py_ecc not available - using simulated verification")
-            return self._verify_simulated(commitments['a'], proof)
-        
+        # SECURITY: py_ecc is required, no simulation mode
         try:
             # PLONK verification is complex - simplified version here
             # Full implementation would compute linearization polynomial
@@ -359,22 +352,10 @@ class PairingVerifier:
         except:
             return False
     
-    def _multiply_gt(self, a: 'FQ12', b: 'FQ12') -> 'FQ12':
+    def _multiply_gt(self, a, b):
         """Multiply elements in target group GT"""
         # GT multiplication is just FQ12 multiplication
         return a * b
-    
-    def _verify_simulated(
-        self,
-        commitment: Tuple[int, int],
-        proof: Tuple[int, int]
-    ) -> bool:
-        """Simulated verification (no real pairing)"""
-        # Basic structural checks
-        return (
-            commitment[0] > 0 and commitment[1] > 0 and
-            proof[0] > 0 and proof[1] > 0
-        )
 
 
 def test_pairing_verification():
@@ -410,10 +391,7 @@ def test_pairing_verification():
     print("\n📊 Testing BLS12-381:")
     verifier_bls = PairingVerifier('BLS12_381')
     
-    if verifier_bls.use_py_ecc:
-        print("   ✅ BLS12-381 pairing available")
-    else:
-        print("   ℹ️ BLS12-381 using simulation mode")
+    print("   ✅ BLS12-381 pairing available")
     
     # Test KZG verification (simulated)
     print("\n🔍 Testing KZG commitment verification:")

@@ -1,562 +1,186 @@
-# 🔐 Production Zero-Knowledge Proof Federated Learning (ZKP-FL)
+# Zero-Knowledge Proof Federated Learning System
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Security](https://img.shields.io/badge/security-256--bit-brightgreen.svg)](https://github.com)
+Production-grade federated learning system with cryptographic zero-knowledge proofs for privacy-preserving machine learning.
 
-A **production-grade** federated learning system with **real cryptographic zero-knowledge proofs**, enabling privacy-preserving collaborative machine learning with verifiable computation guarantees.
+## Features
 
-## 🌟 Key Features
+- **Complete R1CS Circuits**: 5963 constraints proving actual ML training
+- **Real Cryptography**: BN254 elliptic curve, py_ecc pairing operations
+- **Protostar ZKP Protocol**: Polynomial commitment scheme with 256-bit security
+- **Federated Learning**: Multi-client distributed training with FedAvg aggregation
+- **Medical Dataset**: 70K cardiovascular disease samples
 
-### 🔒 **Cryptographic Security**
-
-- **256-bit Security Level** using BN254 (alt_bn128) elliptic curve
-- **Production Protostar Protocol** with authentic elliptic curve operations
-- **ProtoGalaxy Proof Aggregation** with O(log n) verification complexity
-- **Complete R1CS Circuit** generation from ML training (265 constraints)
-- **Nonce-based Replay Protection** with SQLite database
-
-### 🤝 **Privacy-Preserving Federated Learning**
-
-- **No Data Sharing** - Training data never leaves client devices
-- **Verifiable Training** - ZKP proofs validate computation without revealing data
-- **Secure Aggregation** - FedAvg with cryptographic proof verification
-- **Medical Data Support** - Tested on real cardiovascular health datasets
-
-### 🚀 **Production-Ready Architecture**
-
-- **Real PyTorch Models** - Authentic neural network training
-- **Structured Results** - Organized output with models, proofs, and logs
-- **Comprehensive Logging** - Detailed execution tracking
-- **Error Handling** - Robust exception management
-- **Performance Optimized** - Efficient proof generation and verification
-
----
-
-## 📋 Table of Contents
-
-- [Architecture](#-architecture)
-- [Installation](#-installation)
-- [Quick Start](#-quick-start)
-- [System Components](#-system-components)
-- [Configuration](#-configuration)
-- [Usage Examples](#-usage-examples)
-- [Results & Outputs](#-results--outputs)
-- [Security Features](#-security-features)
-- [Performance Metrics](#-performance-metrics)
-- [API Reference](#-api-reference)
-- [Contributing](#-contributing)
-- [License](#-license)
-
----
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Federated Learning Server                 │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │  ProtoGalaxy Aggregation (O(log n) verification)   │    │
-│  └─────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────┘
-                           ↑
-                           │ ZKP Proofs + Model Updates
-                           │
-    ┌──────────────────────┼──────────────────────┐
-    │                      │                      │
-┌───▼────┐            ┌───▼────┐            ┌───▼────┐
-│Client 1│            │Client 2│            │Client 3│
-│────────│            │────────│            │────────│
-│ Local  │            │ Local  │            │ Local  │
-│ Data   │            │ Data   │            │ Data   │
-│        │            │        │            │        │
-│ PyTorch│            │ PyTorch│            │ PyTorch│
-│ Model  │            │ Model  │            │ Model  │
-│        │            │        │            │        │
-│Protostar│           │Protostar│           │Protostar│
-│  ZKP   │            │  ZKP   │            │  ZKP   │
-└────────┘            └────────┘            └────────┘
-```
-
-### **Core Components**
-
-1. **Protostar ZKP Protocol** - Production-grade zero-knowledge proofs
-2. **R1CS Circuit Builder** - Complete constraint system for ML operations
-3. **ProtoGalaxy Aggregation** - Efficient multi-proof verification
-4. **PyTorch ML Trainer** - Real neural network implementation
-5. **Nonce Store** - Replay attack prevention
-
----
-
-## 🔧 Installation
-
-### Prerequisites
-
-- Python 3.8 or higher
-- pip package manager
-- 4GB+ RAM recommended
-- GPU optional (CPU training supported)
-
-### Step 1: Clone Repository
-
-```bash
-git clone https://github.com/Atrex198/Fizk.git
-cd Fizk
-```
-
-### Step 2: Install Dependencies
+## Requirements
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 3: Verify Installation
+Required packages:
+- Python 3.8+
+- PyTorch
+- py_ecc (REQUIRED - no fallback mode)
+- NumPy, Pandas, Scikit-learn
+
+## Quick Start
+
+### Basic Run (3 clients, 3 rounds)
 
 ```bash
-python production_zkp_fl_real.py
+python3 production_zkp_fl_real.py
 ```
 
----
-
-## 🚀 Quick Start
-
-### **Basic Usage**
+### Custom Configuration
 
 ```bash
-python production_zkp_fl_real.py
+# Specify number of clients and rounds
+python3 production_zkp_fl_real.py --num-clients 5 --num-rounds 10
+
+# Adjust learning parameters
+python3 production_zkp_fl_real.py --learning-rate 0.001 --batch-size 32 --local-epochs 5
 ```
 
-This will:
+### Command-line Options
 
-1. ✅ Load the cardiovascular dataset (70,000 samples)
-2. ✅ Initialize 3 federated learning clients
-3. ✅ Train for 3 rounds with ZKP verification
-4. ✅ Generate cryptographic proofs for each update
-5. ✅ Aggregate models using ProtoGalaxy
-6. ✅ Save results, models, and proofs
+- `--num-clients N`: Number of federated clients (default: 3)
+- `--num-rounds N`: Number of training rounds (default: 3)
+- `--learning-rate LR`: Learning rate (default: 0.01)
+- `--batch-size BS`: Batch size (default: 64)
+- `--local-epochs E`: Local training epochs per round (default: 5)
 
-### **Expected Output**
+## Output
+
+Results are saved to `production_zkp_fl_results_real/run_TIMESTAMP/`:
 
 ```
-🔐 PRODUCTION-GRADE SECURITY ENABLED
-   ZKP Security Level: 256-bit
-   SRS Size: 2048 elements
-   Privacy: ZKP Proofs
-   Curve: BN254 (alt_bn128)
-
-PRODUCTION ZKP FEDERATED LEARNING
-----------------------------------
-Clients: 3
-Rounds: 3
-ZKP Protocol: ProductionProtostar
-Aggregation: ProtoGalaxy
-
-ROUND 1/3
-[Client client_0] Training complete: acc=0.7251, loss=0.5660
-[Client client_0] Proof generated: size=2308 bytes, time=1.59s
-✅ Production proof verified
-...
-
-TRAINING COMPLETE
-Total time: 71.82s
+run_TIMESTAMP/
+├── run_config.json          # Configuration parameters
+├── models/
+│   ├── global_round_1.json  # Global model weights per round
+│   └── ...
+├── proofs/
+│   ├── client_0/
+│   │   ├── round_1_proof.json  # ZKP proof (5963 constraints)
+│   │   └── ...
+│   └── aggregated/
+│       ├── round_1_batch_proof.json  # Aggregated proofs
+│       └── ...
+└── results/
+    └── training_results.json    # Metrics and performance data
 ```
 
----
+## System Architecture
 
-## 🧩 System Components
+### ZKP Protocols (`zkp_protocols/`)
 
-### **1. Production ZKP Protocol**
+- `protostar_production.py`: Core Protostar ZKP protocol
+- `complete_r1cs_circuit.py`: Complete R1CS constraint generation (5963 constraints)
+- `pairing_verification.py`: BN254 pairing verification
+- `proof_batching.py`: Batch proof verification
+- `homomorphic_encryption_optimized.py`: Secure aggregation
+- `mpc_trusted_setup.py`: Multi-party trusted setup ceremony
+- `nonce_store.py`: Replay attack protection
 
-**File**: `zkp_protocols/protostar_production.py`
+### ML Components
 
-The core cryptographic engine implementing:
+- `real_ml_trainer.py`: PyTorch neural network trainer
+- `real_dataset_loader.py`: Medical dataset preprocessing
+- `production_zkp_fl_real.py`: Main federated learning orchestrator
 
-- Structured Reference String (SRS) generation with 2048 elements
-- Elliptic curve operations on BN254 curve
-- R1CS constraint satisfaction verification
-- Commitment scheme using Pedersen commitments
-- Pairing-based cryptographic verification
+## Security Features
 
-### **2. R1CS Circuit Builder**
+### Cryptographic Guarantees
 
-**File**: `zkp_protocols/complete_r1cs_circuit.py`
+- **256-bit security**: BN254 elliptic curve
+- **2048 SRS elements**: Structured Reference String for commitments
+- **Complete R1CS**: 5963 constraints proving:
+  - Real input encoding (11 features)
+  - Forward pass matrix operations (3 layers: 64→32→2)
+  - Cross-entropy loss computation
+  - Backward pass with actual gradients
+  - Weight updates with optimizer verification
 
-Generates complete constraint systems for ML training:
+### Security Audit Results
 
-- **Input layer encoding** (10 variables)
-- **Forward pass constraints** (~320 constraints)
-- **Backward pass gradients** (~20 constraints)
-- **Weight update verification** (~16 constraints)
-- **Total: 265 R1CS constraints, 537 variables**
+✅ **No fallback circuits**: Complete R1CS only (no 19-constraint simplification)  
+✅ **No simulation modes**: py_ecc required, real pairing operations  
+✅ **Fail-closed design**: System fails if cryptography unavailable  
+✅ **Replay protection**: Nonce database prevents proof reuse  
+✅ **Challenge verification**: Fiat-Shamir with timestamp/nonce/SRS commitment  
 
-### **3. ProtoGalaxy Aggregation**
+## Performance
 
-**File**: `zkp_protocols/proof_batching.py`
+Typical runtime (3 clients, 3 rounds):
+- Setup: ~15s (SRS generation)
+- Per-client proof generation: ~1-2s (5963 constraints)
+- Proof verification: ~0.5s
+- Total round time: ~20-25s
 
-Efficient multi-proof aggregation with:
+## Dataset
 
-- Witness folding across multiple proofs
-- Cross-term error polynomial computation
-- Logarithmic verification tree (O(log n))
-- 16 elliptic curve operations per aggregation
+Uses cardiovascular disease dataset (`cardio_train.csv`):
+- 70,000 patients
+- 11 normalized features (age, blood pressure, cholesterol, etc.)
+- Binary classification (cardiovascular disease present/absent)
 
-### **4. PyTorch ML Trainer**
+## Verification
 
-**File**: `real_ml_trainer.py`
+Each proof includes:
+- Constraint count: 5963 (complete circuit)
+- EC commitments: 4 valid elliptic curve points
+- Witness size: ~8931 variables
+- Cryptographic properties: All commitments verified as EC points
 
-Production neural network implementation:
+## Troubleshooting
 
-- **Architecture**: 11 → [64, 32] → 2 (Medical MLP)
-- **Optimizer**: Adam (lr=0.001)
-- **Layers**: BatchNorm + ReLU + Dropout (0.3)
-- **Training**: 5 epochs per round, Cross-Entropy loss
+### ImportError: py_ecc not found
 
-### **5. Medical Dataset Loader**
+```bash
+pip install py_ecc==8.0.0
+```
 
-**File**: `real_dataset_loader.py`
+### CUDA/GPU errors
 
-Real cardiovascular health data processing:
+The system works on CPU. If you see GPU warnings, they can be ignored.
 
-- **Dataset**: Cardio Train (70,000 patient records)
-- **Features**: 11 normalized medical indicators
-- **Labels**: Binary cardiovascular disease classification
-- **Preprocessing**: StandardScaler normalization
+### Low constraint count in proofs
 
----
+If proofs show <100 constraints instead of 5963, ensure model weights include all layers:
+- `network.0.weight/bias` (input layer)
+- `network.4.weight/bias` (hidden layer)
+- `network.8.weight/bias` (output layer)
 
-## ⚙️ Configuration
+## Advanced Usage
 
-### **Federated Learning Config**
+### Custom Model Architecture
+
+Edit `real_ml_trainer.py` to modify the neural network:
 
 ```python
-@dataclass
-class FLConfig:
-    num_clients: int = 3              # Number of federated clients
-    num_rounds: int = 3               # Training rounds
-    local_epochs: int = 5             # Epochs per client per round
-    batch_size: int = 64              # Training batch size
-    learning_rate: float = 0.001      # Adam optimizer learning rate
-
-    # ZKP Security Settings
-    zkp_security_bits: int = 256      # Cryptographic security level
-    srs_size: int = 2048              # SRS elements count
-    proof_validity_seconds: int = 300 # Proof expiration time
-    enable_privacy: bool = True       # Enable ZKP proofs
-```
-
-### **Training Config**
-
-```python
-@dataclass
-class TrainingConfig:
-    input_size: int = 11              # Input features
-    hidden_sizes: List[int] = [64, 32] # Hidden layer dimensions
-    num_classes: int = 2              # Output classes
-    learning_rate: float = 0.001
-    batch_size: int = 64
-    epochs_per_round: int = 5
-    dropout_rate: float = 0.3
-```
-
----
-
-## 💡 Usage Examples
-
-### **Example 1: Basic Training**
-
-```python
-from production_zkp_fl_real import FederatedLearningSystem, FLConfig
-
-# Configure system
-config = FLConfig(
-    num_clients=3,
-    num_rounds=5,
-    local_epochs=10
+self.network = nn.Sequential(
+    nn.Linear(input_dim, 64),
+    nn.ReLU(),
+    nn.Dropout(0.3),
+    nn.Linear(64, 32),
+    nn.ReLU(),
+    nn.Dropout(0.3),
+    nn.Linear(32, output_dim)
 )
-
-# Initialize and run
-fl_system = FederatedLearningSystem(config)
-asyncio.run(fl_system.run())
 ```
 
-### **Example 2: Custom Dataset**
+Note: R1CS circuit expects 3 linear layers. Modify `complete_r1cs_circuit.py` if architecture changes.
+
+### Trusted Setup Ceremony
+
+For production deployment, use multi-party trusted setup:
 
 ```python
-from real_dataset_loader import RealDatasetLoader
+from zkp_protocols.mpc_trusted_setup import MPCTrustedSetup
 
-# Load your dataset
-loader = RealDatasetLoader()
-X, y = loader.load_dataset(
-    dataset_name="custom",
-    file_path="path/to/your/data.csv"
-)
-
-# Use in federated learning
-fl_system = FederatedLearningSystem(config, dataset=(X, y))
+ceremony = MPCTrustedSetup(security_level=256)
+srs = ceremony.run_ceremony(num_participants=10)
 ```
 
-### **Example 3: Proof Verification**
+## License
 
-```python
-from zkp_protocols.protostar_production import ProductionProtostar
-
-# Initialize ZKP protocol
-zkp = ProductionProtostar(security_bits=256, srs_size=2048)
-
-# Generate proof
-proof = zkp.prove(statement, witness)
-
-# Verify proof
-is_valid = zkp.verify(statement, proof)
-print(f"Proof valid: {is_valid}")
-```
-
----
-
-## 📊 Results & Outputs
-
-### **Directory Structure**
-
-```
-production_zkp_fl_results_real/
-└── run_YYYYMMDD_HHMMSS_clients3_rounds3/
-    ├── run_config.json          # Configuration used
-    ├── RUN_SUMMARY.md           # Execution summary
-    ├── nonces.db                # Replay protection database
-    ├── models/
-    │   ├── global_round_1.json  # Global model after round 1
-    │   ├── global_round_2.json  # Global model after round 2
-    │   └── global_round_3.json  # Global model after round 3
-    ├── proofs/
-    │   ├── aggregated/
-    │   │   ├── round_1_aggregated.json
-    │   │   ├── round_2_aggregated.json
-    │   │   └── round_3_aggregated.json
-    │   ├── client_0/
-    │   │   ├── round_1_proof.json
-    │   │   ├── round_2_proof.json
-    │   │   └── round_3_proof.json
-    │   ├── client_1/
-    │   └── client_2/
-    ├── logs/
-    │   └── execution.log
-    └── results/
-        └── training_results.json
-```
-
-### **Result Files**
-
-**`training_results.json`** - Complete training metrics:
-
-```json
-{
-  "config": {...},
-  "rounds": [
-    {
-      "round": 1,
-      "avg_accuracy": 0.6662,
-      "avg_loss": 0.6124,
-      "verified_clients": 3,
-      "round_time_seconds": 26.55
-    }
-  ],
-  "total_time_seconds": 71.82
-}
-```
-
----
-
-## 🔒 Security Features
-
-### **1. Zero-Knowledge Proofs**
-
-- **Protostar Protocol** - Production-grade SNARK implementation
-- **256-bit Security** - Cryptographically secure random generation
-- **Real EC Operations** - Authentic elliptic curve cryptography
-- **Commitment Binding** - Pedersen commitment scheme
-
-### **2. Replay Attack Prevention**
-
-- **Nonce Database** - SQLite-based nonce tracking
-- **Timestamp Validation** - 300-second proof validity window
-- **Unique Proof IDs** - SHA-256 based proof identification
-
-### **3. Privacy Guarantees**
-
-- **No Data Leakage** - Only model updates transmitted
-- **Verifiable Computation** - ZKP proves correct training
-- **Secure Aggregation** - FedAvg with proof verification
-
-### **4. Cryptographic Primitives**
-
-- **Curve**: BN254 (alt_bn128)
-- **Field**: 254-bit prime field
-- **Hash**: SHA-256 for commitments
-- **Random**: `secrets.randbits(256)` for cryptographic security
-
----
-
-## ⚡ Performance Metrics
-
-### **Benchmark Results** (3 clients, 3 rounds, 70K samples)
-
-| Metric                      | Value              |
-| --------------------------- | ------------------ |
-| **Total Execution Time**    | 71.82s             |
-| **Proof Generation Time**   | ~1.3s per client   |
-| **Proof Verification Time** | ~0.0003s per proof |
-| **Proof Size**              | ~2,306 bytes       |
-| **R1CS Constraints**        | 265                |
-| **Circuit Variables**       | 537                |
-| **SRS Generation**          | One-time setup     |
-| **Aggregation Complexity**  | O(log n)           |
-
-### **Model Performance**
-
-| Metric       | Round 1 | Round 2 | Round 3 |
-| ------------ | ------- | ------- | ------- |
-| **Accuracy** | 66.62%  | 71.07%  | 70.62%  |
-| **Loss**     | 0.6124  | 0.5830  | 0.5931  |
-
----
-
-## 📚 API Reference
-
-### **FederatedLearningSystem**
-
-```python
-class FederatedLearningSystem:
-    """Main federated learning coordinator"""
-
-    def __init__(self, config: FLConfig):
-        """Initialize FL system with configuration"""
-
-    async def run(self) -> Dict[str, Any]:
-        """Execute federated learning training"""
-
-    def save_results(self, results: Dict[str, Any]):
-        """Save training results and artifacts"""
-```
-
-### **ProductionProtostar**
-
-```python
-class ProductionProtostar(IZKPProtocol):
-    """Production-grade Protostar ZKP protocol"""
-
-    def prove(self, statement: TrainingStatement,
-              witness: TrainingWitness) -> ProofObject:
-        """Generate zero-knowledge proof"""
-
-    def verify(self, statement: TrainingStatement,
-               proof: ProofObject) -> VerificationResult:
-        """Verify zero-knowledge proof"""
-```
-
-### **RealMLTrainer**
-
-```python
-class RealMLTrainer:
-    """Real PyTorch neural network trainer"""
-
-    def train(self, data_loader, epochs: int) -> Dict[str, float]:
-        """Train model and return metrics"""
-
-    def evaluate(self, data_loader) -> Tuple[float, float]:
-        """Evaluate model accuracy and loss"""
-
-    def get_model_weights(self) -> Dict[str, Any]:
-        """Extract model parameters"""
-```
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Please follow these guidelines:
-
-### **Development Setup**
-
-```bash
-# Fork and clone repository
-git clone https://github.com/yourusername/Fizk.git
-
-# Create feature branch
-git checkout -b feature/your-feature-name
-
-# Install development dependencies
-pip install -r requirements.txt
-
-# Make changes and test
-python production_zkp_fl_real.py
-
-# Commit and push
-git commit -m "Add: your feature description"
-git push origin feature/your-feature-name
-```
-
-### **Code Standards**
-
-- Follow PEP 8 style guide
-- Add docstrings to all functions
-- Include type hints
-- Write unit tests for new features
-- Update documentation
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **Protostar Protocol** - Based on the research paper by Aztec Protocol
-- **ProtoGalaxy** - Inspired by efficient proof aggregation techniques
-- **PyTorch** - Deep learning framework
-- **BN254 Curve** - Ethereum-compatible elliptic curve
-
----
-
-## 📞 Contact & Support
-
-- **GitHub Issues**: [Report bugs or request features](https://github.com/Atrex198/Fizk/issues)
-- **Repository**: [https://github.com/Atrex198/Fizk](https://github.com/Atrex198/Fizk)
-
----
-
-## 🔬 Research & Citations
-
-If you use this system in your research, please cite:
-
-```bibtex
-@software{zkp_federated_learning,
-  title={Production Zero-Knowledge Proof Federated Learning System},
-  author={ZKP-FL Team},
-  year={2025},
-  url={https://github.com/Atrex198/Fizk}
-}
-```
-
----
-
-## 🗺️ Roadmap
-
-- [ ] **v2.1** - Multi-party computation (MPC) for trusted setup
-- [ ] **v2.2** - Support for additional ML architectures (CNN, LSTM)
-- [ ] **v2.3** - Cross-silo federation for enterprise deployment
-- [ ] **v2.4** - GPU acceleration for proof generation
-- [ ] **v3.0** - Byzantine fault tolerance mechanisms
-
----
-
-<div align="center">
-
-**⭐ Star this repository if you find it helpful!**
-
-**Made with ❤️ by the FIZK team**
-
-</div>
+Research/Educational Use

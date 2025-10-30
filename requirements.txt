@@ -9,3 +9,4 @@ seaborn>=0.11.0
 plotly>=5.0.0
 psutil>=5.8.0
 requests>=2.25.0
+py_ecc>=6.0.0
