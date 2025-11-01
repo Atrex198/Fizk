@@ -1,0 +1,82 @@
+# Groth16 Configuration Template
+# ===============================
+# 
+# This configuration file defines parameters for the Groth16 ZKP protocol.
+# Adjust values based on your FL system requirements.
+
+# Protocol identification
+protocol: groth16
+
+# Security parameters
+security_level: 128  # Options: 80, 128, 192, 256 (bits)
+curve_name: BN128    # Options: BN128, BLS12_381
+optimization_level: balanced  # Options: fast, small, balanced
+
+# Federated Learning parameters
+num_model_params: 2914  # Total number of model parameters
+num_clients: 3          # Number of FL clients
+num_rounds: 10          # Number of FL rounds
+
+# Trusted setup configuration
+trusted_setup:
+  method: development  # Options: development, mpc_ceremony
+  participants: 1      # Number of MPC participants (if using mpc_ceremony)
+  seed: null           # Random seed for reproducibility (null = random)
+  
+  # MPC ceremony settings (only for production)
+  ceremony:
+    coordinator_url: null
+    timeout_seconds: 3600
+    verification_required: true
+
+# Performance tuning
+performance:
+  parallel_proving: false  # Enable parallel proof generation
+  constraint_optimization: true  # Optimize constraint count
+  memory_limit_gb: 8      # Maximum memory usage
+  
+  # Caching
+  cache_setup: true       # Cache setup artifacts
+  cache_dir: .groth16_cache
+
+# Logging configuration
+logging:
+  level: INFO  # Options: DEBUG, INFO, WARNING, ERROR
+  log_to_file: true
+  log_file: groth16.log
+  log_rotation: daily  # Options: daily, weekly, size
+  max_log_size_mb: 100
+
+# Verification settings
+verification:
+  batch_size: 10  # Number of proofs to verify in batch
+  timeout_seconds: 30  # Maximum verification time
+  reject_on_timeout: true
+
+# Export settings
+export:
+  save_proofs: true
+  proof_dir: ./groth16_proofs
+  save_setup: true
+  setup_dir: ./groth16_setup
+  compression: true  # Compress exported files
+
+# Integration settings
+integration:
+  fl_system_compatibility: v2.0
+  protocol_version: 1.0.0
+  api_version: 1.0
+
+# Resource estimates (auto-computed)
+estimated_resources:
+  constraint_count: auto  # Will be computed based on model size
+  setup_time_minutes: auto
+  proof_time_seconds: auto
+  verification_time_ms: 2.5
+  memory_usage_gb: auto
+
+# Experimental features (use with caution)
+experimental:
+  enable_batch_proving: false
+  enable_recursive_composition: false
+  enable_proof_compression: false

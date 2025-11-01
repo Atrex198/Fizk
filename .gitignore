@@ -132,6 +132,13 @@ dmypy.json
 # =====================
 # Everything else will be shared with colleagues for full collaboration
 
+# Personal work directories
+AtharvaB/
+nevin2/
+
+# Large result directories
+production_zkp_fl_results_real/
+
 # Temporary files
 *.tmp
 *.temp
