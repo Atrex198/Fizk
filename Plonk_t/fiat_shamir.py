@@ -196,13 +196,24 @@ class FiatShamirTranscript:
         self.transcript_state.update(struct.pack('<Q', len(data)))
         self.transcript_state.update(data)
     
-    def _add_field_element(self, element) -> None:
+    def _add_field_element(self, element):
         """Add a field element as 32 bytes (big endian)"""
         # Convert FQ object to integer if needed
         if hasattr(element, 'n'):  # FQ object
             element_int = element.n
         else:
             element_int = int(element)
+        
+        # Ensure element is in field range [0, curve_order)
+        # Import curve_order from the right place
+        try:
+            from py_ecc.bn128 import curve_order
+        except ImportError:
+            # Fallback to a reasonable field size
+            curve_order = 21888242871839275222246405745257275088548364400416034343698204186575808495617
+        
+        # Reduce modulo curve_order to handle negative values
+        element_int = element_int % curve_order
         
         # Convert to 32-byte big-endian representation
         element_bytes = element_int.to_bytes(32, byteorder='big')
