@@ -248,7 +248,7 @@ class ProductionZKPFLClient:
             
             # === STEP 6: VERIFY OWN PROOF ===
             logger.info(f"[Client {self.client_id}] Self-verifying proof...")
-            verification_result = self.zkp_protocol.verify_proof(statement, proof)
+            verification_result = self.zkp_protocol.verify_proof(proof, statement)
             
             if not verification_result.is_valid:
                 raise RuntimeError(f"Self-verification failed: {verification_result.message}")
@@ -441,7 +441,7 @@ class ProductionZKPFLServer:
                 logger.info(f"[Server] ✅ Nonce verified and stored: {proof_nonce[:16]}...")
             
             # SECURITY CHECK 3: Real cryptographic verification
-            verification_result = self.zkp_protocol.verify_proof(statement, proof)
+            verification_result = self.zkp_protocol.verify_proof(proof, statement)
             
             if not verification_result.is_valid:
                 logger.error(
@@ -539,6 +539,10 @@ class ProductionZKPFLServer:
             # Weighted aggregation (FedAvg)
             aggregated_weights = {}
             
+            # CRITICAL FIX: Track BatchNorm running stats separately
+            # These should be AVERAGED (not weighted by samples) for proper FL
+            batchnorm_stats = {}
+            
             for update in client_updates:
                 weight = update['training_metrics']['samples'] / total_samples
                 client_weights = update['model_weights']
@@ -554,11 +558,28 @@ class ProductionZKPFLServer:
                     else:
                         value_np = value
                     
-                    if key not in aggregated_weights:
-                        aggregated_weights[key] = np.zeros_like(value_np)
-                    aggregated_weights[key] = aggregated_weights[key] + weight * value_np
+                    # CRITICAL: Distinguish between trainable params and BN running stats
+                    is_running_stat = ('running_mean' in key or 'running_var' in key or 
+                                      'num_batches_tracked' in key)
+                    
+                    if is_running_stat:
+                        # BatchNorm running stats: simple average (equal weight for all clients)
+                        if key not in batchnorm_stats:
+                            batchnorm_stats[key] = []
+                        batchnorm_stats[key].append(value_np)
+                    else:
+                        # Trainable parameters: weighted average by sample count (FedAvg)
+                        if key not in aggregated_weights:
+                            aggregated_weights[key] = np.zeros_like(value_np)
+                        aggregated_weights[key] = aggregated_weights[key] + weight * value_np
             
-            logger.info("[Server] ✅ Weight aggregation complete")
+            # Average BatchNorm running statistics (simple mean, not weighted)
+            for key, values in batchnorm_stats.items():
+                aggregated_weights[key] = np.mean(values, axis=0)
+            
+            logger.info(f"[Server] ✅ Weight aggregation complete")
+            logger.info(f"   Aggregated {len(aggregated_weights) - len(batchnorm_stats)} trainable params")
+            logger.info(f"   Averaged {len(batchnorm_stats)} BatchNorm running stats")
             
             # Debug: Check aggregated weight statistics
             for k, v in aggregated_weights.items():
