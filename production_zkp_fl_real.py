@@ -185,12 +185,22 @@ class ProductionZKPFLClient:
             # === STEP 2: COMMITMENT GENERATION ===
             logger.info(f"[Client {self.client_id}] Generating commitments...")
             
+            # Convert to numpy FIRST to ensure consistency with witness
+            initial_weights_for_hash = {
+                k: v.cpu().numpy() if isinstance(v, torch.Tensor) else v
+                for k, v in initial_weights.items()
+            }
+            final_weights_for_hash = {
+                k: v.cpu().numpy() if isinstance(v, torch.Tensor) else v
+                for k, v in final_weights.items()
+            }
+            
             initial_weights_hash = hashlib.sha256(
-                json.dumps({k: v.tolist() for k, v in initial_weights.items()}, sort_keys=True).encode()
+                json.dumps({k: v.tolist() for k, v in initial_weights_for_hash.items()}, sort_keys=True).encode()
             ).hexdigest()
             
             final_weights_hash = hashlib.sha256(
-                json.dumps({k: v.tolist() for k, v in final_weights.items()}, sort_keys=True).encode()
+                json.dumps({k: v.tolist() for k, v in final_weights_for_hash.items()}, sort_keys=True).encode()
             ).hexdigest()
             
             dataset_hash = hashlib.sha256(
