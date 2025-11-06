@@ -185,27 +185,12 @@ class ProductionZKPFLClient:
             # === STEP 2: COMMITMENT GENERATION ===
             logger.info(f"[Client {self.client_id}] Generating commitments...")
             
-            # Convert to numpy FIRST to ensure consistency with witness
-            initial_weights_for_hash = {
-                k: v.cpu().numpy() if isinstance(v, torch.Tensor) else v
-                for k, v in initial_weights.items()
-            }
-            final_weights_for_hash = {
-                k: v.cpu().numpy() if isinstance(v, torch.Tensor) else v
-                for k, v in final_weights.items()
-            }
+            # Use standardized commitment function to ensure hash consistency
+            from zkp_protocols.commitment_utils import create_weight_commitment, create_data_commitment
             
-            initial_weights_hash = hashlib.sha256(
-                json.dumps({k: v.tolist() for k, v in initial_weights_for_hash.items()}, sort_keys=True).encode()
-            ).hexdigest()
-            
-            final_weights_hash = hashlib.sha256(
-                json.dumps({k: v.tolist() for k, v in final_weights_for_hash.items()}, sort_keys=True).encode()
-            ).hexdigest()
-            
-            dataset_hash = hashlib.sha256(
-                str(self.X_data.shape).encode() + str(self.y_data.shape).encode()
-            ).hexdigest()
+            initial_weights_hash = create_weight_commitment(initial_weights)
+            final_weights_hash = create_weight_commitment(final_weights)
+            dataset_hash = create_data_commitment(self.X_data)
             
             # === STEP 3: CREATE ZKP STATEMENT (PUBLIC) ===
             statement = TrainingStatement(
@@ -587,6 +572,25 @@ class ProductionZKPFLServer:
             for key, values in batchnorm_stats.items():
                 aggregated_weights[key] = np.mean(values, axis=0)
             
+            # SECURITY FIX: Validate BatchNorm statistics for malicious values
+            for key in batchnorm_stats.keys():
+                if 'running_var' in key:
+                    # Variance must be positive and reasonable
+                    if (aggregated_weights[key] <= 0).any():
+                        logger.error(f"[Server] SECURITY: Invalid running_var in {key} (non-positive values)")
+                        raise ValueError(f"BatchNorm running_var must be positive: {key}")
+                    if (aggregated_weights[key] > 1e6).any():
+                        logger.warning(f"[Server] SECURITY: Suspiciously large running_var in {key}")
+                        # Cap to reasonable value
+                        aggregated_weights[key] = np.clip(aggregated_weights[key], 0, 1e6)
+                
+                if 'running_mean' in key:
+                    # Mean should be reasonable
+                    if np.abs(aggregated_weights[key]).max() > 1e6:
+                        logger.warning(f"[Server] SECURITY: Suspiciously large running_mean in {key}")
+                        # Cap to reasonable value
+                        aggregated_weights[key] = np.clip(aggregated_weights[key], -1e6, 1e6)
+            
             logger.info(f"[Server] ✅ Weight aggregation complete")
             logger.info(f"   Aggregated {len(aggregated_weights) - len(batchnorm_stats)} trainable params")
             logger.info(f"   Averaged {len(batchnorm_stats)} BatchNorm running stats")
@@ -596,8 +600,10 @@ class ProductionZKPFLServer:
                 logger.info(f"  Aggregated {k}: shape={v.shape}, mean={v.mean():.6f}, std={v.std():.6f}, min={v.min():.6f}, max={v.max():.6f}")
                 if np.isnan(v).any():
                     logger.error(f"[Server] NaN detected in aggregated weights['{k}']!")
+                    raise ValueError(f"NaN detected in aggregated weights: {k}")
                 if np.isinf(v).any():
                     logger.error(f"[Server] Inf detected in aggregated weights['{k}']!")
+                    raise ValueError(f"Inf detected in aggregated weights: {k}")
             
             return aggregated_weights
         

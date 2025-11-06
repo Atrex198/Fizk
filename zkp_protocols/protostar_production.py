@@ -728,12 +728,20 @@ class ProductionProtostar(IZKPProtocol):
                     verification_time=time.time() - start_time
                 )
             
-            # If the expected and actual challenges differ, it means the circuit structure changed
-            # SECURITY: This is NOT OK - Fiat-Shamir requires exact challenge match
+            # SECURITY CRITICAL: Fiat-Shamir challenge verification
+            # The challenge MUST match exactly. Any mismatch indicates either:
+            # 1. Proof tampering (malicious attack)
+            # 2. Implementation bug (serious error)
+            # 3. Replay attack with different context
+            # 
+            # DO NOT modify this check to "allow" mismatches - that would completely
+            # break the Fiat-Shamir security proof and make the system insecure!
             if expected_challenge != actual_challenge:
                 return VerificationResult(
                     is_valid=False,
-                    message=f"CRITICAL: Fiat-Shamir challenge mismatch. Expected {expected_challenge}, got {actual_challenge}",
+                    message=f"CRITICAL SECURITY: Fiat-Shamir challenge mismatch detected! "
+                            f"This indicates proof tampering or implementation bug. "
+                            f"Expected {expected_challenge}, got {actual_challenge}",
                     verification_time=time.time() - start_time
                 )
             else:
