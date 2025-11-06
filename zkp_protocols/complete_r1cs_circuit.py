@@ -484,7 +484,19 @@ class MLCircuitR1CS:
                     # Check if absolute delta exceeds threshold
                     abs_delta = abs(w_delta) if w_delta < self.curve_order // 2 else abs(w_delta - self.curve_order)
                     
-                    if abs_delta > delta_threshold:
+                    if abs_delta == 0:
+                        # CRITICAL SECURITY: Weight completely unchanged - REJECT!
+                        # This is a freeloading attack - client did no training
+                        # Add a constraint that will FAIL: 0 * 1 = 1 (impossible)
+                        zero_idx = len(witness)
+                        witness.append(0)
+                        var_index += 1
+                        
+                        # This constraint will fail verification: 0 * 1 ≠ 1
+                        constraints.append(self._make_constraint(
+                            witness, zero_idx, const_idx, const_idx
+                        ))
+                    elif abs_delta > delta_threshold:
                         # Weight changed significantly - verify with multiplicative inverse
                         try:
                             delta_inv = pow(w_delta, -1, self.curve_order)
@@ -507,8 +519,7 @@ class MLCircuitR1CS:
                             constraints.append(self._make_constraint(
                                 witness, w_delta_idx, w_delta_idx, delta_sq_idx
                             ))
-                    # If delta is below threshold, it's acceptable (optimizer might make tiny adjustments)
-                    # Don't add failing constraint - allow small changes
+                    # else: delta is small but non-zero - acceptable (optimizer might make tiny adjustments)
         
         print(f"  ✅ PRODUCTION circuit complete: {len(constraints)} constraints, {len(witness)} variables")
         print(f"  📈 REAL computation breakdown:")
