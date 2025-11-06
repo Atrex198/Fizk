@@ -395,7 +395,9 @@ class ProductionProtostar(IZKPProtocol):
             is_satisfied = circuit_gen.verify_constraint_satisfaction(constraints, witness_values)
             
             if not is_satisfied:
-                raise RuntimeError("R1CS constraint satisfaction failed")
+                # SECURITY: Do NOT fall back to simplified circuit on constraint failure
+                # This would allow attacks to bypass security checks
+                raise RuntimeError("R1CS constraint satisfaction failed - proof generation rejected")
             
             print(f"  ✅ R1CS circuit satisfied: {len(constraints)} constraints verified")
             
@@ -406,6 +408,15 @@ class ProductionProtostar(IZKPProtocol):
             
             return constraints, witness_values
             
+        except RuntimeError as e:
+            # SECURITY: Constraint failure should abort proof generation
+            if "constraint satisfaction failed" in str(e).lower():
+                print(f"  ❌ SECURITY: {e}")
+                raise
+            # Other runtime errors can fall back
+            print(f"  ⚠️  Complete R1CS not available: {e}")
+            print(f"  🔄 Using enhanced simplified circuit with security guarantees...")
+            return self._build_enhanced_simplified_circuit(statement, witness)
         except Exception as e:
             print(f"  ⚠️  Complete R1CS not available: {e}")
             print(f"  🔄 Using enhanced simplified circuit with security guarantees...")

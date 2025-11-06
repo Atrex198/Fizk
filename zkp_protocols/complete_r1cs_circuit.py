@@ -442,18 +442,52 @@ class MLCircuitR1CS:
                     ))
                     
                     # New weight from actual training (Adam optimizer produces different values than SGD)
-                    # We verify the gradient was computed, not the exact weight update
-                    # (since Adam uses momentum and adaptive learning rates)
                     w_new_actual = self.field_element(float(final_layer[i]))
                     witness.append(w_new_actual)
                     w_new_idx = var_index
                     var_index += 1
                     
-                    # Constraint: Verify gradient was used (w_new * 1 = w_new)
-                    # This ensures the weight update happened without requiring exact SGD match
+                    # SECURITY FIX: Verify weight actually changed (prevents freeloading attack)
+                    # Compute delta = w_new - w_old
+                    w_delta = (witness[w_new_idx] - witness[w_old_idx]) % self.curve_order
+                    witness.append(w_delta)
+                    w_delta_idx = var_index
+                    var_index += 1
+                    
+                    # Constraint 1: Verify subtraction is correct
+                    # w_old + w_delta = w_new  =>  (w_old + w_delta) * 1 = w_new
+                    w_old_plus_delta = (witness[w_old_idx] + witness[w_delta_idx]) % self.curve_order
+                    witness.append(w_old_plus_delta)
+                    w_old_plus_delta_idx = var_index
+                    var_index += 1
+                    
                     constraints.append(self._make_constraint(
-                        witness, w_new_idx, const_idx, w_new_idx
+                        witness, w_old_plus_delta_idx, const_idx, w_new_idx
                     ))
+                    
+                    # Constraint 2: Verify delta is non-zero (critical security check)
+                    # We verify delta * delta_inv = 1 (delta_inv exists only if delta != 0)
+                    if w_delta != 0:
+                        delta_inv = pow(w_delta, -1, self.curve_order)
+                        witness.append(delta_inv)
+                        delta_inv_idx = var_index
+                        var_index += 1
+                        
+                        # Constraint: delta * delta_inv = 1
+                        constraints.append(self._make_constraint(
+                            witness, w_delta_idx, delta_inv_idx, const_idx
+                        ))
+                    else:
+                        # If delta is zero, weight didn't change - this is the vulnerability!
+                        # Add a constraint that will fail: 0 * anything != 1
+                        # This prevents unchanged weights from passing verification
+                        zero_idx = len(witness)
+                        witness.append(0)
+                        
+                        # This constraint will fail: 0 * 1 = 1 (impossible)
+                        constraints.append(self._make_constraint(
+                            witness, zero_idx, const_idx, const_idx
+                        ))
         
         print(f"  ✅ PRODUCTION circuit complete: {len(constraints)} constraints, {len(witness)} variables")
         print(f"  📈 REAL computation breakdown:")
