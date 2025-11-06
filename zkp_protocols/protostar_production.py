@@ -35,6 +35,9 @@ except ImportError as e:
         f"This is a SECURITY requirement, not an optional feature."
     )
 
+# Import standardized commitment utilities (CRITICAL for hash consistency)
+from .commitment_utils import create_weight_commitment, create_data_commitment
+
 # Security constants
 MIN_SECURITY_BITS = 128  # Minimum acceptable security level
 RECOMMENDED_SECURITY_BITS = 256  # Recommended for production
@@ -369,60 +372,46 @@ class ProductionProtostar(IZKPProtocol):
         - Loss computation
         - Backward pass (gradient computation)
         - Weight update verification
+        
+        SECURITY: This function will fail-fast if R1CS generation fails.
+        No fallback circuits are used to prevent security bypass attacks.
         """
-        try:
-            # Import complete R1CS circuit generator
-            from .complete_r1cs_circuit import MLCircuitR1CS
-            
-            print("🔧 Building COMPLETE R1CS circuit for ML training...")
-            circuit_gen = MLCircuitR1CS(curve_order)
-            
-            # Get a sample for circuit generation (first data point)
-            X_sample = witness.dataset_samples[0] if len(witness.dataset_samples) > 0 else np.zeros(10)
-            y_sample = int(witness.dataset_labels[0]) if len(witness.dataset_labels) > 0 else 0
-            
-            # Generate complete circuit
-            constraints, witness_values = circuit_gen.generate_full_ml_circuit(
-                initial_weights=witness.initial_weights,
-                final_weights=witness.final_weights,
-                X_sample=X_sample,
-                y_sample=y_sample,
-                learning_rate=statement.learning_rate,
-                claimed_loss=statement.claimed_loss
-            )
-            
-            # Verify constraint satisfaction
-            is_satisfied = circuit_gen.verify_constraint_satisfaction(constraints, witness_values)
-            
-            if not is_satisfied:
-                # SECURITY: Do NOT fall back to simplified circuit on constraint failure
-                # This would allow attacks to bypass security checks
-                raise RuntimeError("R1CS constraint satisfaction failed - proof generation rejected")
-            
-            print(f"  ✅ R1CS circuit satisfied: {len(constraints)} constraints verified")
-            
-            # Store constraints for verification (CRITICAL for real verification)
-            self._last_constraints = constraints
-            self._last_witness_values = witness_values
-            print(f"  🔐 Stored {len(constraints)} constraints and {len(witness_values)} witness values for verification")
-            
-            return constraints, witness_values
-            
-        except RuntimeError as e:
-            # SECURITY: Constraint failure should abort proof generation
-            if "constraint satisfaction failed" in str(e).lower():
-                print(f"  ❌ SECURITY: {e}")
-                raise
-            # Other runtime errors can fall back
-            print(f"  ⚠️  Complete R1CS not available: {e}")
-            print(f"  🔄 Using enhanced simplified circuit with security guarantees...")
-            return self._build_enhanced_simplified_circuit(statement, witness)
-        except Exception as e:
-            print(f"  ⚠️  Complete R1CS not available: {e}")
-            print(f"  🔄 Using enhanced simplified circuit with security guarantees...")
-            
-            # Enhanced fallback circuit with real constraints
-            return self._build_enhanced_simplified_circuit(statement, witness)
+        # Import complete R1CS circuit generator
+        from .complete_r1cs_circuit import MLCircuitR1CS
+        
+        print("🔧 Building COMPLETE R1CS circuit for ML training...")
+        circuit_gen = MLCircuitR1CS(curve_order)
+        
+        # Get a sample for circuit generation (first data point)
+        X_sample = witness.dataset_samples[0] if len(witness.dataset_samples) > 0 else np.zeros(10)
+        y_sample = int(witness.dataset_labels[0]) if len(witness.dataset_labels) > 0 else 0
+        
+        # Generate complete circuit
+        constraints, witness_values = circuit_gen.generate_full_ml_circuit(
+            initial_weights=witness.initial_weights,
+            final_weights=witness.final_weights,
+            X_sample=X_sample,
+            y_sample=y_sample,
+            learning_rate=statement.learning_rate,
+            claimed_loss=statement.claimed_loss
+        )
+        
+        # Verify constraint satisfaction
+        is_satisfied = circuit_gen.verify_constraint_satisfaction(constraints, witness_values)
+        
+        if not is_satisfied:
+            # SECURITY: Do NOT fall back to simplified circuit on constraint failure
+            # This would allow attacks to bypass security checks
+            raise RuntimeError("R1CS constraint satisfaction failed - proof generation rejected")
+        
+        print(f"  ✅ R1CS circuit satisfied: {len(constraints)} constraints verified")
+        
+        # Store constraints for verification (CRITICAL for real verification)
+        self._last_constraints = constraints
+        self._last_witness_values = witness_values
+        print(f"  🔐 Stored {len(constraints)} constraints and {len(witness_values)} witness values for verification")
+        
+        return constraints, witness_values
     
     def _build_enhanced_simplified_circuit(self, statement: TrainingStatement, witness: TrainingWitness) -> Tuple[List, List]:
         """
@@ -633,20 +622,9 @@ class ProductionProtostar(IZKPProtocol):
             'srs_commitment': self.setup_params.get('tau_commitment') if self.setup_params else '',
             # CRITICAL FOR TAMPER DETECTION: Include weight commitments from witness
             # MUST match client-side commitment generation EXACTLY
-            # Client converts: torch.Tensor → .cpu().numpy() → .tolist()
-            # We must do the same to ensure identical JSON serialization
-            'initial_weights_commitment': hashlib.sha256(
-                json.dumps({
-                    k: (v.cpu().numpy() if hasattr(v, 'cpu') else v).tolist() if hasattr(v, 'tolist') else v 
-                    for k, v in witness.initial_weights.items()
-                }, sort_keys=True).encode()
-            ).hexdigest(),
-            'final_weights_commitment': hashlib.sha256(
-                json.dumps({
-                    k: (v.cpu().numpy() if hasattr(v, 'cpu') else v).tolist() if hasattr(v, 'tolist') else v 
-                    for k, v in witness.final_weights.items()
-                }, sort_keys=True).encode()
-            ).hexdigest(),
+            # Use standardized commitment_utils to ensure identical hash generation
+            'initial_weights_commitment': create_weight_commitment(witness.initial_weights),
+            'final_weights_commitment': create_weight_commitment(witness.final_weights),
             'relaxed_witness': {
                 'vector_size': len(witness_vector),
                 'error_vector_size': len(error_vector),
