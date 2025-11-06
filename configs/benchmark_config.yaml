@@ -1,0 +1,113 @@
+# ZKP Evaluation Benchmark Configuration
+
+# Test environment
+environment:
+  cpu_cores: 4
+  memory_limit_gb: 16
+  storage_path: "./data"
+  results_path: "./results"
+  log_level: "INFO"
+
+# ZKP Techniques to evaluate
+zkp_techniques:
+  - name: "STARK"
+    enabled: true
+    library: "libstark"
+  - name: "Groth16"
+    enabled: true
+    library: "arkworks"
+  - name: "PLONK"
+    enabled: true
+    library: "aztec"
+  - name: "Bulletproofs"
+    enabled: true
+    library: "dalek"
+  - name: "Halo2"
+    enabled: true
+    library: "zcash"
+  - name: "Protostar"
+    enabled: true
+    library: "microsoft"
+  - name: "zkSNARK"
+    enabled: true
+    library: "libsnark"
+  - name: "Nova"
+    enabled: true
+    library: "microsoft"
+
+# Tensor sizes to test
+tensor_sizes:
+  small:
+    2d: [10, 10]
+    3d: [10, 10, 10]
+    elements: 100
+  medium:
+    2d: [50, 50]
+    3d: [20, 20, 20]
+    elements: 2500
+  large:
+    2d: [100, 100]
+    3d: [50, 50, 50]
+    elements: 10000
+  very_large:
+    2d: [500, 500]
+    3d: [100, 100, 100]
+    elements: 250000
+  extreme:
+    2d: [1000, 1000]
+    3d: [100, 100, 100]
+    elements: 1000000
+
+# Tensor operations to test
+operations:
+  - name: "matrix_multiplication"
+    enabled: true
+    description: "Matrix multiplication C = A × B"
+  - name: "tensor_contraction"
+    enabled: true
+    description: "Einstein summation operations"
+  - name: "element_wise"
+    enabled: true
+    description: "Element-wise operations"
+  - name: "tensor_decomposition"
+    enabled: true
+    description: "SVD and eigen decomposition"
+  - name: "convolution"
+    enabled: true
+    description: "2D/3D convolution operations"
+
+# Benchmark parameters
+benchmark:
+  trials_per_config: 5
+  warmup_trials: 1
+  timeout_seconds: 3600
+  memory_profiling: true
+  save_intermediate: true
+
+# Metrics to collect
+metrics:
+  primary:
+    - proof_generation_time_ms
+    - verification_time_ms
+    - proof_size_bytes
+    - memory_usage_mb
+  secondary:
+    - setup_time_ms
+    - prover_complexity
+    - verifier_complexity
+    - scalability_factor
+
+# Analysis settings
+analysis:
+  confidence_level: 0.95
+  significance_level: 0.05
+  outlier_threshold: 3  # standard deviations
+  min_samples: 3
+
+# Visualization settings
+visualization:
+  dpi: 300
+  figure_format: "png"
+  interactive: true
+  color_scheme: "colorblind"
+  font_size: 12

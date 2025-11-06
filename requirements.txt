@@ -1,0 +1,66 @@
+# Core dependencies
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# Statistical analysis
+scikit-learn>=1.3.0
+statsmodels>=0.14.0
+
+# Progress and logging
+tqdm>=4.65.0
+loguru>=0.7.0
+
+# Memory profiling
+memory-profiler>=0.61.0
+psutil>=5.9.0
+
+# Data storage
+h5py>=3.8.0
+
+# Configuration
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Jupyter
+jupyter>=1.0.0
+ipywidgets>=8.0.0
+
+# ============================================
+# ZKP LIBRARIES - REAL IMPLEMENTATIONS
+# ============================================
+
+# Elliptic Curve Cryptography (for pairing-based SNARKs)
+py_ecc>=6.0.0
+
+# Cryptographic primitives
+cryptography>=41.0.0
+pycryptodome>=3.18.0
+
+# For R1CS and constraint systems
+sympy>=1.12  # Symbolic math for constraint generation
+
+# Galois fields for finite field arithmetic
+galois>=0.3.0
+
+# For STARK (Cairo language support)
+cairo-lang>=0.13.0
+
+# For arithmetic circuits
+python-flint>=0.5.0  # Fast polynomial arithmetic
+
+# Optional: Tensor operations
+torch>=2.0.0  # PyTorch for tensor operations
+
+# NOTE: Many ZKP libraries (Halo2, Nova, arkworks, etc.) are in Rust
+# These require building Rust extensions or using CLI tools
+# See docs/RUST_INTEGRATION.md for setup instructions
