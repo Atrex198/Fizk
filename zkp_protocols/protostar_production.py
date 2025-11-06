@@ -632,12 +632,20 @@ class ProductionProtostar(IZKPProtocol):
             'proof_timestamp': proof_timestamp,  # For replay protection
             'srs_commitment': self.setup_params.get('tau_commitment') if self.setup_params else '',
             # CRITICAL FOR TAMPER DETECTION: Include weight commitments from witness
-            # Use deterministic JSON serialization to match client-side commitment generation
+            # MUST match client-side commitment generation EXACTLY
+            # Client converts: torch.Tensor → .cpu().numpy() → .tolist()
+            # We must do the same to ensure identical JSON serialization
             'initial_weights_commitment': hashlib.sha256(
-                json.dumps({k: v.tolist() if hasattr(v, 'tolist') else v for k, v in witness.initial_weights.items()}, sort_keys=True).encode()
+                json.dumps({
+                    k: (v.cpu().numpy() if hasattr(v, 'cpu') else v).tolist() if hasattr(v, 'tolist') else v 
+                    for k, v in witness.initial_weights.items()
+                }, sort_keys=True).encode()
             ).hexdigest(),
             'final_weights_commitment': hashlib.sha256(
-                json.dumps({k: v.tolist() if hasattr(v, 'tolist') else v for k, v in witness.final_weights.items()}, sort_keys=True).encode()
+                json.dumps({
+                    k: (v.cpu().numpy() if hasattr(v, 'cpu') else v).tolist() if hasattr(v, 'tolist') else v 
+                    for k, v in witness.final_weights.items()
+                }, sort_keys=True).encode()
             ).hexdigest(),
             'relaxed_witness': {
                 'vector_size': len(witness_vector),

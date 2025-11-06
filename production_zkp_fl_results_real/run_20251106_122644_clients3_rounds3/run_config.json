@@ -1,6 +1,6 @@
 {
-  "timestamp": "20251105_180652",
-  "run_name": "run_20251105_180652_clients3_rounds3",
+  "timestamp": "20251106_122644",
+  "run_name": "run_20251106_122644_clients3_rounds3",
   "configuration": {
     "num_clients": 3,
     "num_rounds": 3,
