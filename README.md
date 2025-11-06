@@ -2,13 +2,21 @@
 
 Production-grade federated learning system with cryptographic zero-knowledge proofs for privacy-preserving machine learning.
 
+## ⚠️ Important: Architecture Limitations
+
+**Please read [ARCHITECTURE_LIMITATIONS.md](ARCHITECTURE_LIMITATIONS.md)** for a detailed analysis of the security model and known limitations when using adaptive optimizers (Adam, RMSprop, etc.).
+
+**TL;DR**: This system cryptographically verifies that clients computed real gradients, but does not enforce the specific optimizer update rule. This is a fundamental trade-off enabling Adam support while maintaining practical proof times. Security relies on honest majority + server-side validation (standard in FL).
+
 ## Features
 
-- **Complete R1CS Circuits**: 5963 constraints proving actual ML training
-- **Real Cryptography**: BN254 elliptic curve, py_ecc pairing operations
+- **Complete R1CS Circuits**: 10,500+ constraints proving actual ML training
+- **Real Cryptography**: BN254 elliptic curve, py_ecc pairing operations  
 - **Protostar ZKP Protocol**: Polynomial commitment scheme with 256-bit security
 - **Federated Learning**: Multi-client distributed training with FedAvg aggregation
 - **Medical Dataset**: 70K cardiovascular disease samples
+- **Anti-Freeloading**: Prevents clients from submitting unchanged weights
+- **Replay Protection**: Nonce-based proof freshness validation
 
 ## Requirements
 

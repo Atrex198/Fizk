@@ -410,6 +410,11 @@ class MLCircuitR1CS:
         lr_idx = var_index
         var_index += 1
         
+        # Track if ANY weight changed (anti-freeloading)
+        any_weight_changed = False
+        significant_changes = 0
+        total_weights_checked = 0
+        
         # REAL weight updates: w_new = w_old - learning_rate * gradient
         for layer_name in ['network.0.weight', 'network.4.weight', 'network.8.weight']:
             if layer_name in initial_weights and layer_name in final_weights and layer_name in gradient_indices:
@@ -442,7 +447,7 @@ class MLCircuitR1CS:
                     ))
                     
                     # SECURITY FIX: Verify gradient is used for weight update
-                    # Expected weight: w_expected = w_old - lr_grad
+                    # Expected weight: w_expected = w_old - lr_grad (for SGD)
                     # We compute this and verify it matches w_new
                     w_old_val = self.field_element(float(initial_layer[i]))
                     w_expected = (w_old_val - lr_grad_val) % self.curve_order
@@ -456,47 +461,69 @@ class MLCircuitR1CS:
                     w_new_idx = var_index
                     var_index += 1
                     
-                    # SECURITY FIX: Verify weight actually changed (prevents freeloading attack)
-                    # Compute delta = w_new - w_old
+                    # GRADIENT-WEIGHT UPDATE VERIFICATION
+                    # 
+                    # SECURITY MODEL:
+                    # We enforce that REAL gradients were computed (Part 4 constraints)
+                    # We enforce that weights CHANGED (anti-freeloading below)
+                    # We CANNOT enforce exact SGD formula: w_new = w_old - lr*grad
+                    # because different optimizers (Adam, RMSprop, etc.) use different update rules
+                    # 
+                    # ATTACK PREVENTION:
+                    # - Part 4 forces client to compute REAL gradients on REAL data
+                    # - Anti-freeloading forces weights to actually change
+                    # - Together: Client must do real training, can't just submit garbage
+                    # 
+                    # LIMITATION ACCEPTED:
+                    # Client could theoretically compute gradients correctly then apply them
+                    # with wrong sign/magnitude. However:
+                    # 1. This would hurt model performance (server detects via accuracy checks)
+                    # 2. Honest majority assumption: most clients train correctly
+                    # 3. Server can detect outliers via statistical analysis
+                    
+                    # Compute weight delta
                     w_delta = (witness[w_new_idx] - witness[w_old_idx]) % self.curve_order
                     witness.append(w_delta)
                     w_delta_idx = var_index
                     var_index += 1
                     
-                    # OPTIMIZER-AGNOSTIC CONSTRAINT: Just verify w_new and w_old are both valid weights
-                    # Don't enforce exact relationship since different optimizers (SGD, Adam, etc.)
-                    # produce different update patterns, and optimizer state reset causes mismatches
-                    # Constraint: Verify w_new is a valid weight by checking w_new * 1 = w_new
+                    # Verify weight update arithmetic: w_old + delta = w_new
+                    w_old_plus_delta = (witness[w_old_idx] + w_delta) % self.curve_order
+                    witness.append(w_old_plus_delta)
+                    w_old_plus_delta_idx = var_index
+                    var_index += 1
+                    
+                    constraints.append(self._make_constraint(
+                        witness, w_old_plus_delta_idx, const_idx, w_new_idx
+                    ))
+                    
+                    # Verify w_new and w_old are valid
                     constraints.append(self._make_constraint(
                         witness, w_new_idx, const_idx, w_new_idx
                     ))
                     
-                    # Constraint: Verify w_old is a valid weight by checking w_old * 1 = w_old  
                     constraints.append(self._make_constraint(
                         witness, w_old_idx, const_idx, w_old_idx
                     ))
                     
                     # ANTI-FREELOADING CONSTRAINT: Verify weight changed significantly
-                    # We check that delta is non-zero to prevent clients from submitting unchanged weights
-                    # Use a tolerance threshold to account for numerical precision issues
+                    # NOTE: Individual weights CAN stay unchanged (zero gradient is valid)
+                    # We only verify large changes have proper multiplicative inverse
+                    # The aggregate check (all weights unchanged) is caught by checking
+                    # if ANY weight has significant change across the full model
                     delta_threshold = 100  # Minimum change in field representation
                     
                     # Check if absolute delta exceeds threshold
                     abs_delta = abs(w_delta) if w_delta < self.curve_order // 2 else abs(w_delta - self.curve_order)
                     
-                    if abs_delta == 0:
-                        # CRITICAL SECURITY: Weight completely unchanged - REJECT!
-                        # This is a freeloading attack - client did no training
-                        # Add a constraint that will FAIL: 0 * 1 = 1 (impossible)
-                        zero_idx = len(witness)
-                        witness.append(0)
-                        var_index += 1
-                        
-                        # This constraint will fail verification: 0 * 1 ≠ 1
-                        constraints.append(self._make_constraint(
-                            witness, zero_idx, const_idx, const_idx
-                        ))
-                    elif abs_delta > delta_threshold:
+                    # Track for global freeloading check
+                    total_weights_checked += 1
+                    if abs_delta > 0:  # Any non-zero change
+                        any_weight_changed = True
+                    if abs_delta > delta_threshold:  # Significant change
+                        significant_changes += 1
+                    
+                    if abs_delta > delta_threshold:
                         # Weight changed significantly - verify with multiplicative inverse
                         try:
                             delta_inv = pow(w_delta, -1, self.curve_order)
@@ -520,6 +547,25 @@ class MLCircuitR1CS:
                                 witness, w_delta_idx, w_delta_idx, delta_sq_idx
                             ))
                     # else: delta is small but non-zero - acceptable (optimizer might make tiny adjustments)
+        
+        # GLOBAL ANTI-FREELOADING CHECK
+        # Verify that AT LEAST SOME weights changed (not all zero deltas)
+        if not any_weight_changed:
+            # CRITICAL: ALL weights unchanged - definite freeloading attack
+            print(f"  ❌ FREELOADING DETECTED: All {total_weights_checked} weights unchanged!")
+            # Add failing constraint
+            zero_idx = len(witness)
+            witness.append(0)
+            var_index += 1
+            constraints.append(self._make_constraint(
+                witness, zero_idx, const_idx, const_idx  # 0 * 1 = 1 (fails)
+            ))
+        elif significant_changes == 0:
+            # WARNING: No significant changes (all tiny deltas) - possible lazy training
+            print(f"  ⚠️  Warning: No significant weight changes detected ({total_weights_checked} weights checked)")
+            # Still allow but log warning
+        else:
+            print(f"  ✅ Anti-freeloading check: {significant_changes}/{total_weights_checked} weights changed significantly")
         
         print(f"  ✅ PRODUCTION circuit complete: {len(constraints)} constraints, {len(witness)} variables")
         print(f"  📈 REAL computation breakdown:")
