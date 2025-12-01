@@ -66,7 +66,7 @@ class FLConfig:
     aggregation_method: str = "fedavg"
     zkp_security_level: int = 256  # UPGRADED: 256-bit security (was 128)
     srs_size: int = 2048  # UPGRADED: Larger SRS for production (was 256)
-    proof_validity_window: int = 300  # Seconds - proofs expire after 5 minutes
+    proof_validity_window: int = 3600  # Seconds - proofs expire after 1 hour (increased for slow proof generation)
     max_error_accumulation: float = 1e-6  # Maximum acceptable error in aggregation
     enable_weight_encryption: bool = True  # 🔒 Hide weights from server
     paillier_key_size: int = 512  # 🔒 NEW: Paillier key size (512=fast demo, 2048=production)
@@ -834,19 +834,23 @@ async def main():
     - 2048 SRS elements (upgraded from 256)
     - Proof validity window for replay protection
     - Enhanced cryptographic verification
+    
+    FL TRAINING CONFIGURATION (OPTIMIZED):
+    - Reduced learning rate (0.001) to prevent overshooting
+    - Reduced local epochs (2) to prevent client drift
     """
     
     # Production-Grade Configuration
     config = FLConfig(
         num_clients=3,
         num_rounds=3,
-        local_epochs=5,
+        local_epochs=2,         # 🔧 Reduced from 5 to prevent client drift
         batch_size=64,
-        learning_rate=0.01,
+        learning_rate=0.001,    # 🔧 Reduced from 0.01 to prevent overshooting
         dataset_name="cardio",
         zkp_security_level=256,  # 🔒 256-bit security
         srs_size=2048,  # 🔒 Production SRS size  
-        proof_validity_window=300,  # 🔒 5-minute proof validity
+        proof_validity_window=3600,  # 🔒 1-hour proof validity (increased for slow proof generation)
         max_error_accumulation=1e-6,  # 🔒 Error bounds
         enable_weight_encryption=True,  # 🔒 Privacy protection
         paillier_key_size=512,  # 🔒 512-bit for speed (2048-bit for production)

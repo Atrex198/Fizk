@@ -1,0 +1,113 @@
+{
+  "protocol_type": "protostar",
+  "proof_data": {
+    "protocol": "ProductionProtostar",
+    "version": "2.1",
+    "witness_commitment": {
+      "point_coords": [
+        "12892964264688427162511064836876742718338714195094368668892852650480398832359",
+        "2823412296365955563605208206964039997185520110680371575493005395925998037056"
+      ],
+      "type": "polynomial",
+      "metadata": {
+        "degree": 8192
+      },
+      "is_ec_point": true
+    },
+    "witness_error_commitment": {
+      "point_coords": [
+        "7317360213359592436723331474637783831523356972856744462646692288603995745049",
+        "9731519471475189989953650970101898821093542545106129552143973539160659459764"
+      ],
+      "type": "error_polynomial",
+      "metadata": {
+        "degree": 10
+      },
+      "is_ec_point": true
+    },
+    "constraint_commitment": {
+      "point_coords": [
+        "19245264474109103436101627493175366487240925307010107246190924009369779678366",
+        "18689318495786618444617838414854184919346133007519385507369680350391141655015"
+      ],
+      "type": "polynomial",
+      "metadata": {
+        "degree": 8192
+      },
+      "is_ec_point": true
+    },
+    "constraint_error_commitment": {
+      "point_coords": [
+        "19270072595269424151822712597040058157863634235746747001889397244380339024688",
+        "8986190297246432786251112500639419499952539461954464159517831578374531817948"
+      ],
+      "type": "error_polynomial",
+      "metadata": {
+        "degree": 10
+      },
+      "is_ec_point": true
+    },
+    "challenge": "12053150768314099020708339440130214023755690374317836596783564246014029728585",
+    "proof_nonce": "a445f36aa785d21c5a2dc923985d563ca8f285d97a1731a7b4dd8068362521d9",
+    "proof_timestamp": 1762434255106549875,
+    "srs_commitment": "6826214bc74fac28bebea1be775d232af332f5424c81d981e83f3d716c2dbeff",
+    "initial_weights_commitment": "dbd4b37ffb8f9c337848b3d6fa33ab52359641687c4e7ee096a6a856acc7e1e8",
+    "final_weights_commitment": "ddca68b94ffab97bfdfbf9f578c4661c62b13fc75369a9b7cd850e3085a8ee41",
+    "relaxed_witness": {
+      "vector_size": 14199,
+      "error_vector_size": 14199,
+      "commitment": {
+        "point_coords": [
+          "12892964264688427162511064836876742718338714195094368668892852650480398832359",
+          "2823412296365955563605208206964039997185520110680371575493005395925998037056"
+        ],
+        "type": "polynomial",
+        "metadata": {
+          "degree": 8192
+        },
+        "is_ec_point": true
+      },
+      "error_commitment": {
+        "point_coords": [
+          "7317360213359592436723331474637783831523356972856744462646692288603995745049",
+          "9731519471475189989953650970101898821093542545106129552143973539160659459764"
+        ],
+        "type": "error_polynomial",
+        "metadata": {
+          "degree": 10
+        },
+        "is_ec_point": true
+      }
+    },
+    "constraints": {
+      "count": 9817,
+      "witness_size": 14199
+    },
+    "cryptographic_properties": {
+      "all_commitments_ec_points": true,
+      "error_polynomials_committed": true,
+      "witness_fully_folded": true,
+      "production_grade": true
+    }
+  },
+  "statement": {
+    "model_architecture": "FederatedNN",
+    "initial_weights_commitment": "dbd4b37ffb8f9c337848b3d6fa33ab52359641687c4e7ee096a6a856acc7e1e8",
+    "final_weights_commitment": "ddca68b94ffab97bfdfbf9f578c4661c62b13fc75369a9b7cd850e3085a8ee41",
+    "dataset_commitment": "a25dabde88fa1435ee23e738b06593ee5c690aadead81a3965fdf3c6041c9687",
+    "local_epochs": 5,
+    "batch_size": 64,
+    "learning_rate": 0.01,
+    "claimed_accuracy": 0.7196674238203403,
+    "claimed_loss": 0.5655371506736703,
+    "sample_count": 23333,
+    "round_number": 1,
+    "client_id": "client_0",
+    "timestamp": 1762434255.1064534
+  },
+  "metadata": {
+    "proof_generation_time": 64.91327476501465,
+    "security_level": 256,
+    "ec_commitments_count": 4
+  }
+}

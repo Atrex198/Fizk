@@ -1,0 +1,2 @@
+# ZKP-FL Dashboard Requirements
+flask>=2.3.0
