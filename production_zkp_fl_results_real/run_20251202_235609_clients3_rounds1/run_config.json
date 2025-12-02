@@ -1,0 +1,25 @@
+{
+  "timestamp": "20251202_235609",
+  "run_name": "run_20251202_235609_clients3_rounds1",
+  "configuration": {
+    "num_clients": 3,
+    "num_rounds": 1,
+    "local_epochs": 4,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "dataset_name": "cardio",
+    "aggregation_method": "fedavg",
+    "zkp_security_level": 128,
+    "srs_size": 64,
+    "proof_validity_window": 3600,
+    "max_error_accumulation": 1e-06,
+    "enable_weight_encryption": true,
+    "paillier_key_size": 512,
+    "encryption_sample_rate": 0.1,
+    "use_bls12_381": false
+  },
+  "system_info": {
+    "python_version": "3.13.7 (main, Sep  9 2025, 16:20:24) [GCC 15.2.1 20250813]",
+    "zkp_protocol": "ProductionProtostar with ProtoGalaxy"
+  }
+}

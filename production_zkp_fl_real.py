@@ -15,6 +15,7 @@ Version: 2.0 (Production)
 import asyncio
 import json
 import logging
+import os
 import time
 import hashlib
 import sys
@@ -49,29 +50,31 @@ class FLConfig:
     """
     Federated Learning Configuration with Enhanced Security
     
-    SECURITY UPGRADES:
-    - Increased zkp_security_level to 256-bit (recommended standard)
-    - Larger SRS size for production models
-    - Added proof_validity_window for replay protection
-    - Added max_error_accumulation for soundness
-    - Homomorphic encryption with 2048-bit keys
-    - BLS12-381 curve support for true 128-bit security
+    LITE MODE (default from dashboard):
+    - 80-128 bit security for fast testing
+    - Small SRS size (128-256 elements)
+    - 512-bit Paillier keys
+    
+    PRODUCTION MODE:
+    - 256-bit security
+    - Large SRS (2048+ elements)
+    - 2048-bit Paillier keys
     """
-    num_clients: int = 5
-    num_rounds: int = 3
-    local_epochs: int = 5
+    num_clients: int = 2
+    num_rounds: int = 1
+    local_epochs: int = 1
     batch_size: int = 64
     learning_rate: float = 0.01
     dataset_name: str = "cardio"
     aggregation_method: str = "fedavg"
-    zkp_security_level: int = 256  # UPGRADED: 256-bit security (was 128)
-    srs_size: int = 2048  # UPGRADED: Larger SRS for production (was 256)
-    proof_validity_window: int = 3600  # Seconds - proofs expire after 1 hour (increased for slow proof generation)
-    max_error_accumulation: float = 1e-6  # Maximum acceptable error in aggregation
-    enable_weight_encryption: bool = True  # 🔒 Hide weights from server
-    paillier_key_size: int = 512  # 🔒 NEW: Paillier key size (512=fast demo, 2048=production)
-    encryption_sample_rate: float = 0.1  # 🔒 NEW: Encrypt 10% of weights (1.0=all weights)
-    use_bls12_381: bool = False  # 🔒 NEW: Use BLS12-381 curve (True for production)
+    zkp_security_level: int = 80  # Lite: 80-bit, Production: 256-bit
+    srs_size: int = 128  # Lite: 128, Production: 2048
+    proof_validity_window: int = 3600  # 1 hour
+    max_error_accumulation: float = 1e-6
+    enable_weight_encryption: bool = True
+    paillier_key_size: int = 512  # Lite: 512, Production: 2048
+    encryption_sample_rate: float = 0.1
+    use_bls12_381: bool = False
     
 
 class ProductionZKPFLClient:
@@ -838,33 +841,53 @@ async def main():
     FL TRAINING CONFIGURATION (OPTIMIZED):
     - Reduced learning rate (0.001) to prevent overshooting
     - Reduced local epochs (2) to prevent client drift
+    
+    DASHBOARD INTEGRATION:
+    - Reads config from environment variables when launched from dashboard
     """
+    
+    # Read config from environment (set by dashboard) or use defaults
+    num_clients = int(os.environ.get('ZKP_FL_NUM_CLIENTS', '3'))
+    num_rounds = int(os.environ.get('ZKP_FL_NUM_ROUNDS', '3'))
+    local_epochs = int(os.environ.get('ZKP_FL_LOCAL_EPOCHS', '2'))
+    batch_size = int(os.environ.get('ZKP_FL_BATCH_SIZE', '64'))
+    learning_rate = float(os.environ.get('ZKP_FL_LEARNING_RATE', '0.001'))
+    security_level = int(os.environ.get('ZKP_FL_SECURITY_LEVEL', '128'))
+    srs_size = int(os.environ.get('ZKP_FL_SRS_SIZE', '256'))
+    lite_mode = os.environ.get('ZKP_FL_LITE_MODE', 'true').lower() == 'true'
+    
+    # Lite mode uses faster settings for quick testing
+    if lite_mode:
+        security_level = min(security_level, 128)  # Cap at 128-bit for speed
+        srs_size = min(srs_size, 256)  # Smaller SRS
+        paillier_key_size = 512  # Fast Paillier
+    else:
+        paillier_key_size = 2048  # Production Paillier
     
     # Production-Grade Configuration
     config = FLConfig(
-        num_clients=3,
-        num_rounds=3,
-        local_epochs=2,         # 🔧 Reduced from 5 to prevent client drift
-        batch_size=64,
-        learning_rate=0.001,    # 🔧 Reduced from 0.01 to prevent overshooting
+        num_clients=num_clients,
+        num_rounds=num_rounds,
+        local_epochs=local_epochs,
+        batch_size=batch_size,
+        learning_rate=learning_rate,
         dataset_name="cardio",
-        zkp_security_level=256,  # 🔒 256-bit security
-        srs_size=2048,  # 🔒 Production SRS size  
-        proof_validity_window=3600,  # 🔒 1-hour proof validity (increased for slow proof generation)
-        max_error_accumulation=1e-6,  # 🔒 Error bounds
-        enable_weight_encryption=True,  # 🔒 Privacy protection
-        paillier_key_size=512,  # 🔒 512-bit for speed (2048-bit for production)
-        encryption_sample_rate=0.1,  # 🔒 Encrypt 10% of weights (1.0 for production)
-        use_bls12_381=False  # 🔒 Set to True for BLS12-381 (requires py_ecc>=6.0.0)
+        zkp_security_level=security_level,
+        srs_size=srs_size,
+        proof_validity_window=3600,  # 1-hour proof validity
+        max_error_accumulation=1e-6,  # Error bounds
+        enable_weight_encryption=True,  # Privacy protection
+        paillier_key_size=paillier_key_size,
+        encryption_sample_rate=0.1,  # Encrypt 10% of weights
+        use_bls12_381=False  # BN254 for speed
     )
     
-    logger.info(f"🔐 PRODUCTION-GRADE SECURITY ENABLED")
+    logger.info(f"🔐 {'LITE MODE' if lite_mode else 'PRODUCTION-GRADE'} SECURITY")
     logger.info(f"   ZKP Security Level: {config.zkp_security_level}-bit")
     logger.info(f"   SRS Size: {config.srs_size} elements")
-    logger.info(f"   Privacy: ZKP Proofs (Paillier removed)")
-    logger.info(f"   Curve: {'BLS12-381 (true 128-bit)' if config.use_bls12_381 else 'BN254 (backward compatible)'}")
+    logger.info(f"   Paillier Key: {config.paillier_key_size}-bit")
+    logger.info(f"   Curve: {'BLS12-381' if config.use_bls12_381 else 'BN254'}")
     logger.info(f"   Proof Validity: {config.proof_validity_window}s")
-    logger.info(f"   Error Bound: {config.max_error_accumulation}")
     
     # Create timestamped run directory
     import datetime

@@ -52,6 +52,11 @@ MIN_SECURITY_BITS = 128  # Minimum acceptable security level
 RECOMMENDED_SECURITY_BITS = 256  # Recommended for production
 MAX_ERROR_BOUND = 2**32  # Maximum acceptable error accumulation
 
+# Lite mode detection from environment
+import os
+LITE_MODE = os.environ.get('ZKP_FL_LITE_MODE', 'false').lower() == 'true'
+LITE_SRS_SIZE = int(os.environ.get('ZKP_FL_SRS_SIZE', '256'))  # Small SRS for lite mode
+
 from .base import (
     IZKPProtocol, ProtocolType, ProofObject, VerificationResult,
     TrainingStatement, TrainingWitness
@@ -924,8 +929,11 @@ class ProductionProtostar(IZKPProtocol):
         # Store tau commitment for verification (never store tau itself)
         tau_commitment = hashlib.sha256(str(tau).encode()).hexdigest()
         
-        # Determine SRS size based on security requirements - EXPANDED FOR LARGE CIRCUITS
-        if self.security_level >= RECOMMENDED_SECURITY_BITS:
+        # Determine SRS size - use lite mode if enabled
+        if LITE_MODE:
+            srs_size = min(LITE_SRS_SIZE, 512)  # Cap at 512 for lite mode
+            print(f"   ⚡ LITE MODE: {srs_size} SRS elements (fast)")
+        elif self.security_level >= RECOMMENDED_SECURITY_BITS:
             srs_size = 8192  # Very large for production ML circuits with 5000+ constraints
             print(f"   🔒 High security mode: {srs_size} SRS elements")
         else:
