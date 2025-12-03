@@ -368,6 +368,90 @@ async def get_run_logs(run_id: str):
     return {"logs": logs}
 
 
+@app.get("/api/runs/{run_id}/proofs/{client_id}/{proof_file}")
+async def get_proof_file(run_id: str, client_id: str, proof_file: str):
+    """Get the full content of a specific proof file"""
+    run_dir = RESULTS_DIR / run_id
+    
+    if not run_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Run {run_id} not found")
+    
+    proof_path = run_dir / "proofs" / client_id / proof_file
+    
+    if not proof_path.exists():
+        raise HTTPException(status_code=404, detail=f"Proof file not found: {client_id}/{proof_file}")
+    
+    try:
+        with open(proof_path, 'r') as f:
+            proof_data = json.load(f)
+        return {
+            "run_id": run_id,
+            "client_id": client_id,
+            "file": proof_file,
+            "proof": proof_data
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error reading proof file: {str(e)}")
+
+
+@app.get("/api/runs/{run_id}/proofs")
+async def list_run_proofs(run_id: str):
+    """List all proof files for a run"""
+    run_dir = RESULTS_DIR / run_id
+    
+    if not run_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Run {run_id} not found")
+    
+    proofs = []
+    proofs_dir = run_dir / "proofs"
+    
+    if proofs_dir.exists():
+        # Client proofs
+        for client_dir in sorted(proofs_dir.iterdir()):
+            if client_dir.is_dir() and client_dir.name.startswith("client_"):
+                for proof_file in sorted(client_dir.glob("*.json")):
+                    proofs.append({
+                        "client_id": client_dir.name,
+                        "file": proof_file.name,
+                        "type": "client",
+                        "path": f"{client_dir.name}/{proof_file.name}"
+                    })
+        
+        # Aggregated proofs
+        agg_dir = proofs_dir / "aggregated"
+        if agg_dir.exists():
+            for proof_file in sorted(agg_dir.glob("*.json")):
+                proofs.append({
+                    "client_id": "aggregated",
+                    "file": proof_file.name,
+                    "type": "aggregated",
+                    "path": f"aggregated/{proof_file.name}"
+                })
+    
+    return {"run_id": run_id, "proofs": proofs}
+
+
+@app.get("/api/runs/{run_id}/training-results")
+async def get_training_results(run_id: str):
+    """Get the training results JSON for a run (used for Compare All mode)"""
+    run_dir = RESULTS_DIR / run_id
+    
+    if not run_dir.exists():
+        raise HTTPException(status_code=404, detail=f"Run {run_id} not found")
+    
+    results_file = run_dir / "results" / "training_results.json"
+    
+    if not results_file.exists():
+        raise HTTPException(status_code=404, detail=f"Training results not found for {run_id}")
+    
+    try:
+        with open(results_file, 'r') as f:
+            results = json.load(f)
+        return results
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error reading training results: {str(e)}")
+
+
 @app.get("/api/runs/{run_id}/compare/{other_run_id}")
 async def compare_runs(run_id: str, other_run_id: str):
     """Compare two runs"""

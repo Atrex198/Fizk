@@ -1,0 +1,86 @@
+{
+  "rounds": [
+    {
+      "round_number": 1,
+      "num_clients": 2,
+      "num_verified": 2,
+      "avg_accuracy": 0.7035428571428571,
+      "avg_loss": 0.6039132379145248,
+      "avg_proof_size": 9191.5,
+      "avg_proof_time": 7.3387428522109985,
+      "aggregated_proof_available": true,
+      "round_time": 241.41328883171082,
+      "privacy_mode_active": true,
+      "aggregated_proof_size": 5984,
+      "aggregated_ec_operations": 11367
+    },
+    {
+      "round_number": 2,
+      "num_clients": 2,
+      "num_verified": 2,
+      "avg_accuracy": 0.7193142857142858,
+      "avg_loss": 0.5775640213783741,
+      "avg_proof_size": 9593.0,
+      "avg_proof_time": 8.224704504013062,
+      "aggregated_proof_available": true,
+      "round_time": 260.13180708885193,
+      "privacy_mode_active": true,
+      "aggregated_proof_size": 5980,
+      "aggregated_ec_operations": 11367
+    },
+    {
+      "round_number": 3,
+      "num_clients": 2,
+      "num_verified": 2,
+      "avg_accuracy": 0.7316285714285714,
+      "avg_loss": 0.5576989281874906,
+      "avg_proof_size": 9994.0,
+      "avg_proof_time": 6.764378309249878,
+      "aggregated_proof_available": true,
+      "round_time": 218.1913721561432,
+      "privacy_mode_active": true,
+      "aggregated_proof_size": 5968,
+      "aggregated_ec_operations": 11367
+    }
+  ],
+  "config": {
+    "num_clients": 2,
+    "num_rounds": 3,
+    "local_epochs": 2,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "dataset_name": "cardio",
+    "aggregation_method": "fedavg",
+    "zkp_security_level": 128,
+    "srs_size": 64,
+    "proof_validity_window": 3600,
+    "max_error_accumulation": 1e-06,
+    "enable_weight_encryption": true,
+    "paillier_key_size": 512,
+    "encryption_sample_rate": 0.1,
+    "use_bls12_381": false
+  },
+  "zkp_setup": {
+    "security_level": 128,
+    "curve": "BN128",
+    "curve_security": "~100-bit (known attacks reduce from 128-bit)",
+    "recommended_upgrade": "BLS12-381 for true 128-bit security",
+    "curve_order": 21888242871839275222246405745257275088548364400416034343698204186575808495617,
+    "srs_size": 64,
+    "setup_time": 1764728725.886015,
+    "tau_commitment": "e7f56023e95961b935369276349c9dd1ca831234e2999c9e0e108c369aa8089e",
+    "randomness_source": "secrets.randbits(256)",
+    "trusted_setup": "Local (\u26a0\ufe0f Production needs MPC ceremony)",
+    "optimization": "Modular tau powers for efficiency"
+  },
+  "total_training_time": 719.8213028907776,
+  "final_global_model": "production_zkp_fl_results_real/run_20251203_075509_clients2_rounds3/models/global_round_3.json",
+  "summary": {
+    "final_accuracy": 0.7316285714285714,
+    "accuracy_improvement": 0.02808571428571427,
+    "avg_proof_size_bytes": 9592.833333333334,
+    "total_proofs_generated": 6,
+    "total_aggregations": 3,
+    "avg_time_per_round": 239.94043429692587
+  }
+}

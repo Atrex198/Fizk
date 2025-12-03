@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { 
   GitCompare, 
@@ -7,7 +7,8 @@ import {
   TrendingDown,
   Shield,
   Loader2,
-  AlertCircle
+  AlertCircle,
+  Layers
 } from 'lucide-react';
 import { 
   LineChart, 
@@ -19,10 +20,41 @@ import {
   Legend, 
   ResponsiveContainer,
   BarChart,
-  Bar
+  Bar,
+  Cell
 } from 'recharts';
 import clsx from 'clsx';
 import { Run, RunComparison as RunComparisonType, RunDetails } from '../types';
+
+// Extended type for full training results
+interface TrainingResults {
+  rounds: {
+    round_number: number;
+    avg_accuracy: number;
+    avg_loss: number;
+    avg_proof_time: number;
+    round_time: number;
+    avg_proof_size?: number;
+    aggregated_ec_operations?: number;
+  }[];
+  summary?: {
+    final_accuracy: number;
+    avg_time_per_round: number;
+    total_proofs_generated: number;
+  };
+}
+
+// Color palette for multiple runs
+const RUN_COLORS = [
+  '#6366f1', // primary - indigo
+  '#8b5cf6', // secondary - violet
+  '#ec4899', // pink
+  '#14b8a6', // teal
+  '#f59e0b', // amber
+  '#22c55e', // green
+  '#3b82f6', // blue
+  '#ef4444', // red
+];
 
 export default function RunComparison() {
   const [searchParams] = useSearchParams();
@@ -35,6 +67,11 @@ export default function RunComparison() {
   const [isLoading, setIsLoading] = useState(true);
   const [isComparing, setIsComparing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // NEW: Compare All mode state
+  const [compareAllMode, setCompareAllMode] = useState(false);
+  const [allRunsDetails, setAllRunsDetails] = useState<Map<string, TrainingResults>>(new Map());
+  const [highlightedRun, setHighlightedRun] = useState<string>('');
 
   // Fetch runs on mount
   useEffect(() => {
@@ -127,6 +164,43 @@ export default function RunComparison() {
     fetchComparison();
   }, [selectedRun1, selectedRun2]);
 
+  // NEW: Fetch all runs training results for "Compare All" mode
+  const fetchAllRunsDetails = useCallback(async () => {
+    if (!compareAllMode || runs.length === 0) return;
+    
+    setIsComparing(true);
+    const details = new Map<string, TrainingResults>();
+    
+    try {
+      const completedRuns = runs.filter(r => r.status === 'completed');
+      const fetchPromises = completedRuns.map(async (run) => {
+        try {
+          const res = await fetch(`/api/runs/${run.run_id}/training-results`);
+          if (res.ok) {
+            const data = await res.json();
+            details.set(run.run_id, data);
+          }
+        } catch (err) {
+          console.error(`Failed to fetch training results for ${run.run_id}:`, err);
+        }
+      });
+      
+      await Promise.all(fetchPromises);
+      setAllRunsDetails(details);
+      
+      // Auto-select first run as highlighted if not set
+      if (!highlightedRun && completedRuns.length > 0) {
+        setHighlightedRun(completedRuns[0].run_id);
+      }
+    } finally {
+      setIsComparing(false);
+    }
+  }, [compareAllMode, runs, highlightedRun]);
+
+  useEffect(() => {
+    fetchAllRunsDetails();
+  }, [fetchAllRunsDetails]);
+
   // Prepare chart data - use null for missing rounds so chart doesn't plot them
   const roundsChartData = comparison?.rounds_comparison.map(r => {
     const run1Data = r[selectedRun1] as { accuracy: number } | undefined;
@@ -155,6 +229,55 @@ export default function RunComparison() {
       [selectedRun2.slice(-15)]: (comparison.metrics_comparison.total_time[selectedRun2] || 0) / 60,
     }
   ] : [];
+
+  // NEW: Prepare "Compare All" chart data
+  const allRunsChartData = compareAllMode ? (() => {
+    const maxRounds = Math.max(...Array.from(allRunsDetails.values()).map(d => d.rounds?.length || 0));
+    const data: Array<Record<string, number | string | null>> = [];
+    
+    for (let i = 0; i < maxRounds; i++) {
+      const roundData: Record<string, number | string | null> = { round: `Round ${i + 1}` };
+      allRunsDetails.forEach((details, runId) => {
+        const roundInfo = details.rounds?.[i];
+        if (roundInfo) {
+          roundData[runId.slice(-12)] = (roundInfo.avg_accuracy || 0) * 100;
+        } else {
+          roundData[runId.slice(-12)] = null;
+        }
+      });
+      data.push(roundData);
+    }
+    return data;
+  })() : [];
+
+  // NEW: Proof timing chart data
+  const proofTimingChartData = compareAllMode ? (() => {
+    const data: Array<{name: string; proofTime: number; roundTime: number; runId: string}> = [];
+    allRunsDetails.forEach((details, runId) => {
+      const avgProofTime = details.rounds?.reduce((sum, r) => sum + (r.avg_proof_time || 0), 0) / (details.rounds?.length || 1);
+      const avgRoundTime = details.rounds?.reduce((sum, r) => sum + (r.round_time || 0), 0) / (details.rounds?.length || 1);
+      data.push({
+        name: runId.slice(-12),
+        proofTime: avgProofTime || 0,
+        roundTime: avgRoundTime || 0,
+        runId
+      });
+    });
+    return data;
+  })() : (comparison ? [
+    {
+      name: selectedRun1.slice(-12),
+      proofTime: 0,
+      roundTime: (comparison.metrics_comparison.total_time[selectedRun1] || 0) / 3,
+      runId: selectedRun1
+    },
+    {
+      name: selectedRun2.slice(-12),
+      proofTime: 0,
+      roundTime: (comparison.metrics_comparison.total_time[selectedRun2] || 0) / 3,
+      runId: selectedRun2
+    }
+  ] : []);
 
   if (error) {
     return (
@@ -191,27 +314,72 @@ export default function RunComparison() {
           <h1 className="text-2xl font-bold text-white">Run Comparison</h1>
           <p className="text-gray-400">Compare metrics and performance across different runs</p>
         </div>
+        
+        {/* Compare All Toggle */}
+        <button
+          onClick={() => setCompareAllMode(!compareAllMode)}
+          className={clsx(
+            "flex items-center gap-2 px-4 py-2 rounded-lg transition-colors",
+            compareAllMode 
+              ? "bg-zkp-primary text-white" 
+              : "bg-zkp-dark-card border border-zkp-dark-border text-gray-400 hover:text-white"
+          )}
+        >
+          <Layers className="w-4 h-4" />
+          Compare All Runs
+        </button>
       </div>
 
-      {/* Run Selectors */}
-      <div className="grid grid-cols-2 gap-4">
-        <RunSelector
-          label="First Run"
-          runs={runs}
-          selectedId={selectedRun1}
-          onChange={setSelectedRun1}
-          excludeId={selectedRun2}
-          color="primary"
-        />
-        <RunSelector
-          label="Second Run"
-          runs={runs}
-          selectedId={selectedRun2}
-          onChange={setSelectedRun2}
-          excludeId={selectedRun1}
-          color="secondary"
-        />
-      </div>
+      {/* Compare All Mode - Highlighted Run Selector */}
+      {compareAllMode && (
+        <div className="bg-zkp-dark-card rounded-xl border border-zkp-primary/50 p-4">
+          <label className="block text-sm font-medium text-zkp-primary mb-2">
+            Highlighted Run (vs all others)
+          </label>
+          <div className="relative">
+            <select
+              value={highlightedRun}
+              onChange={(e) => setHighlightedRun(e.target.value)}
+              className="w-full px-4 py-2 bg-zkp-dark-bg rounded-lg border border-zkp-primary text-white appearance-none focus:outline-none focus:ring-2 focus:ring-zkp-primary"
+            >
+              <option value="">Select highlighted run...</option>
+              {runs
+                .filter(r => r.status === 'completed')
+                .map(run => (
+                  <option key={run.run_id} value={run.run_id}>
+                    {run.run_id}
+                  </option>
+                ))}
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
+          </div>
+          <p className="mt-2 text-xs text-gray-500">
+            {allRunsDetails.size} runs loaded for comparison
+          </p>
+        </div>
+      )}
+
+      {/* Normal Mode - Run Selectors */}
+      {!compareAllMode && (
+        <div className="grid grid-cols-2 gap-4">
+          <RunSelector
+            label="First Run"
+            runs={runs}
+            selectedId={selectedRun1}
+            onChange={setSelectedRun1}
+            excludeId={selectedRun2}
+            color="primary"
+          />
+          <RunSelector
+            label="Second Run"
+            runs={runs}
+            selectedId={selectedRun2}
+            onChange={setSelectedRun2}
+            excludeId={selectedRun1}
+            color="secondary"
+          />
+        </div>
+      )}
 
       {isLoading && (
         <div className="flex items-center justify-center py-12">
@@ -228,8 +396,214 @@ export default function RunComparison() {
         </div>
       )}
 
+      {/* ===================== COMPARE ALL MODE ===================== */}
+      {!isLoading && !isComparing && compareAllMode && allRunsDetails.size > 0 && (
+        <>
+          {/* All Runs Accuracy Over Rounds */}
+          <div className="bg-zkp-dark-card rounded-xl border border-zkp-dark-border p-4">
+            <h3 className="font-semibold text-white mb-4">
+              Accuracy Over Rounds - All Runs
+              {highlightedRun && (
+                <span className="ml-2 text-sm text-zkp-primary">
+                  (Highlighted: {highlightedRun.slice(-12)})
+                </span>
+              )}
+            </h3>
+            <ResponsiveContainer width="100%" height={350}>
+              <LineChart data={allRunsChartData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                <XAxis dataKey="round" stroke="#94a3b8" fontSize={12} />
+                <YAxis stroke="#94a3b8" fontSize={12} domain={[0, 100]} />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: '#1e293b', 
+                    border: '1px solid #334155',
+                    borderRadius: '8px'
+                  }}
+                  formatter={(value: number) => [`${value?.toFixed(1)}%`, 'Accuracy']}
+                />
+                <Legend />
+                {Array.from(allRunsDetails.keys()).map((runId, idx) => (
+                  <Line 
+                    key={runId}
+                    type="monotone" 
+                    dataKey={runId.slice(-12)} 
+                    stroke={runId === highlightedRun ? '#f59e0b' : RUN_COLORS[idx % RUN_COLORS.length]}
+                    strokeWidth={runId === highlightedRun ? 3 : 1.5}
+                    dot={runId === highlightedRun ? { fill: '#f59e0b', r: 4 } : false}
+                    opacity={runId === highlightedRun ? 1 : 0.6}
+                  />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            {/* Proof Timing Comparison */}
+            <div className="bg-zkp-dark-card rounded-xl border border-zkp-dark-border p-4">
+              <h3 className="font-semibold text-white mb-4">Average Proof Generation Time (seconds)</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={proofTimingChartData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                  <XAxis dataKey="name" stroke="#94a3b8" fontSize={10} angle={-45} textAnchor="end" height={60} />
+                  <YAxis stroke="#94a3b8" fontSize={12} />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#1e293b', 
+                      border: '1px solid #334155',
+                      borderRadius: '8px'
+                    }}
+                    formatter={(value: number) => [`${value?.toFixed(2)}s`, 'Proof Time']}
+                  />
+                  <Bar 
+                    dataKey="proofTime" 
+                    fill="#8b5cf6"
+                    radius={[4, 4, 0, 0]}
+                  >
+                    {proofTimingChartData.map((entry, index) => (
+                      <Cell
+                        key={`bar-${index}`}
+                        fill={entry.runId === highlightedRun ? '#f59e0b' : RUN_COLORS[index % RUN_COLORS.length]}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Round Time Comparison */}
+            <div className="bg-zkp-dark-card rounded-xl border border-zkp-dark-border p-4">
+              <h3 className="font-semibold text-white mb-4">Average Round Time (seconds)</h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={proofTimingChartData}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                  <XAxis dataKey="name" stroke="#94a3b8" fontSize={10} angle={-45} textAnchor="end" height={60} />
+                  <YAxis stroke="#94a3b8" fontSize={12} />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: '#1e293b', 
+                      border: '1px solid #334155',
+                      borderRadius: '8px'
+                    }}
+                    formatter={(value: number) => [`${value?.toFixed(1)}s`, 'Round Time']}
+                  />
+                  <Bar 
+                    dataKey="roundTime" 
+                    fill="#6366f1"
+                    radius={[4, 4, 0, 0]}
+                  >
+                    {proofTimingChartData.map((entry, index) => (
+                      <Cell
+                        key={`bar-${index}`}
+                        fill={entry.runId === highlightedRun ? '#f59e0b' : RUN_COLORS[index % RUN_COLORS.length]}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Final Accuracy Comparison Bar */}
+          <div className="bg-zkp-dark-card rounded-xl border border-zkp-dark-border p-4">
+            <h3 className="font-semibold text-white mb-4">Final Accuracy Comparison</h3>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart 
+                data={Array.from(allRunsDetails.entries()).map(([runId, details], idx) => ({
+                  name: runId.slice(-12),
+                  accuracy: (details.summary?.final_accuracy || details.rounds?.[details.rounds.length - 1]?.avg_accuracy || 0) * 100,
+                  runId,
+                  color: runId === highlightedRun ? '#f59e0b' : RUN_COLORS[idx % RUN_COLORS.length]
+                }))}
+                layout="vertical"
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                <XAxis type="number" domain={[0, 100]} stroke="#94a3b8" fontSize={12} />
+                <YAxis type="category" dataKey="name" stroke="#94a3b8" fontSize={10} width={100} />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: '#1e293b', 
+                    border: '1px solid #334155',
+                    borderRadius: '8px'
+                  }}
+                  formatter={(value: number) => [`${value?.toFixed(1)}%`, 'Accuracy']}
+                />
+                <Bar 
+                  dataKey="accuracy" 
+                  radius={[0, 4, 4, 0]}
+                >
+                  {Array.from(allRunsDetails.entries()).map(([runId], index) => (
+                    <Cell
+                      key={`bar-${index}`}
+                      fill={runId === highlightedRun ? '#f59e0b' : RUN_COLORS[index % RUN_COLORS.length]}
+                    />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Summary Stats Table */}
+          <div className="bg-zkp-dark-card rounded-xl border border-zkp-dark-border p-4">
+            <h3 className="font-semibold text-white mb-4">All Runs Summary</h3>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-zkp-dark-border">
+                    <th className="text-left py-2 px-3 text-gray-400">Run ID</th>
+                    <th className="text-right py-2 px-3 text-gray-400">Final Accuracy</th>
+                    <th className="text-right py-2 px-3 text-gray-400">Avg Proof Time</th>
+                    <th className="text-right py-2 px-3 text-gray-400">Avg Round Time</th>
+                    <th className="text-right py-2 px-3 text-gray-400">Total Proofs</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.from(allRunsDetails.entries()).map(([runId, details]) => {
+                    const avgProofTime = details.rounds?.reduce((sum, r) => sum + (r.avg_proof_time || 0), 0) / (details.rounds?.length || 1);
+                    const avgRoundTime = details.rounds?.reduce((sum, r) => sum + (r.round_time || 0), 0) / (details.rounds?.length || 1);
+                    const finalAcc = details.summary?.final_accuracy || details.rounds?.[details.rounds.length - 1]?.avg_accuracy || 0;
+                    
+                    return (
+                      <tr 
+                        key={runId} 
+                        className={clsx(
+                          "border-b border-zkp-dark-border/50",
+                          runId === highlightedRun && "bg-amber-500/10"
+                        )}
+                      >
+                        <td className={clsx(
+                          "py-2 px-3 font-mono text-xs",
+                          runId === highlightedRun ? "text-amber-400 font-semibold" : "text-white"
+                        )}>
+                          {runId.slice(-20)}
+                          {runId === highlightedRun && <span className="ml-2">⭐</span>}
+                        </td>
+                        <td className="text-right py-2 px-3 text-zkp-success">{(finalAcc * 100).toFixed(1)}%</td>
+                        <td className="text-right py-2 px-3 text-white">{avgProofTime?.toFixed(2)}s</td>
+                        <td className="text-right py-2 px-3 text-white">{avgRoundTime?.toFixed(1)}s</td>
+                        <td className="text-right py-2 px-3 text-gray-400">{details.summary?.total_proofs_generated || '-'}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* Compare All - No Data */}
+      {!isLoading && !isComparing && compareAllMode && allRunsDetails.size === 0 && (
+        <div className="bg-zkp-dark-card rounded-xl border border-zkp-dark-border p-12 text-center">
+          <Layers className="w-12 h-12 mx-auto mb-4 text-gray-500" />
+          <h3 className="text-lg font-semibold text-white mb-2">No Completed Runs</h3>
+          <p className="text-gray-400">Complete some runs to compare them in "Compare All" mode.</p>
+        </div>
+      )}
+
+      {/* ===================== NORMAL TWO-RUN COMPARISON ===================== */}
       {/* Comparison Content */}
-      {!isLoading && !isComparing && comparison && (
+      {!isLoading && !isComparing && !compareAllMode && comparison && (
         <>
           {/* Check if metrics are available */}
           {Object.keys(comparison.metrics_comparison).length === 0 ? (

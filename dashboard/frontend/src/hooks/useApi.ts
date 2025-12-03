@@ -120,6 +120,28 @@ export function useApi() {
     }
   }, []);
 
+  const fetchRunProofs = useCallback(async (runId: string): Promise<{ client_id: string; file: string; type: string; path: string }[]> => {
+    try {
+      const response = await fetch(`${API_BASE}/api/runs/${runId}/proofs`);
+      if (!response.ok) throw new Error('Failed to fetch proofs');
+      const data = await response.json();
+      return data.proofs || [];
+    } catch (err) {
+      return [];
+    }
+  }, []);
+
+  const fetchProofFile = useCallback(async (runId: string, clientId: string, proofFile: string): Promise<unknown | null> => {
+    try {
+      const response = await fetch(`${API_BASE}/api/runs/${runId}/proofs/${clientId}/${proofFile}`);
+      if (!response.ok) throw new Error('Failed to fetch proof');
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      return null;
+    }
+  }, []);
+
   return {
     loading,
     error,
@@ -129,6 +151,8 @@ export function useApi() {
     startRun,
     stopRun,
     getStatus,
-    fetchRunLogs
+    fetchRunLogs,
+    fetchRunProofs,
+    fetchProofFile
   };
 }

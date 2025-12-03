@@ -1,0 +1,72 @@
+{
+  "rounds": [
+    {
+      "round_number": 1,
+      "num_clients": 2,
+      "num_verified": 2,
+      "avg_accuracy": 0.7095857142857143,
+      "avg_loss": 0.5849294128267595,
+      "avg_proof_size": 9198.5,
+      "avg_proof_time": 8.65267288684845,
+      "aggregated_proof_available": true,
+      "round_time": 291.04332995414734,
+      "privacy_mode_active": true,
+      "aggregated_proof_size": 5991,
+      "aggregated_ec_operations": 11367
+    },
+    {
+      "round_number": 2,
+      "num_clients": 2,
+      "num_verified": 2,
+      "avg_accuracy": 0.7310857142857143,
+      "avg_loss": 0.5606480615938821,
+      "avg_proof_size": 9598.0,
+      "avg_proof_time": 7.810494780540466,
+      "aggregated_proof_available": true,
+      "round_time": 252.0763509273529,
+      "privacy_mode_active": true,
+      "aggregated_proof_size": 5995,
+      "aggregated_ec_operations": 11367
+    }
+  ],
+  "config": {
+    "num_clients": 2,
+    "num_rounds": 2,
+    "local_epochs": 2,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "dataset_name": "cardio",
+    "aggregation_method": "fedavg",
+    "zkp_security_level": 128,
+    "srs_size": 64,
+    "proof_validity_window": 3600,
+    "max_error_accumulation": 1e-06,
+    "enable_weight_encryption": true,
+    "paillier_key_size": 512,
+    "encryption_sample_rate": 0.1,
+    "use_bls12_381": false
+  },
+  "zkp_setup": {
+    "security_level": 128,
+    "curve": "BN128",
+    "curve_security": "~100-bit (known attacks reduce from 128-bit)",
+    "recommended_upgrade": "BLS12-381 for true 128-bit security",
+    "curve_order": 21888242871839275222246405745257275088548364400416034343698204186575808495617,
+    "srs_size": 64,
+    "setup_time": 1764728725.5364351,
+    "tau_commitment": "dd070b28b49ff9c85279f6123b92963e3e640519742c7e650238a31dcf7a3d15",
+    "randomness_source": "secrets.randbits(256)",
+    "trusted_setup": "Local (\u26a0\ufe0f Production needs MPC ceremony)",
+    "optimization": "Modular tau powers for efficiency"
+  },
+  "total_training_time": 543.2471106052399,
+  "final_global_model": "production_zkp_fl_results_real/run_20251203_075509_clients2_rounds2/models/global_round_2.json",
+  "summary": {
+    "final_accuracy": 0.7310857142857143,
+    "accuracy_improvement": 0.021500000000000075,
+    "avg_proof_size_bytes": 9398.25,
+    "total_proofs_generated": 4,
+    "total_aggregations": 2,
+    "avg_time_per_round": 271.62355530261993
+  }
+}

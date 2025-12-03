@@ -11,11 +11,18 @@ import {
   FileText,
   TrendingUp,
   BarChart3,
-  GitCompare
+  GitCompare,
+  Eye
 } from 'lucide-react';
 import { format, parseISO } from 'date-fns';
 import { useApi } from '../hooks/useApi';
 import { RunDetails as RunDetailsType } from '../types';
+import ProofViewer from './ProofViewer';
+
+interface SelectedProof {
+  clientId: string;
+  file: string;
+}
 
 export default function RunDetails() {
   const { runId } = useParams<{ runId: string }>();
@@ -25,7 +32,12 @@ export default function RunDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const hasFetched = useRef(false);
-  const { fetchRunDetails, fetchRunLogs } = useApi();
+  const { fetchRunDetails, fetchRunLogs, fetchProofFile } = useApi();
+  
+  // Proof viewer state
+  const [selectedProof, setSelectedProof] = useState<SelectedProof | null>(null);
+  const [proofData, setProofData] = useState<unknown>(null);
+  const [isLoadingProof, setIsLoadingProof] = useState(false);
 
   useEffect(() => {
     if (!runId || hasFetched.current) return;
@@ -51,6 +63,24 @@ export default function RunDetails() {
       setIsLoading(false);
     });
   }, [runId]); // Only depend on runId
+
+  // Handle proof file click
+  const handleProofClick = async (clientId: string, file: string) => {
+    if (!runId) return;
+    
+    setSelectedProof({ clientId, file });
+    setIsLoadingProof(true);
+    setProofData(null);
+    
+    const data = await fetchProofFile(runId, clientId, file);
+    setProofData(data);
+    setIsLoadingProof(false);
+  };
+
+  const closeProofViewer = () => {
+    setSelectedProof(null);
+    setProofData(null);
+  };
 
   if (isLoading) {
     return (
@@ -258,17 +288,24 @@ export default function RunDetails() {
         {/* Proof Files */}
         {run.proofs && run.proofs.length > 0 && (
           <div className="mt-4">
-            <h3 className="text-sm font-medium text-gray-400 mb-2">Generated Proofs</h3>
+            <h3 className="text-sm font-medium text-gray-400 mb-2">Generated Proofs (click to view)</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {run.proofs.map((proof, idx) => (
-                <div key={idx} className="p-3 bg-zkp-dark/30 rounded-lg border border-zkp-dark-border text-sm">
-                  <p className="text-white font-mono">{proof.client} / {proof.file}</p>
+                <button
+                  key={idx}
+                  onClick={() => handleProofClick(proof.client, proof.file)}
+                  className="p-3 bg-zkp-dark/30 rounded-lg border border-zkp-dark-border text-sm text-left hover:border-zkp-primary/50 hover:bg-zkp-dark/50 transition-all group"
+                >
+                  <div className="flex items-center justify-between">
+                    <p className="text-white font-mono">{proof.client} / {proof.file}</p>
+                    <Eye className="w-4 h-4 text-gray-500 group-hover:text-zkp-primary transition-colors" />
+                  </div>
                   {proof.constraints && (
                     <p className="text-gray-400 text-xs mt-1">
                       {proof.constraints.num_constraints} constraints
                     </p>
                   )}
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -290,6 +327,17 @@ export default function RunDetails() {
           )}
         </div>
       </div>
+
+      {/* Proof Viewer Modal */}
+      <ProofViewer
+        isOpen={selectedProof !== null}
+        onClose={closeProofViewer}
+        runId={runId || ''}
+        clientId={selectedProof?.clientId || ''}
+        proofFile={selectedProof?.file || ''}
+        proofData={proofData as never}
+        isLoading={isLoadingProof}
+      />
     </div>
   );
 }
