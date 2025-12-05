@@ -7,6 +7,8 @@ import {
   Play, 
   Settings,
   Shield,
+  ShieldAlert,
+  AlertTriangle,
   Wifi,
   WifiOff
 } from 'lucide-react';
@@ -21,6 +23,9 @@ import LiveView from './components/LiveView';
 import RunComparison from './components/RunComparison';
 import RunControl from './components/RunControl';
 import RunDetails from './components/RunDetails';
+import SecurityTesting from './components/SecurityTesting';
+import ThreatModelNetwork from './components/ThreatModelNetwork';
+import InteractiveThreatDemo from './components/InteractiveThreatDemo';
 
 function App() {
   const { connected, messages, events, status } = useWebSocket();
@@ -70,6 +75,9 @@ function App() {
             <NavItem to="/live" icon={<BarChart3 />} label="Live View" collapsed={sidebarCollapsed} />
             <NavItem to="/compare" icon={<GitCompare />} label="Compare" collapsed={sidebarCollapsed} />
             <NavItem to="/control" icon={<Play />} label="Run Control" collapsed={sidebarCollapsed} />
+            <NavItem to="/security" icon={<ShieldAlert />} label="Security Tests" collapsed={sidebarCollapsed} />
+            <NavItem to="/network" icon={<Shield />} label="Threat Network" collapsed={sidebarCollapsed} />
+            <NavItem to="/demo" icon={<AlertTriangle />} label="Interactive Demo" collapsed={sidebarCollapsed} />
           </nav>
 
           {/* Connection Status */}
@@ -102,7 +110,6 @@ function App() {
             )} />
           </button>
         </aside>
-
         {/* Main Content */}
         <main className="flex-1 overflow-auto">
           <Routes>
@@ -133,6 +140,24 @@ function App() {
                 />
               } 
             />
+            <Route path="/security" element={<SecurityTesting />} />
+            <Route 
+              path="/network" 
+              element={
+                <ThreatModelNetwork 
+                  messages={messages}
+                  events={events}
+                  isRunning={status?.is_running || false}
+                />
+              } 
+            />
+            <Route path="/demo" element={
+              <InteractiveThreatDemo 
+                messages={messages}
+                events={events}
+                isRunning={status?.is_running || false}
+              />
+            } />
           </Routes>
         </main>
       </div>

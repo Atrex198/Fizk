@@ -1,0 +1,117 @@
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ╔═══════════════════════════════════════════════════════════════════════╗  │
+│  ║                     🛡️  SECURITY TESTING                              ║  │
+│  ║                     Threat Model Validation - Network Admin View      ║  │
+│  ╚═══════════════════════════════════════════════════════════════════════╝  │
+│                                                                             │
+│  ℹ️  What This Tests                                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │ This suite validates that the ZKP system correctly REJECTS dishonest│   │
+│  │ execution attempts. Each test simulates a malicious client attack   │   │
+│  │ and verifies that proof verification detects and blocks it.         │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────┬─────────────┬─────────────┬─────────────┐               │
+│  │ 🛡️ Total    │ ✅ Defended │ ⚠️ Vulnerable│ ✓ Coverage  │               │
+│  │    Tests    │             │             │             │               │
+│  │      5      │      4      │      1      │     80%     │               │
+│  └─────────────┴─────────────┴─────────────┴─────────────┘               │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │ ▶  Run All Security Tests                                           │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ╔═══════════════════════════════════════════════════════════════════════╗  │
+│  ║ ✅ Freeloading Attack                              [✓ Defended]      ║  │
+│  ║ Client submits unchanged weights without training                    ║  │
+│  ╠═══════════════════════════════════════════════════════════════════════╣  │
+│  ║ ⚠️  Attack Scenario:                                                  ║  │
+│  ║     Client receives global model, skips training, returns same       ║  │
+│  ║     weights claiming they trained                                    ║  │
+│  ║                                                                       ║  │
+│  ║ 🛡️  Expected Defense:                                                 ║  │
+│  ║     Anti-freeloading R1CS constraint detects zero weight changes     ║  │
+│  ║     and rejects proof                                                ║  │
+│  ║                                                                       ║  │
+│  ║ ℹ️  Test Result:                                                      ║  │
+│  ║     ✅ Honest execution: Accepted ✓                                   ║  │
+│  ║     ✅ Malicious execution: Rejected ✓                                ║  │
+│  ║                                                                       ║  │
+│  ║     Anti-freeloading constraint failed: All 768 weights unchanged.   ║  │
+│  ║     Constraint 10585 FAILED: 0 ≠ 1. Proof generation REJECTED.      ║  │
+│  ║                                                                       ║  │
+│  ║     Execution time: 2.30s                                            ║  │
+│  ╚═══════════════════════════════════════════════════════════════════════╝  │
+│                                                                             │
+│  ╔═══════════════════════════════════════════════════════════════════════╗  │
+│  ║ ⚠️  Weight Manipulation                    [⚠️  Requires Mitigation] ║  │
+│  ║ Client submits arbitrary malicious weights                           ║  │
+│  ╠═══════════════════════════════════════════════════════════════════════╣  │
+│  ║ ⚠️  Attack Scenario:                                                  ║  │
+│  ║     Client replaces weights with large malicious values to poison    ║  │
+│  ║     the model                                                        ║  │
+│  ║                                                                       ║  │
+│  ║ 🛡️  Expected Defense:                                                 ║  │
+│  ║     Gradient consistency checks verify weight updates match          ║  │
+│  ║     computed gradients                                               ║  │
+│  ║                                                                       ║  │
+│  ║ ℹ️  Test Result:                                                      ║  │
+│  ║     ✅ Honest execution: Accepted ✓                                   ║  │
+│  ║     ⚠️  Malicious execution: Accepted (needs protocol mitigation)    ║  │
+│  ║                                                                       ║  │
+│  ║     Large weight changes (7.8x normal) accepted. Computation is      ║  │
+│  ║     mathematically correct but magnitude not constrained.            ║  │
+│  ║     REQUIRES protocol-level mitigation via server-side outlier       ║  │
+│  ║     detection.                                                       ║  │
+│  ║                                                                       ║  │
+│  ║     Execution time: 2.50s                                            ║  │
+│  ╚═══════════════════════════════════════════════════════════════════════╝  │
+│                                                                             │
+│  ╔═══════════════════════════════════════════════════════════════════════╗  │
+│  ║ ✅ Gradient Bypass                                 [✓ Defended]      ║  │
+│  ║ Client uses fake gradients instead of real backpropagation           ║  │
+│  ╚═══════════════════════════════════════════════════════════════════════╝  │
+│                                                                             │
+│  ╔═══════════════════════════════════════════════════════════════════════╗  │
+│  ║ ✅ Commitment Tampering                            [✓ Defended]      ║  │
+│  ║ Client claims different weights than actually used                   ║  │
+│  ╚═══════════════════════════════════════════════════════════════════════╝  │
+│                                                                             │
+│  ╔═══════════════════════════════════════════════════════════════════════╗  │
+│  ║ ✅ Replay Attack                                   [✓ Defended]      ║  │
+│  ║ Reusing old proof in new round                                       ║  │
+│  ╚═══════════════════════════════════════════════════════════════════════╝  │
+│                                                                             │
+│  ╔═══════════════════════════════════════════════════════════════════════╗  │
+│  ║ ⚠️  SECURITY ASSESSMENT                                               ║  │
+│  ╠═══════════════════════════════════════════════════════════════════════╣  │
+│  ║ 4/5 threats mitigated cryptographically. 1 requires protocol-level   ║  │
+│  ║ mitigation (e.g., server-side outlier detection).                    ║  │
+│  ╚═══════════════════════════════════════════════════════════════════════╝  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+NAVIGATION SIDEBAR:
+┌─────────────────┐
+│ 🛡️  ZKP-FL      │
+│    Dashboard    │
+├─────────────────┤
+│ 📊 Overview     │
+│ 📈 Live View    │
+│ 🔀 Compare      │
+│ ▶️  Run Control │
+│ 🛡️  Security    │ ← NEW!
+│    Tests        │
+├─────────────────┤
+│ 🟢 Connected    │
+└─────────────────┘
+
+KEY FEATURES:
+✅ Visual proof rejection demonstration
+✅ Attack vs Defense comparison
+✅ Expandable detailed results
+✅ Execution time tracking
+✅ Color-coded threat severity
+✅ Network admin perspective
+✅ Consistent with existing theme

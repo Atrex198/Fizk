@@ -3,6 +3,40 @@ import { WSMessage, LogMessage, CryptoEvent, DashboardStatus } from '../types';
 
 const WS_URL = import.meta.env.DEV ? 'ws://localhost:8000/ws' : `ws://${window.location.host}/ws`;
 
+// Format folding event into readable log message
+function formatFoldingEventMessage(data: any): string {
+  const { event_type, step, total_steps, data: eventData } = data;
+  
+  switch (event_type) {
+    case 'lagrange_start':
+      return `🔢 ProtoGalaxy: Computing Lagrange basis for ${eventData.num_proofs} proofs...`;
+    case 'lagrange_complete':
+      return `  ✅ Lagrange coefficients computed`;
+    case 'cross_term_start':
+      return `🔗 Computing ${eventData.num_cross_terms} cross-term polynomials...`;
+    case 'cross_term_computed':
+      return `  📊 Cross-term ${eventData.progress}/${eventData.total}`;
+    case 'cross_term_complete':
+      return `  ✅ All cross-terms computed`;
+    case 'witness_fold_start':
+      return `🔄 Folding witness vectors...`;
+    case 'witness_folded':
+      return `  📦 Witness folded (size: ${eventData.folded_size})`;
+    case 'witness_fold_complete':
+      return `  ✅ Witness folding complete`;
+    case 'commitment_fold_start':
+      return `🔐 Folding ${eventData.num_commitments} commitments...`;
+    case 'commitment_folded':
+      return `  🔑 Commitment ${eventData.progress}/${eventData.total} folded`;
+    case 'commitment_fold_complete':
+      return `  ✅ All commitments folded`;
+    case 'aggregation_complete':
+      return `🎉 ProtoGalaxy aggregation complete! Final proof generated.`;
+    default:
+      return `ProtoGalaxy: ${event_type} (${step}/${total_steps})`;
+  }
+}
+
 interface UseWebSocketReturn {
   connected: boolean;
   messages: LogMessage[];
@@ -90,6 +124,31 @@ export function useWebSocket(): UseWebSocketReturn {
               is_running: false,
               current_run: null
             } : null);
+            break;
+
+          case 'folding_event':
+            // Handle folding events from ProtoGalaxy aggregation
+            const foldingEvent: CryptoEvent = {
+              type: 'folding_event',
+              timestamp: Date.now() / 1000,
+              data: {
+                event_type: data.event_type,
+                step: data.step,
+                total_steps: data.total_steps,
+                details: data.data
+              }
+            };
+            setEvents(prev => [...prev.slice(-100), foldingEvent]);
+            
+            // Also add as log message for LiveView logs
+            const foldingLogMsg: LogMessage = {
+              timestamp: Date.now() / 1000,
+              level: 'info',
+              message: formatFoldingEventMessage(data),
+              phase: 'aggregation',
+              event: foldingEvent
+            };
+            setMessages(prev => [...prev.slice(-500), foldingLogMsg]);
             break;
         }
       } catch (err) {

@@ -7,6 +7,7 @@ This implements a fully production-ready Protostar protocol with:
 - Full witness vector folding
 - Aggregated proof verification
 - Proper serialization maintaining EC point structure
+- Real-time folding event emission for visualization
 
 Author: Production ZKP-FL Team
 Version: 3.0 (Security-Hardened Production Grade)
@@ -21,6 +22,13 @@ import json
 import logging
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass, field
+
+# Import folding event emitter for real-time visualization
+try:
+    from .folding_events import FoldingEventEmitter
+    FOLDING_EVENTS_AVAILABLE = True
+except ImportError:
+    FOLDING_EVENTS_AVAILABLE = False
 
 # Configure module logger
 logger = logging.getLogger(__name__)
@@ -2201,17 +2209,26 @@ class ProductionProtostar(IZKPProtocol):
         print(f"🔗 Production ProtoGalaxy aggregation: {len(proofs)} proofs")
         start_time = time.time()
         
+        # Get folding event emitter
+        emitter = FoldingEventEmitter.get_instance() if FOLDING_EVENTS_AVAILABLE else None
+        
         if len(proofs) == 0:
             raise ValueError("No proofs to aggregate")
         if len(proofs) == 1:
             return proofs[0]
         
         n = len(proofs)
+        total_steps = 4  # Lagrange, cross-terms, witness folding, commitment folding
         
         # === STEP 1: Compute Lagrange basis coefficients ===
         # L_i(X) = ∏_{j≠i} (X-j)/(i-j)
         # For ProtoGalaxy, we evaluate at challenge point r
         print("  📐 Computing Lagrange basis polynomials...")
+        if emitter:
+            emitter.emit('lagrange_start', step=1, total_steps=total_steps, data={
+                'num_proofs': n,
+                'phase': 'Computing Lagrange basis polynomials'
+            })
         
         def compute_lagrange_basis(n: int, evaluation_point: int) -> List[int]:
             """
@@ -2245,10 +2262,20 @@ class ProductionProtostar(IZKPProtocol):
         # Compute Lagrange basis evaluated at r
         lagrange_coeffs = compute_lagrange_basis(n, r)
         print(f"    Lagrange coefficients computed for {n} proofs at r={r % 10000}...")
+        if emitter:
+            emitter.emit('lagrange_complete', step=1, total_steps=total_steps, data={
+                'challenge': r % 10000,
+                'coefficients_computed': n
+            })
         
         # === STEP 2: Compute REAL cross-terms between all pairs ===
         # T_{i,j} captures interaction between proof i and proof j
         print("  📐 Computing cross-term polynomials (REAL Protostar)...")
+        if emitter:
+            emitter.emit('cross_term_start', step=2, total_steps=total_steps, data={
+                'num_cross_terms': n * (n - 1) // 2,
+                'phase': 'Computing cross-term polynomials'
+            })
         cross_term_commitments = []
         cross_term_values = []
         ec_ops_count = 0
@@ -2281,6 +2308,15 @@ class ProductionProtostar(IZKPProtocol):
                     cross_term_commitments.append(cross_term_comm)
                     cross_term_values.append(cross_term)
                     ec_ops_count += len(cross_term)
+                    
+                    # Emit cross-term event
+                    if emitter:
+                        emitter.emit('cross_term_computed', step=2, total_steps=total_steps, data={
+                            'proof_pair': (i, j),
+                            'cross_term_size': len(cross_term),
+                            'progress': len(cross_term_commitments),
+                            'total': n * (n - 1) // 2
+                        })
                 else:
                     # SECURITY: Cross-term MUST be computed from constraints
                     # This is mathematically required for Protostar soundness
@@ -2291,10 +2327,20 @@ class ProductionProtostar(IZKPProtocol):
                     )
         
         print(f"    ✅ Computed {len(cross_term_commitments)} cross-term commitments")
+        if emitter:
+            emitter.emit('cross_term_complete', step=2, total_steps=total_steps, data={
+                'cross_terms_computed': len(cross_term_commitments),
+                'ec_operations': ec_ops_count
+            })
         
         # === STEP 3: Fold all witnesses using Lagrange weights ===
         # W' = Σ L_i(r) · W_i (with proper error accumulation)
         print("  📊 Folding witnesses with Lagrange polynomial accumulation...")
+        if emitter:
+            emitter.emit('witness_fold_start', step=3, total_steps=total_steps, data={
+                'num_witnesses': n,
+                'phase': 'Folding witnesses'
+            })
         
         # Start with first witness scaled by L_0(r)
         aggregated_witness = proofs[0]._internal_relaxed_witness
@@ -2324,9 +2370,31 @@ class ProductionProtostar(IZKPProtocol):
             )
             aggregated_u = (aggregated_u + L_i * witness_i.u) % curve_order
             ec_ops_count += 4  # multiply + add for witness and error
+            
+            # Emit witness fold event
+            if emitter:
+                emitter.emit('witness_folded', step=3, total_steps=total_steps, data={
+                    'witness_index': i,
+                    'lagrange_coeff': int(L_i % 10000),
+                    'progress': i + 1,
+                    'total': n,
+                    'has_cross_term': cross_term is not None
+                })
+        
+        print(f"    ✅ Folded {n} witnesses into single aggregated witness")
+        if emitter:
+            emitter.emit('witness_fold_complete', step=3, total_steps=total_steps, data={
+                'witnesses_folded': n,
+                'u_value': int(aggregated_u % 10000)
+            })
         
         # === STEP 4: Fold all EC commitments ===
         print("  🔐 Folding EC commitments with Lagrange weights...")
+        if emitter:
+            emitter.emit('commitment_fold_start', step=4, total_steps=total_steps, data={
+                'num_commitments': n * 2,  # witness + error commitments
+                'phase': 'Folding elliptic curve commitments'
+            })
         
         # Fold witness commitments: [W'] = Σ L_i(r) · [W_i]
         aggregated_witness_comm = multiply(
@@ -2340,6 +2408,15 @@ class ProductionProtostar(IZKPProtocol):
             )
             aggregated_witness_comm = add(aggregated_witness_comm, term)
             ec_ops_count += 2
+            
+            # Emit commitment fold event
+            if emitter:
+                emitter.emit('commitment_folded', step=4, total_steps=total_steps, data={
+                    'commitment_type': 'witness',
+                    'proof_index': i,
+                    'progress': i + 1,
+                    'total': n
+                })
         
         # Fold witness error commitments with cross-term accumulation
         # [E'] = Σ L_i(r)² · [E_i] + Σ L_i(r)·L_j(r) · [T_{i,j}]
@@ -2357,6 +2434,15 @@ class ProductionProtostar(IZKPProtocol):
             )
             aggregated_witness_error_comm = add(aggregated_witness_error_comm, term)
             ec_ops_count += 2
+            
+            # Emit error commitment fold event
+            if emitter:
+                emitter.emit('commitment_folded', step=4, total_steps=total_steps, data={
+                    'commitment_type': 'witness_error',
+                    'proof_index': i,
+                    'progress': n + i + 1,
+                    'total': n * 2
+                })
         
         # Add cross-term contributions: L_i(r)·L_j(r) · [T_{i,j}]
         cross_idx = 0
@@ -2396,6 +2482,12 @@ class ProductionProtostar(IZKPProtocol):
             ec_ops_count += 2
         
         print(f"  ✅ EC operations performed: {ec_ops_count}")
+        if emitter:
+            emitter.emit('commitment_fold_complete', step=4, total_steps=total_steps, data={
+                'total_commitments_folded': n * 4,  # witness, witness_error, constraint, constraint_error
+                'ec_operations': ec_ops_count,
+                'cross_terms_integrated': len(cross_term_commitments)
+            })
         
         # === STEP 5: Build verification data ===
         # Include Lagrange polynomial information for verification
@@ -2476,6 +2568,19 @@ class ProductionProtostar(IZKPProtocol):
                 'polynomial_degree': n - 1
             }
         )
+        
+        # Emit final aggregation complete event
+        if emitter:
+            emitter.emit('aggregation_complete', step=total_steps, total_steps=total_steps, data={
+                'proofs_aggregated': n,
+                'final_proof_size_kb': len(str(aggregated_proof_data)) / 1024,
+                'total_time_ms': int((time.time() - start_time) * 1000),
+                'polynomial_degree': n - 1,
+                'ec_operations_total': ec_ops_count,
+                'witness_vector_size': len(aggregated_witness.witness_vector),
+                'error_vector_size': len(aggregated_witness.error_vector)
+            })
+
         
         # Store internal data for verification
         agg_proof._internal_aggregated_witness = aggregated_witness
