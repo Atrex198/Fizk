@@ -92,6 +92,62 @@ export default function InteractiveThreatDemo({ messages, events, isRunning: glo
     });
   }, [messages, globalIsRunning, processedMessageIds]);
 
+  // Update client states based on FL training phases
+  useEffect(() => {
+    if (!globalIsRunning || !useRealFL) return;
+
+    messages.forEach((msg) => {
+      const text = msg.message.toLowerCase();
+
+      // Detect training phase for all clients
+      if (text.includes('training round') && text.includes('starting')) {
+        setClients(prev => prev.map(c => ({ ...c, status: 'training' })));
+      }
+      
+      // Detect proof generation
+      if (text.includes('generating') && text.includes('proof')) {
+        const clientMatch = msg.message.match(/client[_ ](\d+)/i);
+        if (clientMatch) {
+          const clientNum = parseInt(clientMatch[1]);
+          const clientId = `client_${clientNum}`;
+          setClients(prev => prev.map(c => 
+            c.id === clientId ? { ...c, status: 'generating_proof' } : c
+          ));
+        }
+      }
+      
+      // Detect proof verification results
+      if (text.includes('proof') && text.includes('verif')) {
+        const clientMatch = msg.message.match(/client[_ ](\d+)/i);
+        if (clientMatch) {
+          const clientNum = parseInt(clientMatch[1]);
+          const clientId = `client_${clientNum}`;
+          
+          // Check if rejected or accepted
+          if (text.includes('reject') || text.includes('invalid') || text.includes('failed')) {
+            setClients(prev => prev.map(c => 
+              c.id === clientId ? { ...c, status: 'rejected', result: 'rejected' } : c
+            ));
+            addLog(`❌ Client ${clientNum} proof REJECTED - malicious behavior detected`);
+          } else if (text.includes('accept') || text.includes('valid') || text.includes('success')) {
+            setClients(prev => prev.map(c => 
+              c.id === clientId ? { ...c, status: 'verified', result: 'accepted' } : c
+            ));
+          }
+        }
+      }
+
+      // Also check for malicious client warnings
+      if (text.includes('malicious') && text.includes('client')) {
+        const clientMatch = msg.message.match(/client[_ ](\d+)/i);
+        if (clientMatch) {
+          const clientNum = parseInt(clientMatch[1]);
+          addLog(`⚠️ Client ${clientNum} configured as malicious`);
+        }
+      }
+    });
+  }, [messages, globalIsRunning, useRealFL]);
+
   // Update server status when global status changes
   useEffect(() => {
     if (globalIsRunning) {
@@ -170,8 +226,11 @@ export default function InteractiveThreatDemo({ messages, events, isRunning: glo
     }
   };
 
-  // Initialize clients in circle
+  // Initialize clients in circle - but not during active runs
   useEffect(() => {
+    // Don't reinitialize clients during an active run
+    if (globalIsRunning) return;
+
     const radius = 200;
     const angleStep = (2 * Math.PI) / numClients;
     
@@ -187,7 +246,7 @@ export default function InteractiveThreatDemo({ messages, events, isRunning: glo
     });
     
     setClients(initialClients);
-  }, [numClients, numDishonest]);
+  }, [numClients, numDishonest, globalIsRunning]);
 
   // Animate proof packets
   useEffect(() => {
@@ -233,18 +292,31 @@ export default function InteractiveThreatDemo({ messages, events, isRunning: glo
     
     if (numDishonest > 0) {
       addLog(`⚠️  Security Test Mode: ${numDishonest} dishonest client(s) will attempt freeloading`);
-      await runRealSecurityTest();
     } else {
       addLog(`✅ All clients are honest - running normal FL training`);
-      await runHonestFLTraining();
     }
-  };
-
-  const runHonestFLTraining = async () => {
-    setClients(prev => prev.map(c => ({ ...c, status: 'idle', result: undefined })));
+    
+    // Update existing clients to training status (clients already initialized by useEffect)
+    setClients(prev => prev.map(c => ({ ...c, status: 'training', result: undefined })));
     
     try {
-      // Start real FL run via backend
+      // Build malicious clients configuration
+      // First (numClients - numDishonest) clients are honest, rest are malicious
+      const honestCount = numClients - numDishonest;
+      const maliciousClients = [];
+      
+      for (let i = honestCount; i < numClients; i++) {
+        maliciousClients.push({
+          id: i,
+          attack: 'freeloading'  // Default attack type
+        });
+      }
+      
+      if (maliciousClients.length > 0) {
+        addLog(`🎯 Malicious clients: ${maliciousClients.map(c => `Client ${c.id}`).join(', ')}`);
+      }
+      
+      // Start real FL run via backend with malicious client configuration
       const response = await fetch('http://localhost:8000/api/runs/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -254,6 +326,7 @@ export default function InteractiveThreatDemo({ messages, events, isRunning: glo
           local_epochs: 2,
           batch_size: 64,
           learning_rate: 0.001,
+          malicious_clients: maliciousClients.length > 0 ? maliciousClients : undefined,
         }),
       });
       
@@ -264,143 +337,26 @@ export default function InteractiveThreatDemo({ messages, events, isRunning: glo
       
       const result = await response.json();
       addLog(`✅ FL run started: ${result.run_id}`);
-      addLog(`📡 Listening for real-time folding events...`);
+      addLog(`📡 Watch Live View for real-time progress...`);
       
       setCurrentPhase('FL Training in Progress');
       setServerStatus('receiving');
-      
     } catch (error) {
       addLog(`❌ Error starting FL run: ${error}`);
     }
   };
 
+  const runHonestFLTraining = async () => {
+    // Deprecated: merged into runRealFLTraining
+    await runRealFLTraining();
+  };
+
+  // DEPRECATED: This function is obsolete - malicious clients now integrated into main FL pipeline
+  // All dishonest client behavior is now handled via runRealFLTraining() with malicious_clients config
   const runRealSecurityTest = async () => {
-    addLog(`🔒 Running real security test with ZKP verification...`);
-    setCurrentPhase('Security Testing Mode');
-    
-    // Start a background FL run to trigger globalIsRunning state
-    // This makes Live View show as active during security tests
-    try {
-      const bgResponse = await fetch('http://localhost:8000/api/runs/start', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          num_clients: 2,  // Minimal background run
-          num_rounds: 1,
-          local_epochs: 1,
-          batch_size: 64,
-          learning_rate: 0.001,
-        }),
-      });
-      if (bgResponse.ok) {
-        addLog(`📡 Background FL training started for Live View sync`);
-      }
-    } catch (error) {
-      console.error('Failed to start background run:', error);
-    }
-    
-    // Initialize clients with honest/dishonest roles
-    const honestCount = numClients - numDishonest;
-    const testClients: Client[] = [];
-    
-    for (let i = 0; i < numClients; i++) {
-      const isHonest = i < honestCount;
-      testClients.push({
-        id: `client_${i + 1}`,
-        x: 400 + 200 * Math.cos(2 * Math.PI * i / numClients),
-        y: 300 + 200 * Math.sin(2 * Math.PI * i / numClients),
-        status: 'idle',
-        isHonest: isHonest,
-        result: undefined
-      });
-    }
-    setClients(testClients);
-    
-    // Phase 1: Training
-    addLog(`📚 Phase 1: Local training on ${numClients} clients...`);
-    setCurrentPhase('Phase 1: Local Training');
-    setClients(prev => prev.map(c => ({ ...c, status: 'training' })));
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Phase 2: Proof generation (honest vs dishonest)
-    addLog(`🔐 Phase 2: Generating ZKP proofs...`);
-    setCurrentPhase('Phase 2: Proof Generation');
-    setClients(prev => prev.map(c => ({ ...c, status: 'generating_proof' })));
-    
-    const proofResults = await Promise.all(
-      testClients.map(async (client) => {
-        if (client.isHonest) {
-          addLog(`  ✅ ${client.id}: Generating honest proof...`);
-          // Call actual honest proof generation
-          const response = await fetch('http://localhost:8000/api/security/test/gradient_bypass', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              srs_size: srsSize,
-              lite_mode: liteMode
-            })
-          });
-          const result = await response.json();
-          return { clientId: client.id, isHonest: true, verified: result.status === 'success' };
-        } else {
-          addLog(`  ⚠️  ${client.id}: Attempting freeloading attack...`);
-          // Call actual freeloading attack test
-          const response = await fetch('http://localhost:8000/api/security/test/freeloading', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              srs_size: srsSize,
-              lite_mode: liteMode
-            })
-          });
-          const result = await response.json();
-          return { clientId: client.id, isHonest: false, verified: result.status === 'success' };
-        }
-      })
-    );
-    
-    // Phase 3: Verification
-    addLog(`🔍 Phase 3: Verifying proofs at server...`);
-    setCurrentPhase('Phase 3: Proof Verification');
-    setServerStatus('verifying');
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    // Update client statuses based on results
-    proofResults.forEach(result => {
-      const status = result.verified ? 'verified' : 'rejected';
-      setClients(prev => prev.map(c => 
-        c.id === result.clientId ? { ...c, status, result: result.verified ? 'accepted' : 'rejected' } : c
-      ));
-      
-      if (result.isHonest && result.verified) {
-        addLog(`  ✅ ${result.clientId}: Honest proof ACCEPTED`);
-      } else if (!result.isHonest && !result.verified) {
-        addLog(`  ❌ ${result.clientId}: Freeloading attack BLOCKED`);
-      } else if (!result.isHonest && result.verified) {
-        addLog(`  ⚠️  ${result.clientId}: Attack succeeded (unexpected!)`);
-      } else {
-        addLog(`  ❌ ${result.clientId}: Honest proof rejected (error)`);
-      }
-    });
-    
-    // Phase 4: Aggregation (only valid proofs)
-    const validProofs = proofResults.filter(r => r.verified);
-    const rejectedProofs = proofResults.filter(r => !r.verified);
-    
-    if (validProofs.length > 0) {
-      addLog(`📊 Phase 4: Aggregating ${validProofs.length} valid proofs...`);
-      setCurrentPhase('Phase 4: ProtoGalaxy Aggregation');
-      setServerStatus('aggregating');
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      addLog(`✅ Aggregated proof created!`);
-    }
-    
-    // Summary
-    setServerStatus('idle');
-    setCurrentPhase('Complete');
-    addLog(`🎉 Security test complete!`);
-    addLog(`  ✅ Honest clients accepted: ${validProofs.filter(p => proofResults.find(r => r.clientId === p.clientId)?.isHonest).length}/${honestCount}`);
-    addLog(`  ❌ Attacks blocked: ${rejectedProofs.filter(p => !proofResults.find(r => r.clientId === p.clientId)?.isHonest).length}/${numDishonest}`);
+    addLog(`⚠️  Deprecated: runRealSecurityTest is no longer used`);
+    addLog(`ℹ️  Malicious clients are now integrated into the FL training pipeline`);
+    await runRealFLTraining();
   };
 
   const runSimulatedDemo = async () => {

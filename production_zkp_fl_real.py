@@ -75,6 +75,7 @@ class FLConfig:
     paillier_key_size: int = 512  # Lite: 512, Production: 2048
     encryption_sample_rate: float = 0.1
     use_bls12_381: bool = False
+    malicious_clients: list = None  # 🚨 NEW: List of dicts [{'id': 0, 'attack': 'freeloading'}, ...]
     
 
 class ProductionZKPFLClient:
@@ -95,7 +96,9 @@ class ProductionZKPFLClient:
         zkp_protocol: ProductionProtostar,
         config: FLConfig,
         proof_dir: Path,
-        encryption_public_key: Optional[Any] = None  # 🔒 NEW: Server's public key
+        encryption_public_key: Optional[Any] = None,  # 🔒 Server's public key
+        is_honest: bool = True,  # 🚨 NEW: Whether client is honest or malicious
+        attack_type: Optional[str] = None  # 🚨 NEW: Type of attack (freeloading, gradient_bypass)
     ):
         self.client_id = client_id
         self.X_data = X_data
@@ -103,7 +106,9 @@ class ProductionZKPFLClient:
         self.zkp_protocol = zkp_protocol
         self.config = config
         self.proof_dir = proof_dir
-        self.encryption_public_key = encryption_public_key  # 🔒 Store server's public key
+        self.encryption_public_key = encryption_public_key
+        self.is_honest = is_honest  # 🚨 Store honesty flag
+        self.attack_type = attack_type if not is_honest else None  # 🚨 Store attack type
         
         # Create client directories (client_id already has "client_" prefix)
         self.client_proof_dir = proof_dir / client_id
@@ -122,7 +127,10 @@ class ProductionZKPFLClient:
             )
         )
         
-        logger.info(f"[Client {client_id}] Initialized with {len(X_data)} samples")
+        if not is_honest:
+            logger.warning(f"[Client {client_id}] ⚠️  MALICIOUS CLIENT - Attack type: {attack_type}")
+        else:
+            logger.info(f"[Client {client_id}] Initialized with {len(X_data)} samples")
     
     async def train_round(
         self,
@@ -166,18 +174,74 @@ class ProductionZKPFLClient:
             else:
                 initial_weights = self.ml_trainer.model.get_parameter_dict()
             
-            # Perform real training
-            training_result = self.ml_trainer.train_local_model(
-                X_train=self.X_data,
-                y_train=self.y_data
-            )
-            
-            final_weights = training_result.model_parameters
-            training_metrics = {
-                'accuracy': training_result.final_accuracy,
-                'loss': training_result.final_loss,
-                'samples': len(self.X_data)
-            }
+            # 🚨 MALICIOUS BEHAVIOR INJECTION
+            if not self.is_honest:
+                if self.attack_type == "freeloading":
+                    logger.warning(f"[{self.client_id}] 🚨 FREELOADING ATTACK: Skipping training, returning stale weights!")
+                    # Return initial weights unchanged (freeloading - no work done)
+                    final_weights = initial_weights
+                    training_metrics = {
+                        'accuracy': 0.5,  # Random guess accuracy
+                        'loss': 999.0,    # High loss indicating no training
+                        'samples': len(self.X_data)
+                    }
+                    logger.warning(f"[{self.client_id}] ⚠️  Malicious weights will fail ZKP verification!")
+                    
+                elif self.attack_type == "gradient_bypass":
+                    logger.warning(f"[{self.client_id}] 🚨 GRADIENT BYPASS: Minimal training with altered gradients!")
+                    # Do minimal training (1 epoch only, vs configured epochs)
+                    minimal_config = TrainingConfig(
+                        learning_rate=self.config.learning_rate * 0.1,  # Lower LR
+                        batch_size=self.config.batch_size * 4,  # Larger batch
+                        local_epochs=1,  # Only 1 epoch
+                        optimizer="adam",
+                        loss_function="cross_entropy",
+                        regularization=0.001
+                    )
+                    minimal_trainer = RealMLTrainer(
+                        input_features=self.X_data.shape[1],
+                        config=minimal_config
+                    )
+                    if global_weights:
+                        minimal_trainer.load_global_model(global_weights_torch)
+                    
+                    training_result = minimal_trainer.train_local_model(
+                        X_train=self.X_data,
+                        y_train=self.y_data
+                    )
+                    final_weights = training_result.model_parameters
+                    training_metrics = {
+                        'accuracy': training_result.final_accuracy,
+                        'loss': training_result.final_loss,
+                        'samples': len(self.X_data)
+                    }
+                    logger.warning(f"[{self.client_id}] ⚠️  Bypassed gradients may fail verification!")
+                else:
+                    # Unknown attack type - default to honest
+                    logger.error(f"[{self.client_id}] Unknown attack type: {self.attack_type}, defaulting to honest")
+                    training_result = self.ml_trainer.train_local_model(
+                        X_train=self.X_data,
+                        y_train=self.y_data
+                    )
+                    final_weights = training_result.model_parameters
+                    training_metrics = {
+                        'accuracy': training_result.final_accuracy,
+                        'loss': training_result.final_loss,
+                        'samples': len(self.X_data)
+                    }
+            else:
+                # Perform real honest training
+                training_result = self.ml_trainer.train_local_model(
+                    X_train=self.X_data,
+                    y_train=self.y_data
+                )
+                
+                final_weights = training_result.model_parameters
+                training_metrics = {
+                    'accuracy': training_result.final_accuracy,
+                    'loss': training_result.final_loss,
+                    'samples': len(self.X_data)
+                }
             
             logger.info(
                 f"[Client {self.client_id}] Training complete: "
@@ -856,6 +920,15 @@ async def main():
     srs_size = int(os.environ.get('ZKP_FL_SRS_SIZE', '256'))
     lite_mode = os.environ.get('ZKP_FL_LITE_MODE', 'true').lower() == 'true'
     
+    # Parse malicious clients configuration from environment
+    malicious_clients_config = None
+    if 'ZKP_FL_MALICIOUS_CLIENTS' in os.environ:
+        try:
+            malicious_clients_config = json.loads(os.environ['ZKP_FL_MALICIOUS_CLIENTS'])
+            logger.info(f"⚠️  Malicious clients configuration loaded: {malicious_clients_config}")
+        except json.JSONDecodeError as e:
+            logger.error(f"Failed to parse malicious clients config: {e}")
+    
     # Lite mode uses faster settings for quick testing
     if lite_mode:
         security_level = min(security_level, 128)  # Cap at 128-bit for speed
@@ -879,7 +952,8 @@ async def main():
         enable_weight_encryption=True,  # Privacy protection
         paillier_key_size=paillier_key_size,
         encryption_sample_rate=0.1,  # Encrypt 10% of weights
-        use_bls12_381=False  # BN254 for speed
+        use_bls12_381=False,  # BN254 for speed
+        malicious_clients=malicious_clients_config  # Pass malicious client config
     )
     
     logger.info(f"🔐 {'LITE MODE' if lite_mode else 'PRODUCTION-GRADE'} SECURITY")
@@ -938,6 +1012,13 @@ async def main():
     logger.info("Initializing server...")
     server = ProductionZKPFLServer(config, base_dir)
     
+    # Build malicious client lookup
+    malicious_lookup = {}
+    if config.malicious_clients:
+        for mc in config.malicious_clients:
+            malicious_lookup[mc['id']] = mc['attack']
+        logger.warning(f"⚠️  Malicious clients configured: {malicious_lookup}")
+    
     # Initialize clients with server's public encryption key
     logger.info("Initializing clients...")
     clients = [
@@ -948,7 +1029,9 @@ async def main():
             zkp_protocol=server.zkp_protocol,  # Share ZKP protocol
             config=config,
             proof_dir=server.proof_dir,
-            encryption_public_key=server.paillier_he if config.enable_weight_encryption else None  # 🔒 Share public key
+            encryption_public_key=server.paillier_he if config.enable_weight_encryption else None,  # 🔒 Share public key
+            is_honest=(i not in malicious_lookup),  # 🚨 Check if client is malicious
+            attack_type=malicious_lookup.get(i, None)  # 🚨 Get attack type if malicious
         )
         for i in range(config.num_clients)
     ]

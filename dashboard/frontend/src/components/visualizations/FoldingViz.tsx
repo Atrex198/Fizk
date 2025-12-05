@@ -29,30 +29,28 @@ export default function FoldingViz({ active, proofEvents }: FoldingVizProps) {
     { id: 6, name: 'Decider Check', description: 'Verify accumulated proof', status: 'pending' },
   ];
 
-  // Animate folding steps
+  // Animate folding steps based on actual folding events
   useEffect(() => {
-    if (!active) {
+    const foldingEvents = proofEvents.filter(e => e.type === 'folding_event');
+    if (foldingEvents.length === 0) {
       setCurrentStep(0);
       return;
     }
 
-    const interval = setInterval(() => {
-      setCurrentStep(prev => {
-        if (prev >= foldingSteps.length) {
-          // Add new accumulator
-          setAccumulators(acc => [...acc.slice(-3), { id: Date.now(), opacity: 1 }]);
-          return 0;
-        }
-        return prev + 1;
-      });
-    }, 1200);
+    // Progress through steps based on actual events
+    const stepIndex = Math.min(Math.floor(foldingEvents.length / 2), foldingSteps.length - 1);
+    setCurrentStep(stepIndex + 1);
 
-    return () => clearInterval(interval);
-  }, [active]);
+    // Add accumulator when folding completes
+    if (foldingEvents.length > accumulators.length) {
+      setAccumulators(acc => [...acc.slice(-3), { id: Date.now(), opacity: 1 }]);
+    }
+  }, [proofEvents]);
 
-  // Canvas animation for folding visualization
+  // Canvas animation for folding visualization - only when folding is happening
   useEffect(() => {
-    if (!active || !canvasRef.current) return;
+    const hasFoldingEvents = proofEvents.filter(e => e.type === 'folding_event').length > 0;
+    if (!hasFoldingEvents || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -123,7 +121,7 @@ export default function FoldingViz({ active, proofEvents }: FoldingVizProps) {
     animate();
 
     return () => cancelAnimationFrame(animationId);
-  }, [active]);
+  }, [proofEvents]);
 
   const stepsWithStatus = foldingSteps.map((step, idx) => ({
     ...step,
@@ -208,12 +206,6 @@ export default function FoldingViz({ active, proofEvents }: FoldingVizProps) {
           <span className="font-mono text-zkp-success">
             {proofEvents.filter(e => e.type === 'proof_verified').length}
           </span>
-        </div>
-      )}
-
-      {!active && (
-        <div className="absolute inset-0 bg-zkp-dark-bg/80 flex items-center justify-center rounded-lg">
-          <span className="text-gray-500 text-sm">Waiting for folding...</span>
         </div>
       )}
     </div>

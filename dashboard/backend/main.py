@@ -77,6 +77,7 @@ class RunConfig(BaseModel):
     batch_size: int = 64
     learning_rate: float = 0.01
     security_level: int = 128
+    malicious_clients: Optional[List[Dict[str, Any]]] = None  # 🚨 NEW: [{'id': 0, 'attack': 'freeloading'}, ...]
 
 
 class RunInfo(BaseModel):
@@ -626,6 +627,10 @@ async def execute_run(run_id: str):
         env['ZKP_FL_SRS_SIZE'] = '512'  # Sufficient for circuit constraints (was 64 - too small!)
         env['ZKP_FL_LITE_MODE'] = 'true'  # Always use lite mode from dashboard
         env['PYTHONUNBUFFERED'] = '1'  # Disable Python output buffering
+        
+        # Pass malicious clients configuration if present
+        if config.get('malicious_clients'):
+            env['ZKP_FL_MALICIOUS_CLIENTS'] = json.dumps(config['malicious_clients'])
         
         # Use -u flag for unbuffered output
         cmd = [sys.executable, '-u', str(script_path)]
