@@ -182,7 +182,7 @@ export default function InteractiveThreatDemo({ messages, events, isRunning: glo
         x: serverPos.x + radius * Math.cos(angle),
         y: serverPos.y + radius * Math.sin(angle),
         status: 'idle',
-        isHonest: i >= numDishonest // First N clients are dishonest
+        isHonest: i >= numDishonest // Clients 0 to (numDishonest-1) are dishonest, rest are honest
       };
     });
     
@@ -300,13 +300,13 @@ export default function InteractiveThreatDemo({ messages, events, isRunning: glo
     }
     
     // Initialize clients with honest/dishonest roles
-    const honestCount = numClients - numDishonest;
     const testClients: Client[] = [];
     
     for (let i = 0; i < numClients; i++) {
-      const isHonest = i < honestCount;
+      // Clients 0 to (numDishonest-1) are dishonest, rest are honest
+      const isHonest = i >= numDishonest;
       testClients.push({
-        id: `client_${i + 1}`,
+        id: `client_${i}`,
         x: 400 + 200 * Math.cos(2 * Math.PI * i / numClients),
         y: 300 + 200 * Math.sin(2 * Math.PI * i / numClients),
         status: 'idle',

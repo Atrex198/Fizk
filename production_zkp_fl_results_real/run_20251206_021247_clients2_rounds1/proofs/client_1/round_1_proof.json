@@ -1,0 +1,387 @@
+{
+  "protocol_type": "protostar",
+  "proof_data": {
+    "protocol": "ProductionProtostar",
+    "version": "3.0",
+    "witness_commitment": {
+      "point_coords": [
+        "20397726438751520716444052560213397819610791143112544845818514012603790578346",
+        "335999673753002979556046700549345273067113682177688098993663536701977061953"
+      ],
+      "point_type": "g1",
+      "type": "polynomial",
+      "metadata": {
+        "degree": 512
+      },
+      "is_ec_point": true
+    },
+    "witness_error_commitment": {
+      "point_coords": [
+        "9649448340472902433812130543904804123154042016236924295479250309823280476365",
+        "3701317289068869405318432888795991620986457065565942008050228895101498702377"
+      ],
+      "point_type": "g1",
+      "type": "error_polynomial",
+      "metadata": {
+        "degree": 11353,
+        "computed_from_violations": true
+      },
+      "is_ec_point": true
+    },
+    "constraint_commitment": {
+      "point_coords": [
+        "6304321009807094249600028271279045064988795291160045534807354574582823998030",
+        "13783006760733445624656954056012881770995539147843821091455876858138630498992"
+      ],
+      "point_type": "g1",
+      "type": "polynomial",
+      "metadata": {
+        "degree": 512
+      },
+      "is_ec_point": true
+    },
+    "constraint_error_commitment": {
+      "point_coords": [
+        "1941268445333589165068469474587527179221865054804891561775249274935137555821",
+        "2386417934036556253893209417145352418459058785018555932151705311620772911108"
+      ],
+      "point_type": "g1",
+      "type": "error_polynomial",
+      "metadata": {
+        "degree": 10
+      },
+      "is_ec_point": true
+    },
+    "challenge": "2055233050636326959952797450057351273645548864317153623193872726947031866151",
+    "proof_nonce": "35428e64b467b9b32738d3bffd0336b37e088efef2e04bc01793dcb25ae88406",
+    "proof_timestamp": 1764967565575876307,
+    "srs_commitment": "e652cafdf0dfeb308745060c9cc0cc8094b495f3e4fa1f7e0b50062f9d53267e",
+    "kzg_opening_proofs": {
+      "witness": {
+        "evaluation": 12637714580797548747543627692419995891880371337565661027941277778867003909177,
+        "evaluation_point": 2055233050636326959952797450057351273645548864317153623193872726947031866151,
+        "opening_proof": {
+          "point_coords": [
+            "1053863670868105623671012615496242593716377187589953365719290669535749344987",
+            "15575631848161205402442124114019179429917143227463777403386073588913629011096"
+          ],
+          "point_type": "g1",
+          "type": "kzg_opening_proof",
+          "metadata": {
+            "quotient_degree": 511
+          },
+          "is_ec_point": true
+        },
+        "commitment": {
+          "point_coords": [
+            "20397726438751520716444052560213397819610791143112544845818514012603790578346",
+            "335999673753002979556046700549345273067113682177688098993663536701977061953"
+          ],
+          "point_type": "g1",
+          "type": "polynomial",
+          "metadata": {
+            "degree": 512
+          },
+          "is_ec_point": true
+        }
+      },
+      "constraint": {
+        "evaluation": 16687361355229103743739397144048627575994707706339009292549139676958560088753,
+        "evaluation_point": 2055233050636326959952797450057351273645548864317153623193872726947031866151,
+        "opening_proof": {
+          "point_coords": [
+            "20330788082515710969772720036034911844950880289048960770806524403749798821095",
+            "19888656120722632604219623387528842293517655470805646906286225700354369657226"
+          ],
+          "point_type": "g1",
+          "type": "kzg_opening_proof",
+          "metadata": {
+            "quotient_degree": 511
+          },
+          "is_ec_point": true
+        },
+        "commitment": {
+          "point_coords": [
+            "6304321009807094249600028271279045064988795291160045534807354574582823998030",
+            "13783006760733445624656954056012881770995539147843821091455876858138630498992"
+          ],
+          "point_type": "g1",
+          "type": "polynomial",
+          "metadata": {
+            "degree": 512
+          },
+          "is_ec_point": true
+        }
+      },
+      "evaluation_point": "2055233050636326959952797450057351273645548864317153623193872726947031866151"
+    },
+    "initial_weights_commitment": "ec61a32407ca34fccf2772c9689915e95f89d003fef27765ee033059cf631a57",
+    "final_weights_commitment": "c598da5dfac6813462ae3272ebf3ba7fb08e9eef8bc9a7a19cd6d247caa7d132",
+    "relaxed_r1cs_instance": {
+      "u": 1,
+      "error_bound": 10944072623399825345019445726899463445847358397743669132758362220473431340844,
+      "error_within_bound": false,
+      "error_commitment": {
+        "point_coords": [
+          "9649448340472902433812130543904804123154042016236924295479250309823280476365",
+          "3701317289068869405318432888795991620986457065565942008050228895101498702377"
+        ],
+        "point_type": "g1",
+        "type": "error_polynomial",
+        "metadata": {
+          "degree": 11353,
+          "computed_from_violations": true
+        },
+        "is_ec_point": true
+      },
+      "constraint_satisfaction_rate": 0.5331630406060073
+    },
+    "relaxed_witness": {
+      "vector_size": 15735,
+      "error_vector_size": 11353,
+      "commitment": {
+        "point_coords": [
+          "20397726438751520716444052560213397819610791143112544845818514012603790578346",
+          "335999673753002979556046700549345273067113682177688098993663536701977061953"
+        ],
+        "point_type": "g1",
+        "type": "polynomial",
+        "metadata": {
+          "degree": 512
+        },
+        "is_ec_point": true
+      },
+      "error_commitment": {
+        "point_coords": [
+          "9649448340472902433812130543904804123154042016236924295479250309823280476365",
+          "3701317289068869405318432888795991620986457065565942008050228895101498702377"
+        ],
+        "point_type": "g1",
+        "type": "error_polynomial",
+        "metadata": {
+          "degree": 11353,
+          "computed_from_violations": true
+        },
+        "is_ec_point": true
+      },
+      "u": 1
+    },
+    "constraints": {
+      "count": 11353,
+      "witness_size": 15735
+    },
+    "cryptographic_properties": {
+      "all_commitments_ec_points": true,
+      "error_polynomials_committed": true,
+      "error_computed_from_violations": true,
+      "witness_fully_folded": true,
+      "production_grade": true,
+      "protostar_compliant": true,
+      "kzg_opening_proofs_included": true,
+      "multi_round_fiat_shamir": true
+    },
+    "fiat_shamir_transcript": {
+      "domain_separator": "ProductionProtostar_FL_ZKP_v3.0",
+      "transcript": [
+        {
+          "label": "protocol_version",
+          "data_hash": "a416ea84421fa7e1",
+          "state_after": "282a9531593fa1a0"
+        },
+        {
+          "label": "curve",
+          "data_hash": "f1b0a37524447b73",
+          "state_after": "38d276db4bef540e"
+        },
+        {
+          "label": "witness_commitment",
+          "data_hash": "9060ca19702e6f91",
+          "state_after": "196fe9fa44845144"
+        },
+        {
+          "label": "witness_error_commitment",
+          "data_hash": "95811cc899e0e593",
+          "state_after": "8c6ca45198476644"
+        },
+        {
+          "label": "constraint_commitment",
+          "data_hash": "23427d3d48528bbe",
+          "state_after": "6a9b4cc82f858723"
+        },
+        {
+          "label": "constraint_error_commitment",
+          "data_hash": "419c3ffe6cc2068f",
+          "state_after": "5b4839d61256a857"
+        },
+        {
+          "label": "statement",
+          "data_hash": "eb6ddf6ffee0a9a5",
+          "state_after": "e210f6007e36e575"
+        },
+        {
+          "label": "constraint_count",
+          "data_hash": "74aa549f2f8a44ee",
+          "state_after": "cce02437712cd8d0"
+        },
+        {
+          "label": "witness_size",
+          "data_hash": "7facf5867d64df2a",
+          "state_after": "1ec3a08286720628"
+        },
+        {
+          "label": "srs_commitment",
+          "data_hash": "e1b3b69602855356",
+          "state_after": "966b9b10e8d8f459"
+        },
+        {
+          "label": "srs_size",
+          "data_hash": "94f8607915dff25f",
+          "state_after": "a4fa0d6d6dcabeda"
+        },
+        {
+          "label": "nonce",
+          "data_hash": "d2e793300528d9ea",
+          "state_after": "7687a4a530213690"
+        },
+        {
+          "label": "timestamp",
+          "data_hash": "e67ff0f317c59514",
+          "state_after": "53ac08db0e7d55cb"
+        },
+        {
+          "label": "round_context_0",
+          "data_hash": "d2a865515f655a4d",
+          "state_after": "9475616211dbe5a5"
+        },
+        {
+          "label": "challenge_round_0",
+          "challenge_index": 0,
+          "challenge_value": "17333854896289355399617213358286...",
+          "state_after": "24aa33af55ed868b",
+          "rehash_count": 0
+        },
+        {
+          "label": "round_context_1",
+          "data_hash": "ebde869bac790ebc",
+          "state_after": "7de23424f78fab47"
+        },
+        {
+          "label": "challenge_round_1",
+          "challenge_index": 1,
+          "challenge_value": "49940617946111484199197424741348...",
+          "state_after": "cb304e84f454465b",
+          "rehash_count": 0
+        },
+        {
+          "label": "round_context_2",
+          "data_hash": "e429e5a13c103bd8",
+          "state_after": "f482b79e111cf145"
+        },
+        {
+          "label": "challenge_round_2",
+          "challenge_index": 2,
+          "challenge_value": "21544691055288572111186282423225...",
+          "state_after": "1364044a68ec2004",
+          "rehash_count": 0
+        },
+        {
+          "label": "round_context_3",
+          "data_hash": "23439ebc59f8b765",
+          "state_after": "39803fe954a76a34"
+        },
+        {
+          "label": "challenge_round_3",
+          "challenge_index": 3,
+          "challenge_value": "60169529667309427003003098447615...",
+          "state_after": "337db97b9cc75789",
+          "rehash_count": 0
+        },
+        {
+          "label": "round_context_4",
+          "data_hash": "08407aac1b476427",
+          "state_after": "31573a0a01a4a97b"
+        },
+        {
+          "label": "challenge_round_4",
+          "challenge_index": 4,
+          "challenge_value": "58072019778481441095152210347563...",
+          "state_after": "8699a6ba29dd6d47",
+          "rehash_count": 0
+        },
+        {
+          "label": "round_context_5",
+          "data_hash": "d3bde360a5029ce2",
+          "state_after": "f7fd5602670e06b9"
+        },
+        {
+          "label": "challenge_round_5",
+          "challenge_index": 5,
+          "challenge_value": "48505281278858152026970737203182...",
+          "state_after": "8ef8320b5718c2a5",
+          "rehash_count": 0
+        },
+        {
+          "label": "challenge_final",
+          "challenge_index": 6,
+          "challenge_value": "20552330506363269599527974500573...",
+          "state_after": "ba7531119a61fa70",
+          "rehash_count": 0
+        }
+      ],
+      "challenge_count": 7,
+      "final_state": "ba7531119a61fa7081314974fd030eceb0f1fb4c4d7ca350fef917b4b02df4d1"
+    },
+    "challenge_transcript": [
+      {
+        "round": 0,
+        "challenge": "17333854896289355399617213358286366283366361616675718541392984161696356816826",
+        "input_context": "1_client_1_0"
+      },
+      {
+        "round": 1,
+        "challenge": "4994061794611148419919742474134810831547822350187105927646808360028551544555",
+        "input_context": "1_client_1_1"
+      },
+      {
+        "round": 2,
+        "challenge": "2154469105528857211118628242322587901237213838564959583577209727709134443345",
+        "input_context": "1_client_1_2"
+      },
+      {
+        "round": 3,
+        "challenge": "6016952966730942700300309844761591810026165837908529795934863623595088961361",
+        "input_context": "1_client_1_3"
+      },
+      {
+        "round": 4,
+        "challenge": "5807201977848144109515221034756346219222029856535097123015342255885201415396",
+        "input_context": "1_client_1_4"
+      },
+      {
+        "round": 5,
+        "challenge": "4850528127885815202697073720318266927654961483204336967347698761489208049789",
+        "input_context": "1_client_1_5"
+      }
+    ]
+  },
+  "statement": {
+    "model_architecture": "FederatedNN",
+    "initial_weights_commitment": "ec61a32407ca34fccf2772c9689915e95f89d003fef27765ee033059cf631a57",
+    "final_weights_commitment": "c598da5dfac6813462ae3272ebf3ba7fb08e9eef8bc9a7a19cd6d247caa7d132",
+    "dataset_commitment": "cdd596a9f0e9424970f722b923c05a5dd0465193c11a8d078142a2b1ab6737a8",
+    "local_epochs": 1,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "claimed_accuracy": 0.6732285714285714,
+    "claimed_loss": 0.6137244963449795,
+    "sample_count": 35000,
+    "round_number": 1,
+    "client_id": "client_1",
+    "timestamp": 1764967565.5754886
+  },
+  "metadata": {
+    "proof_generation_time": 29.90204429626465,
+    "security_level": 128,
+    "ec_commitments_count": 4
+  }
+}
